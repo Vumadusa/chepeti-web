@@ -1,4 +1,7 @@
 {
   "launchSheet": false,
-  "items": []
+  "bannerShare": 1,
+  "items": [
+    { "id": "test-banner", "title": "ВетКлініка Тест", "url": "https://chepeti.com", "banner": "https://chepeti.com/partners/test-banner.png", "until": "2026-10-28" }
+  ]
 }
