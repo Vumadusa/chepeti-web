@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Chepeti — Запрошення</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 720px; margin: 0 auto; padding: 40px 24px; color: #1a1a1a; line-height: 1.7; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    p { font-size: 16px; color: #333; }
+    a { color: #5E7E6B; }
+    .box { background: #F4F1EA; border-radius: 12px; padding: 20px 24px; margin: 24px 0; text-align: center; }
+    .code { font-size: 32px; font-weight: 700; letter-spacing: 2px; margin: 4px 0 12px; user-select: all; }
+    .btn { display: inline-block; background: #5E7E6B; color: #fff; border: 0; border-radius: 12px; padding: 14px 22px; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none; margin: 6px 6px 0 0; }
+    .ghost { background: #fff; color: #5E7E6B; border: 1.5px solid #5E7E6B; }
+    .off { opacity: .5; cursor: default; }
+  </style>
+</head>
+<body>
+  <!-- Запрошення друга (chepeti-app/docs/chepeti-user-flow-referral.md). Одна сторінка на всіх: код — у посиланні
+       (?c=CHE-12345678). Сторінка лише показує його; чи існує акаунт, перевіряє застосунок, коли друг вводить код. -->
+  <h1 id="t"></h1>
+  <p id="lead"></p>
+  <div class="box" id="box" hidden>
+    <p id="codeLabel" style="margin:0"></p>
+    <div class="code" id="code"></div>
+    <button class="btn ghost" id="copy"></button>
+    <p id="how" style="margin:12px 0 0;font-size:14px"></p>
+  </div>
+  <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.chepeti.app"></a>
+  <span class="btn off" id="ios"></span>
+  <p style="margin-top:32px"><a href="mailto:support@chepeti.com">support@chepeti.com</a></p>
+<script>
+const raw = new URLSearchParams(location.search).get('c') || '';
+const code = /^CHE-\d{8}$/i.test(raw) ? raw.toUpperCase() : '';
+const en = !/^uk|^ru/i.test(navigator.language || '');
+const T = en ? {
+  t: 'You are invited to Chepeti', lead: 'Vaccinations, visits, medications and documents for your pet in one caring place.',
+  none: 'Download Chepeti: vaccinations, visits, medications and documents for your pet in one place.',
+  codeLabel: 'Your invitation code', copy: 'Copy code', copied: 'Copied',
+  how: 'After installing: Profile → Invite friends → enter this code. After your first Premium payment you both get a month of Premium.',
+  play: 'Get it on Google Play', ios: 'App Store: coming soon',
+} : {
+  t: 'Вас запрошено в Chepeti', lead: 'Щеплення, візити, ліки й документи улюбленця в одному турботливому місці.',
+  none: 'Завантажте Chepeti: щеплення, візити, ліки й документи улюбленця в одному місці.',
+  codeLabel: 'Ваш код запрошення', copy: 'Скопіювати код', copied: 'Скопійовано',
+  how: 'Після встановлення: Профіль → «Запросити друзів» → введіть цей код. Після вашої першої оплати Premium ви обоє отримаєте місяць Premium.',
+  play: 'Завантажити в Google Play', ios: 'App Store: скоро',
+};
+document.documentElement.lang = en ? 'en' : 'uk';
+document.title = 'Chepeti — ' + T.t;
+for (const id of ['t', 'codeLabel', 'copy', 'how', 'play', 'ios']) document.getElementById(id).textContent = T[id];
+document.getElementById('lead').textContent = code ? T.lead : T.none;
+if (code) {
+  document.getElementById('box').hidden = false;
+  document.getElementById('code').textContent = code;
+  const b = document.getElementById('copy');
+  b.onclick = () => navigator.clipboard.writeText(code).then(() => { b.textContent = T.copied; setTimeout(() => (b.textContent = T.copy), 2000); });
+}
+</script>
+</body>
+</html>
