@@ -16,7 +16,8 @@
   </style>
 </head>
 <body>
-  <!-- Посилання з листа «запит на зміну пошти» (функція adminEmailChange). Скасовує лише кнопка: поштові сканери самі
+  <!-- Посилання з листа «запит на зміну пошти» (функція adminEmailChange) і з листа «пошту змінено в застосунку»
+       (changeEmail, у посиланні &s=1: пошту вже змінено, кнопка повертає стару). Скасовує лише кнопка: поштові сканери самі
        відкривають посилання, і відкриття сторінки нічого не змінює. У адресі лише одноразовий ключ. -->
   <h1 id="t"></h1>
   <p id="lead"></p>
@@ -24,8 +25,22 @@
   <button id="go"></button>
   <p style="margin-top:32px"><a href="mailto:support@chepeti.com">support@chepeti.com</a></p>
 <script>
-const q = new URLSearchParams(location.search), k = q.get('k') || '', en = q.get('l') === 'en';
-const T = en ? {
+const q = new URLSearchParams(location.search), k = q.get('k') || '', en = q.get('l') === 'en', self = q.get('s') === '1';
+// Людина змінила пошту сама в застосунку (аудит №73в): зміна вже відбулась, кнопка її повертає.
+const SELF = en ? {
+  t: 'Return your email', lead: 'The email of your Chepeti account was changed in the app. If it was not you, return your address here.',
+  msg: 'If you return the address, the password will be reset and the account will be signed out on all devices. Then sign in with a code sent to this address.',
+  go: 'Return my address', busy: 'Returning…', ok: 'Your address is back. Sign in to Chepeti with a code sent to this address. Thank you — we will look into who made the change.',
+  done: 'Too late to return the address with this link. Write to support@chepeti.com from this address and we will help.',
+  cancelled: 'The address has already been returned. Nothing else to do.',
+} : {
+  t: 'Повернути пошту', lead: 'Пошту вашого акаунта Chepeti змінено в застосунку. Якщо це були не ви, поверніть свою адресу тут.',
+  msg: 'Якщо повернете адресу, пароль буде скинуто, а на всіх пристроях виконається вихід з акаунта. Потім увійдіть кодом, який прийде на цю адресу.',
+  go: 'Повернути мою адресу', busy: 'Повертаю…', ok: 'Адресу повернуто. Увійдіть у Chepeti кодом, який прийде на цю адресу. Дякуємо: ми розберемось, хто зробив зміну.',
+  done: 'Повернути адресу цим посиланням уже не можна. Напишіть на support@chepeti.com з цієї адреси, і ми допоможемо.',
+  cancelled: 'Адресу вже повернуто. Більше нічого робити не треба.',
+};
+const T0 = en ? {
   t: 'Cancel the email change', lead: 'We were asked to change the email of your Chepeti account. If it was not you, cancel it here: the account will stay on your current address.',
   msg: 'Press the button to cancel. Nothing changes until you do.', go: 'Cancel the change', busy: 'Cancelling…',
   ok: 'Cancelled. Your account stays on your current address. Thank you — we will look into who asked for the change.',
@@ -40,6 +55,7 @@ const T = en ? {
   cancelled: 'Цю зміну вже скасовано. Більше нічого робити не треба.', bad: 'Посилання недійсне. Скопіюйте його з листа повністю або напишіть на support@chepeti.com.',
   err: 'Зараз не вдалося скасувати. Спробуйте за кілька хвилин або напишіть на support@chepeti.com.',
 };
+const T = self ? { ...T0, ...SELF } : T0;
 document.documentElement.lang = en ? 'en' : 'uk';
 document.title = 'Chepeti — ' + T.t;
 for (const id of ['t', 'lead', 'msg', 'go']) document.getElementById(id).textContent = T[id];
