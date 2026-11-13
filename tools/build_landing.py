@@ -324,8 +324,25 @@ def page(t: dict) -> str:
 '''
 
 
+# Висячі короткі слова (в, й, а, з, на, I, a, to…) не лишаються в кінці рядка: нерозривний пробіл після них.
+SHORT = re.compile(r'(?<![\w<\-/])([A-Za-zА-Яа-яІіЇїЄєҐґ]{1,2}) ')
+
+
+def tie(x):
+    if isinstance(x, str):
+        return x if x.startswith(('/', 'http')) or '<' in x and '>' in x and 'href' in x else SHORT.sub('\\1\u00a0', x)
+    if isinstance(x, list):
+        return [tie(v) for v in x]
+    if isinstance(x, tuple):
+        return tuple(tie(v) for v in x)
+    if isinstance(x, dict):
+        return {k: (v if k in ('lang', 'root', 'other', 'locale', 'foot') else tie(v)) for k, v in x.items()}
+    return x
+
+
 if __name__ == '__main__':
     for L, t in T.items():
+        t = tie(t)
         out = WEB / ('index.html' if L == 'uk' else 'en/index.html')
         s = page(t)
         assert '—' not in s.replace(MARK, '').replace(''.join(ILL.values()), '') and '–' not in s, 'довге тире в текстах'

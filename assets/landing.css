@@ -46,12 +46,12 @@ img { height: auto; }
 a { color: var(--accent-deep); }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
 .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
-h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -.02em; line-height: 1.12; }
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 700; letter-spacing: -.02em; line-height: 1.12; }
 h1 { font-size: clamp(2.3rem, 4.4vw, 3.5rem); }
 h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
 h3 { font-size: 1.25rem; letter-spacing: -.01em; }
 p { margin: 0; }
-.lead { color: var(--ink2); font-size: 1.15rem; max-width: 34ch; }
+.lead { text-wrap: balance; color: var(--ink2); font-size: 1.15rem; max-width: 34ch; }
 .sub { color: var(--ink2); max-width: 46ch; }
 .eyebrow { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
 
@@ -238,7 +238,7 @@ footer .copy { margin-left: auto; }
 .tour-stage { position: relative; }
 .tour-intro { padding: clamp(40px, 7vw, 88px) 0 clamp(32px, 5vw, 56px); text-align: center; }
 .tour-intro h1 { max-width: 20ch; margin-inline: auto; font-size: clamp(2.3rem, 5vw, 4.2rem); }
-.tour-intro .lead { margin: 20px auto 32px; text-align: center; }
+.tour-intro .lead { margin: 20px auto 32px; text-align: center; max-width: 56ch; }
 .tour-intro .cta-row { justify-content: center; }
 .tour-intro .ill { width: min(60vw, 230px); margin: 28px auto 0; }
 .tour-card { margin: 0 auto clamp(48px, 7vw, 96px); width: min(1160px, 100% - 40px); border-radius: 40px; overflow: hidden; color: #F4F1EC;
