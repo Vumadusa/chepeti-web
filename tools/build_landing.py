@@ -35,6 +35,12 @@ T = {
   play='Google Play', soon='App Store', soon_small='скоро',
   h1='Здоровʼя улюбленця в одному застосунку',
   lead='Нагадає про ліки й щеплення, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
+  tour=[('Усе про улюбленця на одному екрані', 'Візити, лікування, щеплення, аналізи, документи й щоденник. Найближче видно одразу.', 'Чистка зубів', 'наступний візит · 17 січ', '03-pet'),
+        ('Нагадає вчасно', 'Графік прийому й кнопка «Дано» в один дотик.', '1-й прийом дано', 'Котервін · 08:00', '05-med'),
+        ('Видно, хто дав', 'Журнал прийому для всієї сімʼї, тож доза не задвоїться.', 'Аня дала ліки', 'сьогодні о 08:30', '06-log'),
+        ('Аналізи на графіку', 'Показники з лініями норми й «останній проти попереднього».', 'Креатинін 172 → 165', 'мкмоль/л · в нормі', '08-chart'),
+        ('Якщо загубився', 'QR на нашийнику відкриває сторінку «Мене шукають».', 'Сторінку відкрили', 'власник бачить скани', '17-lost-page')],
+  theme='Світла чи темна тема',
   lost_eyebrow='Якщо загубився',
   lost_h2='QR на нашийнику приведе додому',
   lost_sub='Хто знайде тварину, сканує жетон телефоном і бачить сторінку «Мене шукають». Що на ній видно, обираєте ви, а адреси там немає ніколи.',
@@ -90,6 +96,12 @@ T = {
   play='Google Play', soon='App Store', soon_small='soon',
   h1='Your pet’s health in one app',
   lead='Reminds you about meds and vaccines, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
+  tour=[('Everything about your pet on one screen', 'Visits, treatment, vaccinations, tests, documents and diary. What’s next is right there.', 'Dental cleaning', 'next visit · 17 Jan', '03-pet'),
+        ('Reminds you on time', 'Dose schedules and a one-tap “Given” button.', 'Dose 1 given', 'Cotervin · 08:00', '05-med'),
+        ('See who gave it', 'A dose log for the whole family, so no dose is doubled.', 'Anna gave the medicine', 'today at 08:30', '06-log'),
+        ('Lab results on a chart', 'Values with reference lines and “latest vs previous”.', 'Creatinine 172 → 165', 'µmol/L · in range', '08-chart'),
+        ('If your pet gets lost', 'A QR tag on the collar opens the “I’m lost” page.', 'The page was opened', 'you see every scan', '17-lost-page')],
+  theme='Light or dark theme',
   lost_eyebrow='If your pet gets lost',
   lost_h2='A QR tag that leads home',
   lost_sub='Whoever finds your pet scans the tag and sees an “I’m lost” page. You choose what it shows, and your address is never there.',
@@ -181,7 +193,9 @@ def page(t: dict) -> str:
 <link rel="icon" href="{a}favicon.png">
 <link rel="preload" href="{a}fonts/Mulish_700Bold.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="{a}landing.css">
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{{var th=localStorage.getItem('theme');if(th)document.documentElement.dataset.theme=th}}catch(e){{}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(faq_ld, ensure_ascii=False)}</script>
 </head>
@@ -189,21 +203,24 @@ def page(t: dict) -> str:
 <header class="top"><div class="wrap">
   <a class="brand" href="{t['root']}">{MARK}<span>Chepeti</span></a>
   <nav aria-label="{t['nav'][0]}"><a href="#lost">{t['nav'][0]}</a><a href="#plans">{t['nav'][1]}</a><a href="#faq">{t['nav'][2]}</a></nav>
+  <button class="theme" type="button" aria-label="{t['theme']}" title="{t['theme']}"><i class="sun"></i><i class="moon"></i></button>
   <a class="lang" href="{t['other']}" hreflang="{'en' if L == 'uk' else 'uk'}">{t['other_label']}</a>
   <a class="btn btn-primary btn-sm" href="{PLAY}" rel="noopener">{t['play']}</a>
 </div></header>
 
 <main>
-<section class="hero"><div class="wrap">
-  <div class="reveal">
+<section class="tour"><div class="tour-stage">
+  <div class="tour-intro"><div class="wrap">
     <h1>{t['h1']}</h1>
     <p class="lead">{t['lead']}</p>
     <div class="cta-row">{btn_play}{btn_soon}</div>
-  </div>
-  <div class="hero-art reveal" style="--i:2">
     <div class="ill" aria-hidden="true">{ILL['welcome']}</div>
-    <div class="phone"><img src="{shot('03-pet')}" alt="{html.escape(t['alt_pet'])}" width="600" height="1333" fetchpriority="high"></div>
-  </div>
+  </div></div>
+  <div class="tour-card"><div class="tour-grid">
+    <div class="tour-texts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p, *_ in t['tour'])}</div>
+    <div class="tour-tilt"><div class="tour-phone"><div class="screens">{''.join(f'<img src="{shot(img)}" alt="{html.escape(h)}" width="600" height="1333"{' fetchpriority="high"' if k == 0 else ' loading="lazy"'}>' for k, (h, p, b1, b2, img) in enumerate(t['tour']))}</div></div></div>
+    <div class="tour-badges">{''.join(f'<div class="badge"><i>{k + 1}</i><div><b>{b1}</b><span>{b2}</span></div></div>' for k, (h, p, b1, b2, img) in enumerate(t['tour']))}<div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div></div>
+  </div></div>
 </div></section>
 
 <section class="lost" id="lost"><div class="wrap">
@@ -218,24 +235,6 @@ def page(t: dict) -> str:
     <ol class="steps">{ul(t['steps'])}</ol>
     <a href="{LIVE}" rel="noopener">{t['live']}</a>
   </div>
-</div></section>
-
-<section class="meds"><div class="wrap">
-  <div class="reveal">
-    <h2>{t['meds_h2']}</h2>
-    <p class="sub">{t['meds_sub']}</p>
-    <p class="note">{t['meds_note']}</p>
-  </div>
-  <div class="pair reveal" style="--i:1">
-    <div class="phone"><img src="{shot('05-med')}" alt="{html.escape(t['alt_med'])}" width="600" height="1333" loading="lazy"></div>
-    <div class="phone"><img src="{shot('06-log')}" alt="{html.escape(t['alt_log'])}" width="600" height="1333" loading="lazy"></div>
-  </div>
-</div></section>
-
-<section class="tests"><div class="wrap">
-  <h2 class="reveal">{t['tests_h2']}</h2>
-  <p class="sub reveal" style="--i:1">{t['tests_sub']}</p>
-  <div class="phone reveal" style="--i:2"><img src="{shot('08-chart')}" alt="{html.escape(t['alt_chart'])}" width="600" height="1333" loading="lazy"></div>
 </div></section>
 
 <section class="family"><div class="wrap">
@@ -293,6 +292,7 @@ def page(t: dict) -> str:
   <span class="copy">© 2026 Chepeti</span>
 </div></footer>
 <script src="{a}landing.js" defer></script>
+<script src="{a}tour.js" defer></script>
 </body>
 </html>
 '''

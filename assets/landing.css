@@ -16,7 +16,7 @@
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #19120E; --paper2: #221913; --surface: #241B14; --surface2: #2E241B;
     --ink: #F3EBE0; --ink2: #B7AB9C; --ink3: #9A8F81;
     --line: rgba(243, 235, 224, .09);
@@ -27,9 +27,19 @@
     color-scheme: dark;
   }
 }
+:root[data-theme="dark"] {
+    --paper: #19120E; --paper2: #221913; --surface: #241B14; --surface2: #2E241B;
+    --ink: #F3EBE0; --ink2: #B7AB9C; --ink3: #9A8F81;
+    --line: rgba(243, 235, 224, .09);
+    --accent: #82A88E; --accent-deep: #A9C7B2; --accent-on: #16221A; --accent-tint: #30332A;
+    --danger: #E07A5F; --danger-tint: #3A231A;
+    --ill-paper: #E2D5C4; --ill-cream: #5E4D3F; --ill-ink: #241A13; --ill-tint: rgba(48, 51, 42, .55);
+    --shadow: 0 24px 60px -24px rgba(0, 0, 0, .6);
+    color-scheme: dark;
+}
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.6 Mulish, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
@@ -62,7 +72,8 @@ p { margin: 0; }
 .btn img { width: 20px; height: 20px; }
 .btn-primary { background: var(--accent); color: var(--accent-on); }
 .btn-primary:hover { background: var(--accent-deep); }
-@media (prefers-color-scheme: dark) { .btn-primary:hover { background: var(--accent-deep); color: #16221A; } .btn img.mono { filter: invert(1); } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn img.mono { filter: invert(1); } }
+:root[data-theme="dark"] .btn img.mono { filter: invert(1); }
 .btn-soon { background: var(--surface2); color: var(--ink2); cursor: default; }
 .btn-soon small { font-weight: 600; color: var(--ink3); }
 .btn-sm { padding: 9px 18px; font-size: .9rem; }
@@ -171,7 +182,7 @@ details p { color: var(--ink2); padding-bottom: 22px; max-width: 62ch; }
 .final .btn-primary { background: var(--accent-on); color: var(--accent-deep); }
 .final .btn-primary:hover { background: var(--paper); }
 .final .btn img.mono { filter: none; }
-@media (prefers-color-scheme: dark) { .final .btn img.mono { filter: none; } }
+:root .final .btn img.mono { filter: none; }
 footer { padding: 40px 0 56px; color: var(--ink2); font-size: .92rem; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; }
 footer a { color: var(--ink2); }
@@ -209,3 +220,79 @@ footer .copy { margin-left: auto; }
   .cell.shot { grid-row: auto; }
   .btn { padding: 13px 20px; }
 }
+
+/* Перемикач теми */
+.theme { width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink2); display: grid; place-items: center; cursor: pointer; }
+.theme:hover { color: var(--ink); }
+.theme i { width: 18px; height: 18px; background: currentColor; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+.theme .sun { --ic: url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/sun.svg); }
+.theme .moon { --ic: url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/moon.svg); }
+.theme .moon { display: none; }
+:root[data-theme="dark"] .theme .sun { display: none; }
+:root[data-theme="dark"] .theme .moon { display: block; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme .sun { display: none; } :root:not([data-theme="light"]) .theme .moon { display: block; } }
+
+/* Тур застосунком: перший екран + картка з телефоном, екрани міняються під час прокрутки (GSAP, tour.js).
+   Без JS чи з «зменшити рух» — статичний варіант нижче: заголовок, потім картка з першим кадром і списком підписів. */
+.tour { position: relative; }
+.tour-stage { position: relative; }
+.tour-intro { padding: clamp(40px, 7vw, 88px) 0 clamp(32px, 5vw, 56px); text-align: center; }
+.tour-intro h1 { max-width: 20ch; margin-inline: auto; font-size: clamp(2.3rem, 5vw, 4.2rem); }
+.tour-intro .lead { margin: 20px auto 32px; text-align: center; }
+.tour-intro .cta-row { justify-content: center; }
+.tour-intro .ill { width: min(60vw, 230px); margin: 28px auto 0; }
+.tour-card { margin: 0 auto clamp(48px, 7vw, 96px); width: min(1160px, 100% - 40px); border-radius: 40px; overflow: hidden; color: #F4F1EC;
+  background: radial-gradient(120% 90% at 85% 0%, #7C9C88 0%, transparent 55%), linear-gradient(150deg, #5E7E6B 0%, #3F5A4A 70%, #34503F 100%);
+  box-shadow: 0 50px 100px -40px rgba(40, 60, 48, .55); }
+:root[data-theme="dark"] .tour-card { background: radial-gradient(120% 90% at 85% 0%, #3E5547 0%, transparent 55%), linear-gradient(150deg, #2C3E33 0%, #1D2A22 100%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tour-card { background: radial-gradient(120% 90% at 85% 0%, #3E5547 0%, transparent 55%), linear-gradient(150deg, #2C3E33 0%, #1D2A22 100%); } }
+.tour-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 40px; padding: clamp(32px, 5vw, 64px); min-height: 100%; }
+.tour-texts { display: grid; gap: 28px; }
+.tour-texts h3 { font-size: clamp(1.5rem, 2.6vw, 2.2rem); color: #fff; }
+.tour-texts p { color: rgba(244, 241, 236, .78); margin-top: 10px; max-width: 30ch; }
+.tour-phone { position: relative; width: min(clamp(220px, 22vw, 290px), (100dvh - 68px - 4vh - 80px) * .45); aspect-ratio: 1080 / 2400; border-radius: 40px; padding: 9px; background: #14110E;
+  box-shadow: inset 0 0 0 1.5px #4A443D, 0 40px 80px -20px rgba(0,0,0,.6), 0 12px 24px -8px rgba(0,0,0,.4); transform-style: preserve-3d; will-change: transform; }
+.tour-phone .screens { position: relative; width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: #FAF8F5; }
+.tour-phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.tour-phone img + img { opacity: 0; }
+.tour-phone::after { content: ""; position: absolute; inset: 9px; border-radius: 31px; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 40%); }
+.tour-badges { position: relative; height: 100%; min-height: 120px; }
+.badge { position: absolute; left: 0; top: 50%; margin-top: -36px; display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 18px; color: #fff; max-width: 260px;
+  background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05)); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 20px 40px -14px rgba(0,0,0,.45); opacity: 0; }
+.badge b { display: block; font-size: .95rem; }
+.badge span { font-size: .82rem; color: rgba(244, 241, 236, .72); }
+.badge i { flex: none; width: 36px; height: 36px; border-radius: 12px; background: rgba(255,255,255,.14); display: grid; place-items: center; font-style: normal; font-weight: 700; }
+.tour-steps { display: flex; gap: 8px; margin-top: 8px; }
+.tour-steps span { width: 22px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.25); }
+.tour-steps span.on { background: #fff; }
+.tour:not(.anim) .tour-steps, .tour:not(.anim) .badge { display: none; }
+.tour:not(.anim) .tour-grid { grid-template-columns: auto 1fr; }
+.tour:not(.anim) .tour-badges { display: none; }
+
+/* Анімований режим (клас .anim ставить tour.js): сцена на весь екран, картка й тексти керуються GSAP */
+.tour.anim .tour-stage { height: 100dvh; overflow: hidden; display: grid; place-items: center; }
+.tour.anim .tour-intro { position: absolute; inset: 0; display: grid; align-content: center; padding-top: 68px; }
+.tour.anim .tour-card { position: absolute; inset: 68px 0 0; margin: auto; width: 90vw; height: calc(100dvh - 68px - 4vh); }
+.tour.anim .tour-grid { height: 100%; }
+.tour.anim .tour-texts { position: relative; height: 220px; }
+.tour.anim .tour-texts > div { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; opacity: 0; }
+
+@media (max-width: 860px) {
+  .tour-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; padding: 28px 20px; }
+  .tour-texts p { margin-inline: auto; }
+  .tour-phone { width: min(56vw, 230px); }
+  .tour-tilt { order: 2; }
+  .tour-texts { order: 1; width: 100%; }
+  .tour-badges { order: 3; min-height: 70px; width: 100%; }
+  .badge { left: 0; right: 0; margin: 0 auto; width: max-content; top: 0; }
+  .tour:not(.anim) .tour-grid { grid-template-columns: 1fr; }
+  .tour.anim .tour-texts { height: 130px; }
+  .tour.anim .tour-texts h3 { font-size: 1.35rem; }
+  .tour.anim .tour-card { width: 94vw; height: calc(100dvh - 68px - 3vh); border-radius: 28px; }
+  .tour-phone { width: min(56vw, 230px, (100dvh - 68px - 3vh - 320px) * .45); }
+  .tour-steps { position: absolute; top: -18px; left: 0; right: 0; justify-content: center; margin: 0; }
+  .tour-badges { margin-top: 14px; }
+}
+
+.tour-tilt { transform-style: preserve-3d; }

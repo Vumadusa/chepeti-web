@@ -7,7 +7,16 @@
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   const bar = document.querySelector('.top');
-  const hero = document.querySelector('.hero');
+  const hero = document.querySelector('.tour-intro');
   if (bar && hero) new IntersectionObserver(([e]) => bar.classList.toggle('scrolled', !e.isIntersecting),
     { rootMargin: '-80px 0px 0px 0px' }).observe(hero);
+
+  // Тема: без вибору — як у системі; кнопка перемикає й запамʼятовує (localStorage може бути недоступний — тоді лише до перезавантаження).
+  const btn = document.querySelector('.theme');
+  if (btn) btn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch {}
+  });
 })();
