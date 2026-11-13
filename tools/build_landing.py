@@ -47,6 +47,7 @@ T = {
   tests_sub='Показники крові й сечі з лініями норми. Видно, як змінюється креатинін чи глюкоза від аналізу до аналізу.',
   tests_points=['Лінії норми', 'Останній проти попереднього', 'Перерахунок одиниць', 'Обʼєднання однакових показників'],
   chart_caption='Креатинін Барсіка за рік',
+  an_hint='Наведіть на аналіз', an_tap='Торкніться аналізу',
   theme='Світла чи темна тема',
   lost_eyebrow='Якщо загубився',
   lost_h2='QR на нашийнику приведе додому',
@@ -114,6 +115,7 @@ T = {
   tests_sub='Blood and urine values with reference lines. See how creatinine or glucose changes from test to test.',
   tests_points=['Reference lines', 'Latest vs previous', 'Unit conversion', 'Merging duplicate values'],
   chart_caption='Barsik’s creatinine over a year',
+  an_hint='Hover over a test', an_tap='Tap a test',
   theme='Light or dark theme',
   lost_eyebrow='If your pet gets lost',
   lost_h2='A QR tag that leads home',
@@ -162,6 +164,46 @@ T = {
   qr_alt='QR code of the live example',
  ),
 }
+
+
+import datetime as _dt
+_SHOT = _dt.date(2026, 11, 13)
+_DATES = [(_SHOT - _dt.timedelta(days=(14 - i) * 24 + 3)) for i in range(15)]
+GLU = [5.1, 5.6, 4.8, 6.2, 5.9, 7.4, 9.1, 8.6, 6.8, 6.1, 5.7, 5.4, 6.0, 5.8, 5.5]
+CRE = [118, 124, 121, 135, 142, 150, 168, 181, 176, 205, 219, 196, 184, 172, 165]
+ALT = [45, 52, 48, 61, 58, 74, 96, 138, 112, 88, 70, 64, 59, 55, 51]
+MON = {'uk': ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'],
+       'en': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']}
+
+
+def an_data(t: dict) -> str:
+    L = t['lang']
+    uk = L == 'uk'
+    d = lambda x: f'{x.day} {MON[L][x.month - 1]} {x.year}' if uk else f'{x.day} {MON[L][x.month - 1]} {x.year}'
+    data = {
+        'dec': ',' if uk else '.', 'prev': 'попередній' if uk else 'previous', 'norm': 'Норма' if uk else 'Reference',
+        'dates': [f'{x.day:02d}.{x.month:02d}' for x in _DATES],
+        'metrics': [
+            {'name': 'Креатинін' if uk else 'Creatinine', 'unit': 'мкмоль/л' if uk else 'µmol/L', 'v': CRE, 'ref': [71, 212]},
+            {'name': 'Глюкоза' if uk else 'Glucose', 'unit': 'ммоль/л' if uk else 'mmol/L', 'v': GLU, 'ref': [3.9, 8.3]},
+            {'name': 'АЛТ' if uk else 'ALT', 'unit': 'Од/л' if uk else 'U/L', 'v': ALT, 'ref': [12, 130]},
+        ],
+        'rows': [
+            {'title': 'Біохімія' if uk else 'Blood chemistry', 'date': d(_DATES[14]), 'series': 14},
+            {'title': 'Біохімія' if uk else 'Blood chemistry', 'date': d(_DATES[13]), 'series': 13},
+            {'title': 'Сеча' if uk else 'Urinalysis', 'date': d(_SHOT - _dt.timedelta(days=35)),
+             'vals': [['pH', '6,8' if uk else '6.8'], ['Питома вага' if uk else 'Specific gravity', '1.035']],
+             'note': 'pH трохи підвищений. Контроль через місяць.' if uk else 'pH slightly high. Recheck in a month.'},
+            {'title': 'Кров (загальний аналіз)' if uk else 'Complete blood count', 'date': d(_SHOT - _dt.timedelta(days=40)),
+             'vals': [['Лейкоцити' if uk else 'White blood cells', '14,2×10⁹/л' if uk else '14.2×10⁹/L']],
+             'note': 'Лейкоцити трохи підвищені. Потрібен повторний контроль.' if uk else 'White cells slightly high. Recheck needed.'},
+        ],
+    }
+    return html.escape(json.dumps(data, ensure_ascii=False))
+
+
+# Рядки на скриншоті списку аналізів (у % висоти кадру), однакові для uk і en.
+AN_ROWS = [(32.3, 10), (43.8, 10), (55.3, 13.3), (70.3, 15.8)]
 
 
 def badge(ic: str, tx: str, m: int) -> str:
@@ -245,10 +287,13 @@ def page(t: dict) -> str:
     <p class="sub">{t['tests_sub']}</p>
     <div class="who">{''.join(f'<span>{x}</span>' for x in t['tests_points'])}</div>
   </div>
-  <div class="tests-visual reveal" style="--i:1">
-    <div class="phone"><img src="{shot('07-analyses')}" alt="{html.escape(t['alt_chart'])}" width="600" height="1333" loading="lazy"></div>
-    <figure class="chart-card"><img src="{a}screens/chart-{L}.webp" alt="{html.escape(t['alt_chart'])}" width="500" height="450" loading="lazy"><figcaption>{t['chart_caption']}</figcaption></figure>
-  </div>
+  <div class="tests-visual an-visual reveal" style="--i:1" data-an="{an_data(t)}">
+    <div class="phone"><img src="{shot('07-analyses')}" alt="{html.escape(t['alt_chart'])}" width="600" height="1333" loading="lazy">
+      {''.join(f'<button type="button" class="an-spot" style="top:{y}%;height:{h}%" aria-label="{t['an_hint']} {k + 1}"></button>' for k, (y, h) in enumerate(AN_ROWS))}
+    </div>
+    <div class="an-tip" aria-live="polite"></div>
+    <p class="an-hint" data-tap="{t['an_tap']}">{t['an_hint']}</p>
+</div>
 </div></section>
 
 <section class="lost" id="lost"><div class="wrap">
@@ -313,6 +358,7 @@ def page(t: dict) -> str:
 </div></footer>
 <script src="{a}landing.js" defer></script>
 <script src="{a}tour.js" defer></script>
+<script src="{a}analyses.js" defer></script>
 </body>
 </html>
 '''

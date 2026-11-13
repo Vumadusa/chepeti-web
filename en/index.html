@@ -59,10 +59,13 @@
     <p class="sub">Blood and urine values with reference lines. See how creatinine or glucose changes from test to test.</p>
     <div class="who"><span>Reference lines</span><span>Latest vs previous</span><span>Unit conversion</span><span>Merging duplicate values</span></div>
   </div>
-  <div class="tests-visual reveal" style="--i:1">
-    <div class="phone"><img src="/assets/screens/en-07-analyses.webp" alt="Creatinine chart with reference range" width="600" height="1333" loading="lazy"></div>
-    <figure class="chart-card"><img src="/assets/screens/chart-en.webp" alt="Creatinine chart with reference range" width="500" height="450" loading="lazy"><figcaption>Barsik’s creatinine over a year</figcaption></figure>
-  </div>
+  <div class="tests-visual an-visual reveal" style="--i:1" data-an="{&quot;dec&quot;: &quot;.&quot;, &quot;prev&quot;: &quot;previous&quot;, &quot;norm&quot;: &quot;Reference&quot;, &quot;dates&quot;: [&quot;09.12&quot;, &quot;02.01&quot;, &quot;26.01&quot;, &quot;19.02&quot;, &quot;15.03&quot;, &quot;08.04&quot;, &quot;02.05&quot;, &quot;26.05&quot;, &quot;19.06&quot;, &quot;13.07&quot;, &quot;06.08&quot;, &quot;30.08&quot;, &quot;23.09&quot;, &quot;17.10&quot;, &quot;10.11&quot;], &quot;metrics&quot;: [{&quot;name&quot;: &quot;Creatinine&quot;, &quot;unit&quot;: &quot;µmol/L&quot;, &quot;v&quot;: [118, 124, 121, 135, 142, 150, 168, 181, 176, 205, 219, 196, 184, 172, 165], &quot;ref&quot;: [71, 212]}, {&quot;name&quot;: &quot;Glucose&quot;, &quot;unit&quot;: &quot;mmol/L&quot;, &quot;v&quot;: [5.1, 5.6, 4.8, 6.2, 5.9, 7.4, 9.1, 8.6, 6.8, 6.1, 5.7, 5.4, 6.0, 5.8, 5.5], &quot;ref&quot;: [3.9, 8.3]}, {&quot;name&quot;: &quot;ALT&quot;, &quot;unit&quot;: &quot;U/L&quot;, &quot;v&quot;: [45, 52, 48, 61, 58, 74, 96, 138, 112, 88, 70, 64, 59, 55, 51], &quot;ref&quot;: [12, 130]}], &quot;rows&quot;: [{&quot;title&quot;: &quot;Blood chemistry&quot;, &quot;date&quot;: &quot;10 Nov 2026&quot;, &quot;series&quot;: 14}, {&quot;title&quot;: &quot;Blood chemistry&quot;, &quot;date&quot;: &quot;17 Oct 2026&quot;, &quot;series&quot;: 13}, {&quot;title&quot;: &quot;Urinalysis&quot;, &quot;date&quot;: &quot;9 Oct 2026&quot;, &quot;vals&quot;: [[&quot;pH&quot;, &quot;6.8&quot;], [&quot;Specific gravity&quot;, &quot;1.035&quot;]], &quot;note&quot;: &quot;pH slightly high. Recheck in a month.&quot;}, {&quot;title&quot;: &quot;Complete blood count&quot;, &quot;date&quot;: &quot;4 Oct 2026&quot;, &quot;vals&quot;: [[&quot;White blood cells&quot;, &quot;14.2×10⁹/L&quot;]], &quot;note&quot;: &quot;White cells slightly high. Recheck needed.&quot;}]}">
+    <div class="phone"><img src="/assets/screens/en-07-analyses.webp" alt="Creatinine chart with reference range" width="600" height="1333" loading="lazy">
+      <button type="button" class="an-spot" style="top:32.3%;height:10%" aria-label="Hover over a test 1"></button><button type="button" class="an-spot" style="top:43.8%;height:10%" aria-label="Hover over a test 2"></button><button type="button" class="an-spot" style="top:55.3%;height:13.3%" aria-label="Hover over a test 3"></button><button type="button" class="an-spot" style="top:70.3%;height:15.8%" aria-label="Hover over a test 4"></button>
+    </div>
+    <div class="an-tip" aria-live="polite"></div>
+    <p class="an-hint" data-tap="Tap a test">Hover over a test</p>
+</div>
 </div></section>
 
 <section class="lost" id="lost"><div class="wrap">
@@ -127,5 +130,6 @@
 </div></footer>
 <script src="/assets/landing.js" defer></script>
 <script src="/assets/tour.js" defer></script>
+<script src="/assets/analyses.js" defer></script>
 </body>
 </html>
