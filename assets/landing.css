@@ -379,3 +379,22 @@ footer .copy { margin-left: auto; }
 .tests2 .an-spot.on, .tests2 .an-spot:hover, .tests2 .an-spot:focus-visible { box-shadow: inset 0 0 0 2.5px #5E7E6B; }
 .tests2 .phone { box-shadow: 0 40px 80px -20px rgba(0,0,0,.6); }
 @media (max-width: 860px) { .tests2 > .wrap { width: calc(100% - 24px); border-radius: 28px; padding: 28px 18px; } }
+
+/* Аналізи — 5-й крок туру: зони на рядках телефона активні лише на цьому кроці, підказка — на місці плашок */
+.tour .screens { position: relative; }
+.tour .an-spot { pointer-events: none; opacity: 0; }
+.tour[data-step="4"] .an-spot { pointer-events: auto; opacity: 1; z-index: 2; }
+.tour .an-set { grid-template-columns: minmax(0, 330px); }
+.tour .an-tip { position: static; width: 100%; transition: none; }
+.tour .an-hint { color: rgba(244, 241, 236, .75); margin-top: 4px; padding-left: 4px; }
+.tour .an-spot.on, .tour .an-spot:hover { box-shadow: inset 0 0 0 2.5px #5E7E6B; }
+@media (max-width: 860px) {
+  .tour .an-set { grid-template-columns: 1fr; }
+  .tour .an-tip { padding: 10px 12px; }
+  .tour .an-tip svg { max-height: 54px; }
+  .tour .an-tabs { margin-bottom: 6px; } .tour .an-tabs button { padding: 3px 9px; font-size: .75rem; }
+  .tour .an-now { margin-bottom: 0; } .tour .an-now b { font-size: 1.15rem; }
+  .tour .an-vals { gap: 4px; } .tour .an-vals li { padding: 6px 10px; }
+  .tour .an-norm, .tour .an-hint, .tour .an-note { display: none; }
+  .tour .an-title { margin-bottom: 6px; }
+}

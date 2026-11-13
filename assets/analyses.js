@@ -2,7 +2,7 @@
 // підказка з графіком показника. Дані — ті самі демо-аналізи, що в застосунку (src/dev/demo.ts addYearOfAnalyses),
 // передані збирачем у data-an. Графік — SVG у стилі застосунку: смуга норми, точки, остання точка виділена.
 (() => {
-  const box = document.querySelector('.an-visual');
+  const box = document.querySelector('[data-an]');
   if (!box) return;
   const D = JSON.parse(box.dataset.an);
   const tip = box.querySelector('.an-tip');

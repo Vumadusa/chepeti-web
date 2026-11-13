@@ -26,6 +26,7 @@
       let on = 0;
       for (let i = 0; i < n; i++) if (t >= tl.labels['s' + i] - 0.3) on = i;
       dots.forEach((d, i) => d.classList.toggle('on', i === on));
+      tour.dataset.step = on; // зони аналізів у телефоні активні лише на своєму кроці
     },
     scrollTrigger: {
       // Шлях довший (~1,3 екрана на крок), згладжування мʼякше, а після прокрутки — прилипання до найближчого кроку

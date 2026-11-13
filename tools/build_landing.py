@@ -42,7 +42,8 @@ T = {
         ('Нагадає вчасно', 'Про візит, щеплення, аналіз і ліки. А ще про будь-яку свою справу.', '18-reminders',
          [('bell-ringing', 'Зателефонувати в клініку'), ('bell-ringing', 'Здати аналіз сечі'), ('bell-ringing', 'Час щеплення: міксоматоз')]),
         ('Лікування', 'Розумне лікування з нагадуванням про кожну дозу й журналом прийомів.', '05-med',
-         [('check-circle', 'Зафіксувати прийом'), ('calendar-check', 'Щоденні прийоми'), ('arrows-clockwise', 'Інтервальні прийоми'), ('hand-pointing', 'Прийоми за потребою'), ('camera', 'Фото препаратів'), ('list-checks', 'Журнал: хто й коли дав')])],
+         [('check-circle', 'Зафіксувати прийом'), ('calendar-check', 'Щоденні прийоми'), ('arrows-clockwise', 'Інтервальні прийоми'), ('hand-pointing', 'Прийоми за потребою'), ('camera', 'Фото препаратів'), ('list-checks', 'Журнал: хто й коли дав')]),
+        ('Аналізи на графіку', 'Показники з лініями норми: видно, як змінюється креатинін чи глюкоза від аналізу до аналізу.', '07-analyses', 'AN')],
   tests_h2='Аналізи на графіку',
   tests_sub='Показники крові й сечі з лініями норми. Видно, як змінюється креатинін чи глюкоза від аналізу до аналізу.',
   tests_points=['Лінії норми', 'Останній проти попереднього', 'Перерахунок одиниць', 'Обʼєднання однакових показників'],
@@ -110,7 +111,8 @@ T = {
         ('Reminds you on time', 'About visits, vaccines, tests and meds. And about anything else you need.', '18-reminders',
          [('bell-ringing', 'Call the clinic'), ('bell-ringing', 'Take a urine test'), ('bell-ringing', 'Vaccine time: myxomatosis')]),
         ('Treatment', 'Smart treatment with a reminder for every dose and a dose log.', '05-med',
-         [('check-circle', 'Mark a dose as given'), ('calendar-check', 'Daily doses'), ('arrows-clockwise', 'Every few days'), ('hand-pointing', 'As needed'), ('camera', 'Medicine photos'), ('list-checks', 'Log: who gave it and when')])],
+         [('check-circle', 'Mark a dose as given'), ('calendar-check', 'Daily doses'), ('arrows-clockwise', 'Every few days'), ('hand-pointing', 'As needed'), ('camera', 'Medicine photos'), ('list-checks', 'Log: who gave it and when')]),
+        ('Lab results on a chart', 'Values with reference lines: see how creatinine or glucose changes from test to test.', '07-analyses', 'AN')],
   tests_h2='Lab results on a chart',
   tests_sub='Blood and urine values with reference lines. See how creatinine or glucose changes from test to test.',
   tests_points=['Reference lines', 'Latest vs previous', 'Unit conversion', 'Merging duplicate values'],
@@ -274,26 +276,11 @@ def page(t: dict) -> str:
     <div class="cta-row">{btn_play}{btn_soon}</div>
     <div class="ill" aria-hidden="true">{ILL['welcome']}</div>
   </div></div>
-  <div class="tour-card"><div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div><div class="tour-grid">
+  <div class="tour-card" data-an="{an_data(t)}"><div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div><div class="tour-grid">
     <div class="tour-texts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p, *_ in t['tour'])}</div>
-    <div class="tour-tilt"><div class="tour-phone"><div class="screens">{''.join(f'<img src="{shot(img)}" alt="{html.escape(h)}" width="600" height="1333"{' fetchpriority="high"' if k == 0 else ' loading="lazy"'}>' for k, (h, p, img, pts) in enumerate(t['tour']))}</div></div></div>
-    <div class="tour-badges">{''.join('<div class="badge-set">' + ''.join(badge(ic, tx, m) for m, (ic, tx) in enumerate(pts)) + '</div>' for h, p, img, pts in t['tour'])}</div>
+    <div class="tour-tilt"><div class="tour-phone"><div class="screens">{''.join(f'<img src="{shot(img)}" alt="{html.escape(h)}" width="600" height="1333"{' fetchpriority="high"' if k == 0 else ' loading="lazy"'}>' for k, (h, p, img, pts) in enumerate(t['tour']))}{''.join(f'<button type="button" class="an-spot" style="top:{y}%;height:{h}%" aria-label="{t['an_hint']} {k + 1}"></button>' for k, (y, h) in enumerate(AN_ROWS))}</div></div></div>
+    <div class="tour-badges">{''.join(('<div class="badge-set an-set"><div class="an-tip" aria-live="polite"></div>' + f'<p class="an-hint" data-tap="{t["an_tap"]}">{t["an_hint"]}</p></div>') if pts == 'AN' else '<div class="badge-set">' + ''.join(badge(ic, tx, m) for m, (ic, tx) in enumerate(pts)) + '</div>' for h, p, img, pts in t['tour'])}</div>
   </div></div>
-</div></section>
-
-<section class="tests2"><div class="wrap">
-  <div class="reveal">
-    <h2>{t['tests_h2']}</h2>
-    <p class="sub">{t['tests_sub']}</p>
-    <div class="who">{''.join(f'<span>{x}</span>' for x in t['tests_points'])}</div>
-  </div>
-  <div class="tests-visual an-visual reveal" style="--i:1" data-an="{an_data(t)}">
-    <div class="phone"><img src="{shot('07-analyses')}" alt="{html.escape(t['alt_chart'])}" width="600" height="1333" loading="lazy">
-      {''.join(f'<button type="button" class="an-spot" style="top:{y}%;height:{h}%" aria-label="{t['an_hint']} {k + 1}"></button>' for k, (y, h) in enumerate(AN_ROWS))}
-    </div>
-    <div class="an-tip" aria-live="polite"></div>
-    <p class="an-hint" data-tap="{t['an_tap']}">{t['an_hint']}</p>
-</div>
 </div></section>
 
 <section class="lost" id="lost"><div class="wrap">
