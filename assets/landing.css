@@ -405,3 +405,7 @@ footer .copy { margin-left: auto; }
 .an-spot.on::after { opacity: 1; transform: none; }
 .an-spot:hover::after { opacity: .6; transform: none; }
 .an-spot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* Тінь зеленої картки туру лягає на наступний блок; його тло проявляється з фону сторінки плавно, без різкого краю */
+.tour { position: relative; z-index: 1; }
+.lost { background: linear-gradient(to bottom, var(--paper) 0, var(--accent-tint) 220px); }
+.tour.anim .tour-stage { overflow-x: clip; overflow-y: visible; }
