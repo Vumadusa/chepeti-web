@@ -1,0 +1,307 @@
+#!/usr/bin/env python3
+"""Збирає лендінг chepeti.com: index.html (uk) і en/index.html з одного шаблону.
+Ілюстрації й знак беруться з застосунку (chepeti-app/src/ui/art), кольори в них — CSS-змінні сайту, тож темна тема працює сама.
+Запуск з кореня репозиторію: python3 chepeti-web/tools/build_landing.py
+Тексти міняти тут, у T; згенеровані HTML руками не правити."""
+import html, json, re
+from pathlib import Path
+
+WEB = Path(__file__).resolve().parents[1]
+ART = WEB.parent / 'chepeti-app/src/ui/art'
+PLAY = 'https://play.google.com/store/apps/details?id=com.chepeti.app'
+LIVE = 'https://p.chepeti.com/7pMdRuCH4Ah'  # живий приклад: Rex, review-акаунт, режим «Загубилась»
+ICON_PLAY = 'https://cdn.simpleicons.org/googleplay/ffffff'
+ICON_APPLE = 'https://cdn.simpleicons.org/apple/8F8579'
+
+
+def svg_from(ts: str, name: str | None = None) -> str:
+    s = (ART / ts).read_text(encoding='utf-8')
+    if name:
+        m = re.search(r"'%s':\s*`([\s\S]*?)`" % re.escape(name), s)
+    else:
+        m = re.search(r'`([\s\S]*?)`', s)
+    return m.group(1)
+
+
+ILL = {n: svg_from('illustrations.ts', n) for n in ('welcome', 'no-sharing', 'protection')}
+MARK = svg_from('mark.ts')
+
+T = {
+ 'uk': dict(
+  lang='uk', root='/', other='/en/', other_label='EN', locale='uk_UA',
+  title='Chepeti: щеплення, ліки й аналізи улюбленця в одному застосунку',
+  desc='Нагадування про ліки й щеплення, аналізи на графіку, документи, спільний доступ для сімʼї і QR на нашийник, щоб знайти загубленого улюбленця.',
+  nav=['Можливості', 'Тарифи', 'Питання'],
+  play='Google Play', soon='App Store', soon_small='скоро',
+  h1='Здоровʼя улюбленця в одному застосунку',
+  lead='Нагадає про ліки й щеплення, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
+  lost_eyebrow='Якщо загубився',
+  lost_h2='QR на нашийнику приведе додому',
+  lost_sub='Хто знайде тварину, сканує жетон телефоном і бачить сторінку «Мене шукають». Що на ній видно, обираєте ви, а адреси там немає ніколи.',
+  steps=['Створіть QR у застосунку й надрукуйте жетон на нашийник.',
+         'Тварина загубилась: увімкніть режим «Мене шукають».',
+         'Хто знайде, відсканує жетон і подзвонить вам. Ви бачите, скільки разів його сканували.'],
+  live='Відкрити живий приклад', qr_caption='Відскануйте: це справжня сторінка',
+  meds_h2='Більше ніяких «а ти вже дав?»',
+  meds_sub='Графік прийому, нагадування вчасно і журнал, де видно, хто з сімʼї і коли дав ліки.',
+  meds_note='<b>З Premium</b> «Дано» можна натиснути прямо в сповіщенні, не відкриваючи застосунок.',
+  tests_h2='Аналізи, які видно з першого погляду',
+  tests_sub='Показники крові й сечі на графіку з лініями норми. Видно, як змінюється креатинін чи глюкоза від аналізу до аналізу.',
+  fam_h2='Доглядайте разом',
+  fam_sub='Дайте доступ сімʼї, ветеринару чи догсітеру. Права окремо на кожен розділ, режим «тільки перегляд» і пауза доступу.',
+  who=['Сімʼя', 'Ветеринар', 'Догсітер', 'Друзі на час відпустки'],
+  more_h2='І все інше, що варто памʼятати',
+  cells=[('Візити', 'Висновок лікаря, що забули спитати, і нагадування про наступний прийом.'),
+         ('Щеплення', 'Нагадає заздалегідь і покаже, що вже прострочено.'),
+         ('Документи', 'Ветпаспорт, рецепти, результати. Фото з камери чи файл, усе біля потрібного запису.'),
+         ('Медична картка PDF', 'Уся історія одним файлом для нового ветеринара.'),
+         ('Щоденник', 'Апетит, поведінка, настрій. З датою й фото, щоб памʼятати, коли це почалось.'),
+         ('Ветклініки поруч', 'Довідник клінік, грумінгу й зоомагазинів на мапі, з годинами роботи.')],
+  priv_h2='Ваші дані лишаються вашими',
+  facts=[('Без реєстрації', 'Дані лежать на телефоні. Акаунт потрібен лише для хмарної копії, QR і спільного доступу.'),
+         ('Аналітика лише за згодою', 'Перемикачі вимкнені, доки ви самі їх не ввімкнете.'),
+         ('Видалення одним дотиком', 'Видалити всі дані можна в застосунку або на сайті.')],
+  plans_h2='Почніть безкоштовно',
+  plans_sub='Ціни в Google Play, у вашій валюті. Premium можна спробувати 7 днів безкоштовно.',
+  free='Безкоштовно', free_price='Назавжди, з рекламою',
+  free_list=['Одна тварина', 'Візити, ліки, щеплення, аналізи, документи й щоденник', 'Нагадування', 'QR на нашийник і режим «Мене шукають»', 'Довідник ветклінік'],
+  prem='Premium', prem_price='Місячна або річна підписка',
+  prem_list=['Необмежено тварин', 'Хмарна копія: 500 МБ, з Premium+ 1 ГБ', 'Без реклами', '«Дано» прямо в сповіщенні', 'Спільний доступ для сімʼї', 'PDF для лікаря'],
+  faq_h2='Питання',
+  faq=[('Чи працює без інтернету?', 'Так. Дані лежать на телефоні, нагадування приходять і без мережі. Інтернет потрібен для хмарної копії, спільного доступу й сторінки QR.'),
+       ('Чи є версія для iPhone?', 'Готуємо. Зараз Chepeti є в Google Play, версія для iPhone зʼявиться в App Store.'),
+       ('Що буде з даними, якщо я зміню телефон?', 'Увійдіть у свій акаунт на новому телефоні, і записи повернуться. Файли документів зберігаються в хмарі з Premium.'),
+       ('Для яких тварин підходить?', 'Коти, собаки, кролики, гризуни, птахи, рептилії та інші.'),
+       ('Як видалити акаунт і дані?', 'У застосунку: Профіль, далі «Дані і приватність». Або на сторінці <a href="/delete-account.html">видалення акаунта</a>.')],
+  final_h2='Додайте першого улюбленця',
+  final_p='Завантажте Chepeti, це займе менше хвилини. Реєстрація не потрібна.',
+  foot=[('Конфіденційність', '/privacy.html'), ('Умови використання', '/terms.html'), ('Видалення акаунта', '/delete-account.html')],
+  alt_pet='Профіль кота Барсіка в Chepeti: візити, лікування, щеплення, аналізи, документи',
+  alt_lost='Сторінка «Мене шукають» для пса Рекса після сканування QR',
+  alt_med='Курс ліків: прийоми на сьогодні з кнопкою «Дано»', alt_log='Журнал прийому: хто і коли дав ліки',
+  alt_chart='Графік креатиніну з лініями норми', alt_visits='Список візитів до ветеринара', alt_vac='Список щеплень з нагадуваннями',
+  qr_alt='QR-код живого прикладу',
+ ),
+ 'en': dict(
+  lang='en', root='/en/', other='/', other_label='UA', locale='en_US',
+  title='Chepeti: your pet’s vaccines, meds and tests in one app',
+  desc='Medication and vaccine reminders, lab results on a chart, documents, family sharing and a QR collar tag to bring a lost pet home.',
+  nav=['Features', 'Pricing', 'FAQ'],
+  play='Google Play', soon='App Store', soon_small='soon',
+  h1='Your pet’s health in one app',
+  lead='Reminds you about meds and vaccines, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
+  lost_eyebrow='If your pet gets lost',
+  lost_h2='A QR tag that leads home',
+  lost_sub='Whoever finds your pet scans the tag and sees an “I’m lost” page. You choose what it shows, and your address is never there.',
+  steps=['Create a QR in the app and print a collar tag.',
+         'Pet missing? Turn on “I’m lost” mode.',
+         'The finder scans the tag and calls you. You see how many times it was scanned.'],
+  live='Open the live example', qr_caption='Scan it: this is a real page',
+  meds_h2='No more “did you already give it?”',
+  meds_sub='Dose schedules, reminders on time and a log that shows who in the family gave the medicine and when.',
+  meds_note='<b>With Premium</b> tap “Given” right in the notification, without opening the app.',
+  tests_h2='Lab results you can read at a glance',
+  tests_sub='Blood and urine values on a chart with reference lines. See how creatinine or glucose changes from test to test.',
+  fam_h2='Care for them together',
+  fam_sub='Share with family, your vet or a pet sitter. Permissions per section, view-only mode and pausing access.',
+  who=['Family', 'Vet', 'Pet sitter', 'Friends while you travel'],
+  more_h2='And everything else worth remembering',
+  cells=[('Vet visits', 'The vet’s conclusion, what you forgot to ask, and a reminder for the next visit.'),
+         ('Vaccinations', 'Reminds you ahead of time and shows what’s overdue.'),
+         ('Documents', 'Vet passport, prescriptions, results. A photo or a file, kept next to the right record.'),
+         ('Medical card PDF', 'The whole history in one file for a new vet.'),
+         ('Diary', 'Appetite, behaviour, mood. With date and photo, so you remember when it started.'),
+         ('Vet clinics nearby', 'A map of clinics, groomers and pet shops with opening hours.')],
+  priv_h2='Your data stays yours',
+  facts=[('No sign-up needed', 'Data lives on your phone. An account is only for cloud backup, QR and sharing.'),
+         ('Analytics only with consent', 'Toggles stay off until you turn them on.'),
+         ('Delete in one tap', 'Delete all your data in the app or on the website.')],
+  plans_h2='Start for free',
+  plans_sub='Prices are shown in Google Play in your currency. Try Premium free for 7 days.',
+  free='Free', free_price='Forever, with ads',
+  free_list=['One pet', 'Visits, meds, vaccines, tests, documents and diary', 'Reminders', 'QR collar tag and “I’m lost” mode', 'Vet clinic directory'],
+  prem='Premium', prem_price='Monthly or yearly subscription',
+  prem_list=['Unlimited pets', 'Cloud backup: 500 MB, 1 GB with Premium+', 'No ads', '“Given” right in the notification', 'Family sharing', 'PDF for your vet'],
+  faq_h2='FAQ',
+  faq=[('Does it work offline?', 'Yes. Data lives on your phone and reminders arrive without a connection. You need internet for cloud backup, sharing and the QR page.'),
+       ('Is there an iPhone version?', 'It’s on the way. Chepeti is on Google Play now, and the iPhone version is coming to the App Store.'),
+       ('What happens to my data if I change phones?', 'Sign in to your account on the new phone and your records come back. Document files are kept in the cloud with Premium.'),
+       ('Which pets does it support?', 'Cats, dogs, rabbits, rodents, birds, reptiles and more.'),
+       ('How do I delete my account and data?', 'In the app: Profile, then “Data and privacy”. Or on the <a href="/en/delete-account.html">account deletion page</a>.')],
+  final_h2='Add your first pet',
+  final_p='Get Chepeti, it takes less than a minute. No sign-up needed.',
+  foot=[('Privacy', '/en/privacy.html'), ('Terms of Use', '/en/terms.html'), ('Delete account', '/en/delete-account.html')],
+  alt_pet='Barsik the cat’s profile in Chepeti: visits, treatment, vaccinations, tests, documents',
+  alt_lost='The “I’m lost” page for Rex the dog after scanning the QR',
+  alt_med='A medication course: today’s doses with a “Given” button', alt_log='Dose log: who gave the medicine and when',
+  alt_chart='Creatinine chart with reference range', alt_visits='List of vet visits', alt_vac='List of vaccinations with reminders',
+  qr_alt='QR code of the live example',
+ ),
+}
+
+
+def page(t: dict) -> str:
+    L = t['lang']
+    a = '/assets/'
+    shot = lambda n: f"{a}screens/{L}-{n}.webp"
+    ul = lambda xs: ''.join(f'<li>{html.escape(x)}</li>' for x in xs)
+    btn_play = f'<a class="btn btn-primary" href="{PLAY}" rel="noopener"><img class="mono" src="{ICON_PLAY}" alt="" width="20" height="20">{t["play"]}</a>'
+    btn_soon = f'<span class="btn btn-soon" aria-disabled="true"><img src="{ICON_APPLE}" alt="" width="20" height="20">{t["soon"]} <small>{t["soon_small"]}</small></span>'
+    cells = t['cells']
+    ld = {
+        '@context': 'https://schema.org', '@type': 'MobileApplication', 'name': 'Chepeti',
+        'operatingSystem': 'Android', 'applicationCategory': 'LifestyleApplication', 'inLanguage': ['uk', 'en'],
+        'description': t['desc'], 'url': f"https://chepeti.com{t['root']}", 'installUrl': PLAY,
+        'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'},
+    }
+    faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+        {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': re.sub('<[^>]+>', '', ans)}} for q, ans in t['faq']]}
+    return f'''<!DOCTYPE html>
+<html lang="{L}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(t['title'])}</title>
+<meta name="description" content="{html.escape(t['desc'])}">
+<link rel="canonical" href="https://chepeti.com{t['root']}">
+<link rel="alternate" hreflang="uk" href="https://chepeti.com/">
+<link rel="alternate" hreflang="en" href="https://chepeti.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://chepeti.com/en/">
+<meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#19120E" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{html.escape(t['title'])}">
+<meta property="og:description" content="{html.escape(t['desc'])}">
+<meta property="og:url" content="https://chepeti.com{t['root']}">
+<meta property="og:image" content="https://chepeti.com{a}og-{L}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="{t['locale']}">
+<link rel="icon" href="{a}favicon.png">
+<link rel="preload" href="{a}fonts/Mulish_700Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="{a}landing.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(faq_ld, ensure_ascii=False)}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="{t['root']}">{MARK}<span>Chepeti</span></a>
+  <nav aria-label="{t['nav'][0]}"><a href="#lost">{t['nav'][0]}</a><a href="#plans">{t['nav'][1]}</a><a href="#faq">{t['nav'][2]}</a></nav>
+  <a class="lang" href="{t['other']}" hreflang="{'en' if L == 'uk' else 'uk'}">{t['other_label']}</a>
+  <a class="btn btn-primary btn-sm" href="{PLAY}" rel="noopener">{t['play']}</a>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div class="reveal">
+    <h1>{t['h1']}</h1>
+    <p class="lead">{t['lead']}</p>
+    <div class="cta-row">{btn_play}{btn_soon}</div>
+  </div>
+  <div class="hero-art reveal" style="--i:2">
+    <div class="ill" aria-hidden="true">{ILL['welcome']}</div>
+    <div class="phone"><img src="{shot('03-pet')}" alt="{html.escape(t['alt_pet'])}" width="600" height="1333" fetchpriority="high"></div>
+  </div>
+</div></section>
+
+<section class="lost" id="lost"><div class="wrap">
+  <div class="lost-visual reveal">
+    <div class="phone"><img src="{shot('17-lost-page')}" alt="{html.escape(t['alt_lost'])}" width="600" height="1200" loading="lazy" style="object-position:top"></div>
+    <a class="qr-card" href="{LIVE}" rel="noopener"><img src="{a}screens/qr-rex.webp" alt="{t['qr_alt']}" width="450" height="450" loading="lazy"><p>{t['qr_caption']}</p></a>
+  </div>
+  <div class="reveal" style="--i:1">
+    <p class="eyebrow">{t['lost_eyebrow']}</p>
+    <h2 style="margin-top:12px">{t['lost_h2']}</h2>
+    <p class="sub">{t['lost_sub']}</p>
+    <ol class="steps">{ul(t['steps'])}</ol>
+    <a href="{LIVE}" rel="noopener">{t['live']}</a>
+  </div>
+</div></section>
+
+<section class="meds"><div class="wrap">
+  <div class="reveal">
+    <h2>{t['meds_h2']}</h2>
+    <p class="sub">{t['meds_sub']}</p>
+    <p class="note">{t['meds_note']}</p>
+  </div>
+  <div class="pair reveal" style="--i:1">
+    <div class="phone"><img src="{shot('05-med')}" alt="{html.escape(t['alt_med'])}" width="600" height="1333" loading="lazy"></div>
+    <div class="phone"><img src="{shot('06-log')}" alt="{html.escape(t['alt_log'])}" width="600" height="1333" loading="lazy"></div>
+  </div>
+</div></section>
+
+<section class="tests"><div class="wrap">
+  <h2 class="reveal">{t['tests_h2']}</h2>
+  <p class="sub reveal" style="--i:1">{t['tests_sub']}</p>
+  <div class="phone reveal" style="--i:2"><img src="{shot('08-chart')}" alt="{html.escape(t['alt_chart'])}" width="600" height="1333" loading="lazy"></div>
+</div></section>
+
+<section class="family"><div class="wrap">
+  <div class="ill reveal" aria-hidden="true">{ILL['no-sharing']}</div>
+  <div class="reveal" style="--i:1">
+    <h2>{t['fam_h2']}</h2>
+    <p class="sub">{t['fam_sub']}</p>
+    <div class="who">{''.join(f'<span>{w}</span>' for w in t['who'])}</div>
+  </div>
+</div></section>
+
+<section class="more"><div class="wrap">
+  <h2 class="reveal">{t['more_h2']}</h2>
+  <div class="bento">
+    <div class="cell shot reveal"><h3>{cells[0][0]}</h3><p>{cells[0][1]}</p><img src="{shot('10-visits')}" alt="{html.escape(t['alt_visits'])}" width="600" height="1333" loading="lazy"></div>
+    <div class="cell shot reveal" style="--i:1"><h3>{cells[1][0]}</h3><p>{cells[1][1]}</p><img src="{shot('09-vaccines')}" alt="{html.escape(t['alt_vac'])}" width="600" height="1333" loading="lazy"></div>
+    <div class="cell tint reveal" style="--i:2"><h3>{cells[2][0]}</h3><p>{cells[2][1]}</p></div>
+    <div class="cell reveal" style="--i:3"><h3>{cells[3][0]}</h3><p>{cells[3][1]}</p></div>
+    <div class="cell reveal" style="--i:2"><h3>{cells[4][0]}</h3><p>{cells[4][1]}</p></div>
+    <div class="cell tint reveal" style="--i:3"><h3>{cells[5][0]}</h3><p>{cells[5][1]}</p></div>
+  </div>
+</div></section>
+
+<section class="privacy"><div class="wrap">
+  <div class="reveal">
+    <h2>{t['priv_h2']}</h2>
+    <div class="facts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p in t['facts'])}</div>
+  </div>
+  <div class="ill reveal" style="--i:1" aria-hidden="true">{ILL['protection']}</div>
+</div></section>
+
+<section class="plans" id="plans"><div class="wrap">
+  <h2 class="reveal">{t['plans_h2']}</h2>
+  <p class="sub reveal">{t['plans_sub']}</p>
+  <div class="cols">
+    <div class="plan reveal"><h3>{t['free']}</h3><p class="price">{t['free_price']}</p><ul>{ul(t['free_list'])}</ul></div>
+    <div class="plan premium reveal" style="--i:1"><h3>{t['prem']}</h3><p class="price">{t['prem_price']}</p><ul>{ul(t['prem_list'])}</ul></div>
+  </div>
+</div></section>
+
+<section class="faq" id="faq"><div class="wrap">
+  <h2>{t['faq_h2']}</h2>
+  {''.join(f'<details><summary>{q}</summary><p>{ans}</p></details>' for q, ans in t['faq'])}
+</div></section>
+
+<section class="final"><div class="wrap reveal">
+  <div><h2>{t['final_h2']}</h2><p>{t['final_p']}</p></div>
+  {btn_play}
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  {''.join(f'<a href="{u}">{n}</a>' for n, u in t['foot'])}
+  <a href="mailto:support@chepeti.com">support@chepeti.com</a>
+  <span class="copy">© 2026 Chepeti</span>
+</div></footer>
+<script src="{a}landing.js" defer></script>
+</body>
+</html>
+'''
+
+
+if __name__ == '__main__':
+    for L, t in T.items():
+        out = WEB / ('index.html' if L == 'uk' else 'en/index.html')
+        s = page(t)
+        assert '—' not in s.replace(MARK, '').replace(''.join(ILL.values()), '') and '–' not in s, 'довге тире в текстах'
+        out.write_text(s, encoding='utf-8')
+        print(out.relative_to(WEB), len(s) // 1024, 'KB')
