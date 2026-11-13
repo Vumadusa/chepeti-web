@@ -54,7 +54,5 @@
     s.addEventListener('focus', () => show(i));
     s.addEventListener('click', () => show(i));
   });
-  const hint = box.querySelector('.an-hint');
-  if (hint && matchMedia('(hover: none)').matches) hint.textContent = hint.dataset.tap;
   show(0);
 })();

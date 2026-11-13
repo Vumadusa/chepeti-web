@@ -212,6 +212,11 @@ def badge(ic: str, tx: str, m: int) -> str:
     return f'<div class="badge" style="--m:{m}"><i style="--ic:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/{ic}.svg)"></i><b>{html.escape(tx)}</b></div>'
 
 
+def ver(name: str) -> str:
+    import hashlib
+    return hashlib.md5((WEB / 'assets' / name).read_bytes()).hexdigest()[:8]
+
+
 def page(t: dict) -> str:
     L = t['lang']
     a = '/assets/'
@@ -252,7 +257,7 @@ def page(t: dict) -> str:
 <meta property="og:locale" content="{t['locale']}">
 <link rel="icon" href="{a}favicon.png">
 <link rel="preload" href="{a}fonts/Mulish_700Bold.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="{a}landing.css">
+<link rel="stylesheet" href="{a}landing.css?v={ver("landing.css")}">
 <script>document.documentElement.classList.add('js');try{{var th=localStorage.getItem('theme');if(th)document.documentElement.dataset.theme=th}}catch(e){{}}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -279,7 +284,7 @@ def page(t: dict) -> str:
   <div class="tour-card" data-an="{an_data(t)}"><div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div><div class="tour-grid">
     <div class="tour-texts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p, *_ in t['tour'])}</div>
     <div class="tour-tilt"><div class="tour-phone"><div class="screens">{''.join(f'<img src="{shot(img)}" alt="{html.escape(h)}" width="600" height="1333"{' fetchpriority="high"' if k == 0 else ' loading="lazy"'}>' for k, (h, p, img, pts) in enumerate(t['tour']))}{''.join(f'<button type="button" class="an-spot" style="top:{y}%;height:{h}%" aria-label="{t['an_hint']} {k + 1}"></button>' for k, (y, h) in enumerate(AN_ROWS))}</div></div></div>
-    <div class="tour-badges">{''.join(('<div class="badge-set an-set"><div class="an-tip" aria-live="polite"></div>' + f'<p class="an-hint" data-tap="{t["an_tap"]}">{t["an_hint"]}</p></div>') if pts == 'AN' else '<div class="badge-set">' + ''.join(badge(ic, tx, m) for m, (ic, tx) in enumerate(pts)) + '</div>' for h, p, img, pts in t['tour'])}</div>
+    <div class="tour-badges">{''.join(('<div class="badge-set an-set"><div class="an-tip" aria-live="polite"></div></div>') if pts == 'AN' else '<div class="badge-set">' + ''.join(badge(ic, tx, m) for m, (ic, tx) in enumerate(pts)) + '</div>' for h, p, img, pts in t['tour'])}</div>
   </div></div>
 </div></section>
 
@@ -343,9 +348,9 @@ def page(t: dict) -> str:
   <a href="mailto:support@chepeti.com">support@chepeti.com</a>
   <span class="copy">© 2026 Chepeti</span>
 </div></footer>
-<script src="{a}landing.js" defer></script>
-<script src="{a}tour.js" defer></script>
-<script src="{a}analyses.js" defer></script>
+<script src="{a}landing.js?v={ver("landing.js")}" defer></script>
+<script src="{a}tour.js?v={ver("tour.js")}" defer></script>
+<script src="{a}analyses.js?v={ver("analyses.js")}" defer></script>
 </body>
 </html>
 '''
