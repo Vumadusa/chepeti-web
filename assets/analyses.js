@@ -43,7 +43,7 @@
         <p class="an-now"><b>${fmt(v)}</b> ${m.unit}<span>${D.prev}: ${fmt(prev)}</span></p>${chart(m, r.series)}
         <p class="an-norm">${D.norm}: ${fmt(m.ref[0])}–${fmt(m.ref[1])} ${m.unit}</p>`;
     } else {
-      body = `<ul class="an-vals">${r.vals.map(([n, v]) => `<li><span>${n}</span><b>${v}</b></li>`).join('')}</ul><p class="an-note">${r.note}</p>`;
+      body = `<ul class="an-vals">${r.vals.map(([n, v]) => `<li><span>${n}</span><b>${v}</b></li>`).join('')}</ul>`;
     }
     tip.innerHTML = `<p class="an-title">${r.title}<span>${r.date}</span></p>${body}`;
     tip.querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); metric = +b.dataset.m; show(cur); }));

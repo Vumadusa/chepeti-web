@@ -194,11 +194,9 @@ def an_data(t: dict) -> str:
             {'title': 'Біохімія' if uk else 'Blood chemistry', 'date': d(_DATES[14]), 'series': 14},
             {'title': 'Біохімія' if uk else 'Blood chemistry', 'date': d(_DATES[13]), 'series': 13},
             {'title': 'Сеча' if uk else 'Urinalysis', 'date': d(_SHOT - _dt.timedelta(days=35)),
-             'vals': [['pH', '6,8' if uk else '6.8'], ['Питома вага' if uk else 'Specific gravity', '1.035']],
-             'note': 'pH трохи підвищений. Контроль через місяць.' if uk else 'pH slightly high. Recheck in a month.'},
+             'vals': [['pH', '6,8' if uk else '6.8'], ['Питома вага' if uk else 'Specific gravity', '1.035']]},
             {'title': 'Кров (загальний аналіз)' if uk else 'Complete blood count', 'date': d(_SHOT - _dt.timedelta(days=40)),
-             'vals': [['Лейкоцити' if uk else 'White blood cells', '14,2×10⁹/л' if uk else '14.2×10⁹/L']],
-             'note': 'Лейкоцити трохи підвищені. Потрібен повторний контроль.' if uk else 'White cells slightly high. Recheck needed.'},
+             'vals': [['Лейкоцити' if uk else 'White blood cells', '14,2×10⁹/л' if uk else '14.2×10⁹/L']]},
         ],
     }
     return html.escape(json.dumps(data, ensure_ascii=False))
