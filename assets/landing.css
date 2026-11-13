@@ -265,11 +265,6 @@ footer .copy { margin-left: auto; }
 .badge b { font-size: .95rem; font-weight: 700; line-height: 1.25; white-space: nowrap; }
 .badge > i { flex: none; width: 38px; height: 38px; border-radius: 12px; background: rgba(255,255,255,.15); position: relative; }
 .badge > i::after { content: ""; position: absolute; inset: 9px; background: #fff; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
-.badge.notif { max-width: 290px; background: rgba(250, 248, 245, .94); color: #2C2722; box-shadow: 0 20px 40px -14px rgba(0,0,0,.45); }
-.badge.notif span { display: block; font-size: .78rem; color: #6E655B; margin-bottom: 2px; }
-.badge.notif .mark { background: none; width: 34px; height: 34px; border-radius: 10px; overflow: hidden; }
-.badge.notif .mark::after { display: none; }
-.badge.notif .mark img { width: 100%; height: 100%; }
 
 
 .tour-steps { position: absolute; top: 26px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 2; }
@@ -298,8 +293,7 @@ footer .copy { margin-left: auto; }
   .tour-badges { order: 3; min-height: 96px; width: 100%; }
   .badge-set { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; }
   .badge-set .badge:nth-child(even) { margin-left: 0; }
-  .badge-set:has(.notif) { grid-template-columns: 1fr; }
-  .badge { padding: 8px 10px; gap: 8px; border-radius: 14px; max-width: none; }
+    .badge { padding: 8px 10px; gap: 8px; border-radius: 14px; max-width: none; }
   .badge > i { width: 28px; height: 28px; border-radius: 9px; } .badge > i::after { inset: 6px; }
   .badge b { font-size: .8rem; text-align: left; white-space: normal; }
   .badge-set .badge:nth-child(n+5) { display: none; }

@@ -40,7 +40,7 @@ T = {
         ('Контакти під рукою', 'Записуйте контакти людей, які піклуються про улюбленця, або знаходьте заклади на мапі й телефонуйте в один дотик.', '13-places',
          [('first-aid', 'Ветклініки'), ('scissors', 'Грумери'), ('storefront', 'Зоомагазини'), ('bed', 'Готелі'), ('dog', 'Дресирувальники')]),
         ('Нагадає вчасно', 'Про візит, щеплення, аналіз і ліки. А ще про будь-яку свою справу.', '18-reminders',
-         [('@Барсік', 'Зателефонувати в клініку'), ('@Барсік', 'Здати аналіз сечі'), ('@Ківі', 'Час щеплення: міксоматоз')]),
+         [('bell-ringing', 'Зателефонувати в клініку'), ('bell-ringing', 'Здати аналіз сечі'), ('bell-ringing', 'Час щеплення: міксоматоз')]),
         ('Лікування', 'Розумне лікування з нагадуванням про кожну дозу й журналом прийомів.', '05-med',
          [('check-circle', 'Зафіксувати прийом'), ('calendar-check', 'Щоденні прийоми'), ('arrows-clockwise', 'Інтервальні прийоми'), ('hand-pointing', 'Прийоми за потребою'), ('camera', 'Фото препаратів'), ('list-checks', 'Журнал: хто й коли дав')])],
   tests_h2='Аналізи на графіку',
@@ -106,7 +106,7 @@ T = {
         ('Contacts at hand', 'Keep the people who care for your pet in one place, or find places on the map and call in one tap.', '13-places',
          [('first-aid', 'Vet clinics'), ('scissors', 'Groomers'), ('storefront', 'Pet shops'), ('bed', 'Pet hotels'), ('dog', 'Trainers')]),
         ('Reminds you on time', 'About visits, vaccines, tests and meds. And about anything else you need.', '18-reminders',
-         [('@Barsik', 'Call the clinic'), ('@Barsik', 'Take a urine test'), ('@Kiwi', 'Vaccine time: myxomatosis')]),
+         [('bell-ringing', 'Call the clinic'), ('bell-ringing', 'Take a urine test'), ('bell-ringing', 'Vaccine time: myxomatosis')]),
         ('Treatment', 'Smart treatment with a reminder for every dose and a dose log.', '05-med',
          [('check-circle', 'Mark a dose as given'), ('calendar-check', 'Daily doses'), ('arrows-clockwise', 'Every few days'), ('hand-pointing', 'As needed'), ('camera', 'Medicine photos'), ('list-checks', 'Log: who gave it and when')])],
   tests_h2='Lab results on a chart',
@@ -163,9 +163,6 @@ T = {
 
 
 def badge(ic: str, tx: str, m: int) -> str:
-    # '@Імʼя' — плашка-сповіщення (знак Chepeti, кличка, текст), інакше — значок Phosphor і підпис.
-    if ic.startswith('@'):
-        return f'<div class="badge notif" style="--m:{m}"><i class="mark"><img src="/assets/favicon.png" alt="" width="34" height="34"></i><div><span>Chepeti · {html.escape(ic[1:])}</span><b>{html.escape(tx)}</b></div></div>'
     return f'<div class="badge" style="--m:{m}"><i style="--ic:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/{ic}.svg)"></i><b>{html.escape(tx)}</b></div>'
 
 
