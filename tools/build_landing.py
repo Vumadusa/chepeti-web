@@ -82,6 +82,7 @@ T = {
   faq=[('Чи працює без інтернету?', 'Так. Дані лежать на телефоні, нагадування приходять і без мережі. Інтернет потрібен для хмарної копії, спільного доступу й сторінки QR.'),
        ('Чи є версія для iPhone?', 'Готуємо. Зараз Chepeti є в Google Play, версія для iPhone зʼявиться в App Store.'),
        ('Що буде з даними, якщо я зміню телефон?', 'Увійдіть у свій акаунт на новому телефоні, і записи повернуться. Файли документів зберігаються в хмарі з Premium.'),
+       ('Хто бачить мої дані?', 'Лише ви. Без реєстрації все лежить на телефоні, акаунт потрібен тільки для хмарної копії, QR і спільного доступу. Аналітика вмикається лише за вашою згодою, а видалити все можна одним дотиком у застосунку.'),
        ('Для яких тварин підходить?', 'Коти, собаки, кролики, гризуни, птахи, рептилії та інші.'),
        ('Як видалити акаунт і дані?', 'У застосунку: Профіль, далі «Дані і приватність». Або на сторінці <a href="/delete-account.html">видалення акаунта</a>.')],
   final_h2='Додайте першого улюбленця',
@@ -148,6 +149,7 @@ T = {
   faq=[('Does it work offline?', 'Yes. Data lives on your phone and reminders arrive without a connection. You need internet for cloud backup, sharing and the QR page.'),
        ('Is there an iPhone version?', 'It’s on the way. Chepeti is on Google Play now, and the iPhone version is coming to the App Store.'),
        ('What happens to my data if I change phones?', 'Sign in to your account on the new phone and your records come back. Document files are kept in the cloud with Premium.'),
+       ('Who can see my data?', 'Only you. Without an account everything stays on your phone; an account is only for cloud backup, QR and sharing. Analytics turn on only with your consent, and you can delete everything in one tap in the app.'),
        ('Which pets does it support?', 'Cats, dogs, rabbits, rodents, birds, reptiles and more.'),
        ('How do I delete my account and data?', 'In the app: Profile, then “Data and privacy”. Or on the <a href="/en/delete-account.html">account deletion page</a>.')],
   final_h2='Add your first pet',
@@ -282,14 +284,6 @@ def page(t: dict) -> str:
     <div class="cell reveal" style="--i:2"><h3>{cells[4][0]}</h3><p>{cells[4][1]}</p></div>
     <div class="cell tint reveal" style="--i:3"><h3>{cells[5][0]}</h3><p>{cells[5][1]}</p></div>
   </div>
-</div></section>
-
-<section class="privacy"><div class="wrap">
-  <div class="reveal">
-    <h2>{t['priv_h2']}</h2>
-    <div class="facts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p in t['facts'])}</div>
-  </div>
-  <div class="ill reveal" style="--i:1" aria-hidden="true">{ILL['protection']}</div>
 </div></section>
 
 <section class="plans" id="plans"><div class="wrap">
