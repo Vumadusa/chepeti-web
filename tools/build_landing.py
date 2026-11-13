@@ -277,7 +277,7 @@ def page(t: dict) -> str:
   <div class="bento">
     <div class="cell shot reveal"><h3>{cells[0][0]}</h3><p>{cells[0][1]}</p><img src="{shot('10-visits')}" alt="{html.escape(t['alt_visits'])}" width="600" height="1333" loading="lazy"></div>
     <div class="cell shot reveal" style="--i:1"><h3>{cells[1][0]}</h3><p>{cells[1][1]}</p><img src="{shot('09-vaccines')}" alt="{html.escape(t['alt_vac'])}" width="600" height="1333" loading="lazy"></div>
-    <div class="cell tint reveal" style="--i:2"><h3>{cells[2][0]}</h3><p>{cells[2][1]}</p></div>
+    <div class="cell tint docs reveal" style="--i:2"><h3>{cells[2][0]}</h3><p>{cells[2][1]}</p><div class="formats" aria-hidden="true">{''.join(f'<span><img src="{a}file-{x}.svg" alt="" width="56" height="56"></span>' for x in ('pdf', 'jpg', 'docx'))}</div></div>
     <div class="cell reveal" style="--i:3"><h3>{cells[3][0]}</h3><p>{cells[3][1]}</p></div>
     <div class="cell reveal" style="--i:2"><h3>{cells[4][0]}</h3><p>{cells[4][1]}</p></div>
     <div class="cell tint reveal" style="--i:3"><h3>{cells[5][0]}</h3><p>{cells[5][1]}</p></div>
