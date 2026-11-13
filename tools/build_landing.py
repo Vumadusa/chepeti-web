@@ -35,11 +35,18 @@ T = {
   play='Google Play', soon='App Store', soon_small='скоро',
   h1='Здоровʼя улюбленця в одному застосунку',
   lead='Нагадає про ліки й щеплення, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
-  tour=[('Усе про улюбленця на одному екрані', 'Візити, лікування, щеплення, аналізи, документи й щоденник. Найближче видно одразу.', 'Чистка зубів', 'наступний візит · 17 січ', '03-pet'),
-        ('Нагадає вчасно', 'Графік прийому й кнопка «Дано» в один дотик.', '1-й прийом дано', 'Котервін · 08:00', '05-med'),
-        ('Видно, хто дав', 'Журнал прийому для всієї сімʼї, тож доза не задвоїться.', 'Аня дала ліки', 'сьогодні о 08:30', '06-log'),
-        ('Аналізи на графіку', 'Показники з лініями норми й «останній проти попереднього».', 'Креатинін 172 → 165', 'мкмоль/л · в нормі', '08-chart'),
-        ('Якщо загубився', 'QR на нашийнику відкриває сторінку «Мене шукають».', 'Сторінку відкрили', 'власник бачить скани', '17-lost-page')],
+  tour=[('Усе про улюбленця на одному екрані', 'Візити, лікування, щеплення, аналізи, документи й щоденник. Найближче видно одразу.', '03-pet',
+         [('calendar-blank', 'Візити й висновки лікаря'), ('syringe', 'Нагадування про щеплення'), ('file-text', 'Документи під рукою'), ('notebook', 'Щоденник спостережень')]),
+        ('Контакти під рукою', 'Записуйте контакти людей, які піклуються про улюбленця, або знаходьте заклади на мапі й телефонуйте в один дотик.', '13-places',
+         [('first-aid', 'Ветклініки'), ('scissors', 'Грумери'), ('storefront', 'Зоомагазини'), ('bed', 'Готелі'), ('dog', 'Дресирувальники')]),
+        ('Нагадає вчасно', 'Про візит, щеплення, аналіз і ліки. А ще про будь-яку свою справу.', '18-reminders',
+         [('@Барсік', 'Зателефонувати в клініку'), ('@Барсік', 'Здати аналіз сечі'), ('@Ківі', 'Час щеплення: міксоматоз')]),
+        ('Лікування', 'Розумне лікування з нагадуванням про кожну дозу й журналом прийомів.', '05-med',
+         [('check-circle', 'Зафіксувати прийом'), ('calendar-check', 'Щоденні прийоми'), ('arrows-clockwise', 'Інтервальні прийоми'), ('hand-pointing', 'Прийоми за потребою'), ('camera', 'Фото препаратів'), ('list-checks', 'Журнал: хто й коли дав')])],
+  tests_h2='Аналізи на графіку',
+  tests_sub='Показники крові й сечі з лініями норми. Видно, як змінюється креатинін чи глюкоза від аналізу до аналізу.',
+  tests_points=['Лінії норми', 'Останній проти попереднього', 'Перерахунок одиниць', 'Обʼєднання однакових показників'],
+  chart_caption='Креатинін Барсіка за рік',
   theme='Світла чи темна тема',
   lost_eyebrow='Якщо загубився',
   lost_h2='QR на нашийнику приведе додому',
@@ -51,8 +58,6 @@ T = {
   meds_h2='Більше ніяких «а ти вже дав?»',
   meds_sub='Графік прийому, нагадування вчасно і журнал, де видно, хто з сімʼї і коли дав ліки.',
   meds_note='<b>З Premium</b> «Дано» можна натиснути прямо в сповіщенні, не відкриваючи застосунок.',
-  tests_h2='Аналізи, які видно з першого погляду',
-  tests_sub='Показники крові й сечі на графіку з лініями норми. Видно, як змінюється креатинін чи глюкоза від аналізу до аналізу.',
   fam_h2='Доглядайте разом',
   fam_sub='Дайте доступ сімʼї, ветеринару чи догсітеру. Права окремо на кожен розділ, режим «тільки перегляд» і пауза доступу.',
   who=['Сімʼя', 'Ветеринар', 'Догсітер', 'Друзі на час відпустки'],
@@ -96,11 +101,18 @@ T = {
   play='Google Play', soon='App Store', soon_small='soon',
   h1='Your pet’s health in one app',
   lead='Reminds you about meds and vaccines, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
-  tour=[('Everything about your pet on one screen', 'Visits, treatment, vaccinations, tests, documents and diary. What’s next is right there.', 'Dental cleaning', 'next visit · 17 Jan', '03-pet'),
-        ('Reminds you on time', 'Dose schedules and a one-tap “Given” button.', 'Dose 1 given', 'Cotervin · 08:00', '05-med'),
-        ('See who gave it', 'A dose log for the whole family, so no dose is doubled.', 'Anna gave the medicine', 'today at 08:30', '06-log'),
-        ('Lab results on a chart', 'Values with reference lines and “latest vs previous”.', 'Creatinine 172 → 165', 'µmol/L · in range', '08-chart'),
-        ('If your pet gets lost', 'A QR tag on the collar opens the “I’m lost” page.', 'The page was opened', 'you see every scan', '17-lost-page')],
+  tour=[('Everything about your pet on one screen', 'Visits, treatment, vaccinations, tests, documents and diary. What’s next is right there.', '03-pet',
+         [('calendar-blank', 'Visits and vet notes'), ('syringe', 'Vaccine reminders'), ('file-text', 'Documents at hand'), ('notebook', 'Observation diary')]),
+        ('Contacts at hand', 'Keep the people who care for your pet in one place, or find places on the map and call in one tap.', '13-places',
+         [('first-aid', 'Vet clinics'), ('scissors', 'Groomers'), ('storefront', 'Pet shops'), ('bed', 'Pet hotels'), ('dog', 'Trainers')]),
+        ('Reminds you on time', 'About visits, vaccines, tests and meds. And about anything else you need.', '18-reminders',
+         [('@Barsik', 'Call the clinic'), ('@Barsik', 'Take a urine test'), ('@Kiwi', 'Vaccine time: myxomatosis')]),
+        ('Treatment', 'Smart treatment with a reminder for every dose and a dose log.', '05-med',
+         [('check-circle', 'Mark a dose as given'), ('calendar-check', 'Daily doses'), ('arrows-clockwise', 'Every few days'), ('hand-pointing', 'As needed'), ('camera', 'Medicine photos'), ('list-checks', 'Log: who gave it and when')])],
+  tests_h2='Lab results on a chart',
+  tests_sub='Blood and urine values with reference lines. See how creatinine or glucose changes from test to test.',
+  tests_points=['Reference lines', 'Latest vs previous', 'Unit conversion', 'Merging duplicate values'],
+  chart_caption='Barsik’s creatinine over a year',
   theme='Light or dark theme',
   lost_eyebrow='If your pet gets lost',
   lost_h2='A QR tag that leads home',
@@ -112,8 +124,6 @@ T = {
   meds_h2='No more “did you already give it?”',
   meds_sub='Dose schedules, reminders on time and a log that shows who in the family gave the medicine and when.',
   meds_note='<b>With Premium</b> tap “Given” right in the notification, without opening the app.',
-  tests_h2='Lab results you can read at a glance',
-  tests_sub='Blood and urine values on a chart with reference lines. See how creatinine or glucose changes from test to test.',
   fam_h2='Care for them together',
   fam_sub='Share with family, your vet or a pet sitter. Permissions per section, view-only mode and pausing access.',
   who=['Family', 'Vet', 'Pet sitter', 'Friends while you travel'],
@@ -150,6 +160,13 @@ T = {
   qr_alt='QR code of the live example',
  ),
 }
+
+
+def badge(ic: str, tx: str, m: int) -> str:
+    # '@Імʼя' — плашка-сповіщення (знак Chepeti, кличка, текст), інакше — значок Phosphor і підпис.
+    if ic.startswith('@'):
+        return f'<div class="badge notif" style="--m:{m}"><i class="mark"><img src="/assets/favicon.png" alt="" width="34" height="34"></i><div><span>Chepeti · {html.escape(ic[1:])}</span><b>{html.escape(tx)}</b></div></div>'
+    return f'<div class="badge" style="--m:{m}"><i style="--ic:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/{ic}.svg)"></i><b>{html.escape(tx)}</b></div>'
 
 
 def page(t: dict) -> str:
@@ -216,11 +233,23 @@ def page(t: dict) -> str:
     <div class="cta-row">{btn_play}{btn_soon}</div>
     <div class="ill" aria-hidden="true">{ILL['welcome']}</div>
   </div></div>
-  <div class="tour-card"><div class="tour-grid">
+  <div class="tour-card"><div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div><div class="tour-grid">
     <div class="tour-texts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p, *_ in t['tour'])}</div>
-    <div class="tour-tilt"><div class="tour-phone"><div class="screens">{''.join(f'<img src="{shot(img)}" alt="{html.escape(h)}" width="600" height="1333"{' fetchpriority="high"' if k == 0 else ' loading="lazy"'}>' for k, (h, p, b1, b2, img) in enumerate(t['tour']))}</div></div></div>
-    <div class="tour-badges">{''.join(f'<div class="badge"><i>{k + 1}</i><div><b>{b1}</b><span>{b2}</span></div></div>' for k, (h, p, b1, b2, img) in enumerate(t['tour']))}<div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div></div>
+    <div class="tour-tilt"><div class="tour-phone"><div class="screens">{''.join(f'<img src="{shot(img)}" alt="{html.escape(h)}" width="600" height="1333"{' fetchpriority="high"' if k == 0 else ' loading="lazy"'}>' for k, (h, p, img, pts) in enumerate(t['tour']))}</div></div></div>
+    <div class="tour-badges">{''.join('<div class="badge-set">' + ''.join(badge(ic, tx, m) for m, (ic, tx) in enumerate(pts)) + '</div>' for h, p, img, pts in t['tour'])}</div>
   </div></div>
+</div></section>
+
+<section class="tests2"><div class="wrap">
+  <div class="reveal">
+    <h2>{t['tests_h2']}</h2>
+    <p class="sub">{t['tests_sub']}</p>
+    <div class="who">{''.join(f'<span>{x}</span>' for x in t['tests_points'])}</div>
+  </div>
+  <div class="tests-visual reveal" style="--i:1">
+    <div class="phone"><img src="{shot('07-analyses')}" alt="{html.escape(t['alt_chart'])}" width="600" height="1333" loading="lazy"></div>
+    <figure class="chart-card"><img src="{a}screens/chart-{L}.webp" alt="{html.escape(t['alt_chart'])}" width="500" height="450" loading="lazy"><figcaption>{t['chart_caption']}</figcaption></figure>
+  </div>
 </div></section>
 
 <section class="lost" id="lost"><div class="wrap">

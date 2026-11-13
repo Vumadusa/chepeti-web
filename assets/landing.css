@@ -256,19 +256,28 @@ footer .copy { margin-left: auto; }
 .tour-phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .tour-phone img + img { opacity: 0; }
 .tour-phone::after { content: ""; position: absolute; inset: 9px; border-radius: 31px; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 40%); }
-.tour-badges { position: relative; height: 100%; min-height: 120px; }
-.badge { position: absolute; left: 0; top: 50%; margin-top: -36px; display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 18px; color: #fff; max-width: 260px;
-  background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05)); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 20px 40px -14px rgba(0,0,0,.45); opacity: 0; }
-.badge b { display: block; font-size: .95rem; }
-.badge span { font-size: .82rem; color: rgba(244, 241, 236, .72); }
-.badge i { flex: none; width: 36px; height: 36px; border-radius: 12px; background: rgba(255,255,255,.14); display: grid; place-items: center; font-style: normal; font-weight: 700; }
-.tour-steps { display: flex; gap: 8px; margin-top: 8px; }
+.tour-badges { position: relative; align-self: stretch; }
+.badge-set { display: grid; grid-template-columns: max-content; gap: 12px; align-content: center; height: 100%; }
+.badge-set .badge:nth-child(even) { margin-left: 48px; }
+.badge { display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 12px; border-radius: 18px; color: #fff; max-width: 240px;
+  background: linear-gradient(135deg, rgba(255,255,255,.17), rgba(255,255,255,.05)); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.17), 0 20px 40px -14px rgba(0,0,0,.45); }
+.badge b { font-size: .95rem; font-weight: 700; line-height: 1.25; }
+.badge > i { flex: none; width: 38px; height: 38px; border-radius: 12px; background: rgba(255,255,255,.15); position: relative; }
+.badge > i::after { content: ""; position: absolute; inset: 9px; background: #fff; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+.badge.notif { max-width: 290px; background: rgba(250, 248, 245, .94); color: #2C2722; box-shadow: 0 20px 40px -14px rgba(0,0,0,.45); }
+.badge.notif span { display: block; font-size: .78rem; color: #6E655B; margin-bottom: 2px; }
+.badge.notif .mark { background: none; width: 34px; height: 34px; border-radius: 10px; overflow: hidden; }
+.badge.notif .mark::after { display: none; }
+.badge.notif .mark img { width: 100%; height: 100%; }
+
+
+.tour-steps { position: absolute; top: 26px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 2; }
 .tour-steps span { width: 22px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.25); }
 .tour-steps span.on { background: #fff; }
-.tour:not(.anim) .tour-steps, .tour:not(.anim) .badge { display: none; }
-.tour:not(.anim) .tour-grid { grid-template-columns: auto 1fr; }
-.tour:not(.anim) .tour-badges { display: none; }
+.tour-card { position: relative; }
+.tour:not(.anim) .badge-set:not(:first-child) { display: none; }
+.tour:not(.anim) .tour-steps { display: none; }
 
 /* Анімований режим (клас .anim ставить tour.js): сцена на весь екран, картка й тексти керуються GSAP */
 .tour.anim .tour-stage { height: 100dvh; overflow: hidden; display: grid; place-items: center; }
@@ -277,6 +286,8 @@ footer .copy { margin-left: auto; }
 .tour.anim .tour-grid { height: 100%; }
 .tour.anim .tour-texts { position: relative; height: 220px; }
 .tour.anim .tour-texts > div { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; opacity: 0; }
+.tour.anim .badge-set { position: absolute; inset: 0; }
+.tour.anim .badge { opacity: 0; }
 
 @media (max-width: 860px) {
   .tour-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; padding: 28px 20px; }
@@ -284,15 +295,31 @@ footer .copy { margin-left: auto; }
   .tour-phone { width: min(56vw, 230px); }
   .tour-tilt { order: 2; }
   .tour-texts { order: 1; width: 100%; }
-  .tour-badges { order: 3; min-height: 70px; width: 100%; }
-  .badge { left: 0; right: 0; margin: 0 auto; width: max-content; top: 0; }
+  .tour-badges { order: 3; min-height: 96px; width: 100%; }
+  .badge-set { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; }
+  .badge-set .badge:nth-child(even) { margin-left: 0; }
+  .badge-set:has(.notif) { grid-template-columns: 1fr; }
+  .badge { padding: 8px 10px; gap: 8px; border-radius: 14px; max-width: none; }
+  .badge > i { width: 28px; height: 28px; border-radius: 9px; } .badge > i::after { inset: 6px; }
+  .badge b { font-size: .8rem; text-align: left; }
+  .badge-set .badge:nth-child(n+5) { display: none; }
   .tour:not(.anim) .tour-grid { grid-template-columns: 1fr; }
   .tour.anim .tour-texts { height: 130px; }
   .tour.anim .tour-texts h3 { font-size: 1.35rem; }
   .tour.anim .tour-card { width: 94vw; height: calc(100dvh - 68px - 3vh); border-radius: 28px; }
-  .tour-phone { width: min(56vw, 230px, (100dvh - 68px - 3vh - 320px) * .45); }
-  .tour-steps { position: absolute; top: -18px; left: 0; right: 0; justify-content: center; margin: 0; }
-  .tour-badges { margin-top: 14px; }
+  .tour-phone { width: min(56vw, 230px, (100dvh - 68px - 3vh - 360px) * .45); }
+  .tour-steps { top: 14px; }
 }
 
 .tour-tilt { transform-style: preserve-3d; }
+
+/* Аналізи: телефон зі списком і картка графіка поруч (як QR у «Якщо загубився») */
+.tests2 { padding: clamp(64px, 9vw, 120px) 0; }
+.tests2 .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.tests2 .sub { margin: 18px 0 0; }
+.tests-visual { position: relative; display: flex; justify-content: center; }
+.tests-visual .phone { max-width: 260px; }
+.chart-card { position: absolute; right: -2%; bottom: 8%; width: min(62%, 320px); margin: 0; background: #fff; border-radius: var(--r); padding: 10px 10px 14px; box-shadow: var(--shadow); }
+.chart-card img { width: 100%; border-radius: 14px; }
+.chart-card figcaption { margin-top: 8px; text-align: center; font-size: .82rem; color: #6E655B; font-weight: 600; }
+@media (max-width: 860px) { .tests2 .wrap { grid-template-columns: 1fr; } .tests-visual .phone { max-width: 210px; margin-right: 30%; } .chart-card { width: 62%; right: 0; } }

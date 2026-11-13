@@ -10,7 +10,7 @@
 
   const $ = s => tour.querySelector(s), $$ = s => [...tour.querySelectorAll(s)];
   const intro = $('.tour-intro'), card = $('.tour-card'), phone = $('.tour-phone'), tilt = $('.tour-tilt');
-  const imgs = $$('.tour-phone img'), texts = $$('.tour-texts > div'), badges = $$('.badge'), dots = $$('.tour-steps span');
+  const imgs = $$('.tour-phone img'), texts = $$('.tour-texts > div'), sets = $$('.badge-set'), dots = $$('.tour-steps span');
   const n = imgs.length;
   const stops = []; // мітки «крок показано повністю» — точки прилипання
 
@@ -44,7 +44,7 @@
     .to(phone, { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' })
     .addLabel('s0', '-=0.6')
     .fromTo(texts[0], { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
-    .fromTo(badges[0], { autoAlpha: 0, y: 30, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.4)' }, 's0+=0.15')
+    .fromTo(sets[0].children, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.5)' }, 's0+=0.15')
     .addLabel('v0');
   stops.push('v0');
 
@@ -52,10 +52,10 @@
     tl.to({}, { duration: 0.7 })
       .addLabel('s' + i)
       .to(texts[i - 1], { autoAlpha: 0, y: -24, duration: 0.45 }, 's' + i)
-      .to(badges[i - 1], { autoAlpha: 0, y: -18, duration: 0.4 }, 's' + i)
+      .to(sets[i - 1].children, { autoAlpha: 0, scale: 0.9, duration: 0.35, stagger: 0.03 }, 's' + i)
       .to(imgs[i], { autoAlpha: 1, duration: 0.6 }, 's' + i)
       .fromTo(texts[i], { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 's' + i + '+=0.2')
-      .fromTo(badges[i], { autoAlpha: 0, y: 28, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, 's' + i + '+=0.3')
+      .fromTo(sets[i].children, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.45, stagger: 0.07, ease: 'back.out(1.5)' }, 's' + i + '+=0.3')
       .addLabel('v' + i);
     stops.push('v' + i);
   }
