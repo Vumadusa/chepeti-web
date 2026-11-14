@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chepeti.com/sitemap.xml
