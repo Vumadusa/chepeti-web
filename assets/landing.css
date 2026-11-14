@@ -512,3 +512,6 @@ footer .copy { margin-left: auto; }
   .foot { padding-top: 40px; }
   .foot-dog { margin-top: 0; margin-bottom: 16px; }
 }
+/* Песик «клас» більший (власник 14.11): нова версія з тінню */
+.foot-dog { width: clamp(260px, 30vw, 380px); margin-top: calc(-1 * clamp(110px, 11vw, 160px)); }
+@media (max-width: 860px) { .foot-dog { width: min(64vw, 260px); margin-top: 0; } }

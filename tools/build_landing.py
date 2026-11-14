@@ -384,7 +384,7 @@ def page(t: dict) -> str:
 <footer class="foot"><div class="foot-card">
   <div class="foot-cta">
     <div class="foot-text reveal"><h2>{t['final_h2']}</h2><p>{t['final_p']}</p><div class="cta-row">{btn_play}{btn_soon}</div></div>
-    <img class="foot-dog" src="{a}dog/thumbs-up.webp" alt="" width="640" height="935" loading="lazy">
+    <img class="foot-dog" src="{a}dog/thumbs-up.webp" alt="" width="668" height="990" loading="lazy">
   </div>
   <div class="foot-links">
     {''.join(f'<a href="{u}">{n}</a>' for n, u in t['foot'])}
