@@ -103,6 +103,7 @@ T = {
        ('Для яких тварин підходить?', 'Коти, собаки, кролики, гризуни, птахи, рептилії та інші.'),
        ('Як видалити акаунт і дані?', 'У застосунку: Профіль, далі «Дані і приватність». Або на сторінці <a href="/delete-account.html">видалення акаунта</a>.')],
   final_h2='Додайте першого улюбленця',
+  thanks='Дякуємо, що дочитали до кінця!',
   final_p='Завантажте Chepeti, це займе менше хвилини. Реєстрація не потрібна.',
   foot=[('Конфіденційність', '/privacy.html'), ('Умови використання', '/terms.html'), ('Видалення акаунта', '/delete-account.html')],
   alt_pet='Профіль кота Барсіка в Chepeti: візити, лікування, щеплення, аналізи, документи',
@@ -186,6 +187,7 @@ T = {
        ('Which pets does it support?', 'Cats, dogs, rabbits, rodents, birds, reptiles and more.'),
        ('How do I delete my account and data?', 'In the app: Profile, then “Data and privacy”. Or on the <a href="/en/delete-account.html">account deletion page</a>.')],
   final_h2='Add your first pet',
+  thanks='Thanks for reading to the end!',
   final_p='Get Chepeti, it takes less than a minute. No sign-up needed.',
   foot=[('Privacy', '/en/privacy.html'), ('Terms of Use', '/en/terms.html'), ('Delete account', '/en/delete-account.html')],
   alt_pet='Barsik the cat’s profile in Chepeti: visits, treatment, vaccinations, tests, documents',
@@ -385,7 +387,7 @@ def page(t: dict) -> str:
 <footer class="foot"><div class="foot-card">
   <div class="foot-cta">
     <div class="foot-text reveal"><h2>{t['final_h2']}</h2><p>{t['final_p']}</p><div class="cta-row">{btn_play}{btn_soon}</div></div>
-    <img class="foot-dog" src="{a}dog/thumbs-up.webp" alt="" width="668" height="990" loading="lazy">
+    <div class="foot-dog"><img src="{a}dog/thumbs-up.webp" alt="" width="668" height="990" loading="lazy"><svg class="foot-arc" viewBox="0 0 668 990" aria-hidden="true"><path id="arc-{L}" d="M -18 153 A 430 430 0 0 1 686 153" fill="none"/><text><textPath href="#arc-{L}" startOffset="50%" text-anchor="middle">{t['thanks']}</textPath></text></svg></div>
   </div>
   <div class="foot-links">
     {''.join(f'<a href="{u}">{n}</a>' for n, u in t['foot'])}

@@ -523,3 +523,9 @@ footer .copy { margin-left: auto; }
 .grid-bg rect { fill: currentColor; fill-opacity: 0; stroke: none; transition: fill-opacity 1s ease-out; }
 .grid-bg rect.on { fill-opacity: .07; transition: none; }
 @media (prefers-reduced-motion: reduce) { .grid-bg rect { transition: none; } }
+/* Подяка півколом над головою песика «клас» (власник 14.11): дуга на світлому тлі над зеленим */
+.foot-dog { position: relative; }
+.foot-dog img { display: block; width: 100%; height: auto; }
+.foot-arc { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.foot-arc text { fill: var(--ink2); font: 700 22px Mulish, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+@media (max-width: 860px) { .foot-dog { margin-top: 36px; } .foot-arc text { fill: rgba(244, 241, 236, .8); } } /* на телефоні песик увесь на зеленому — текст світлий, зверху місце для дуги */
