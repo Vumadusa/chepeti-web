@@ -428,7 +428,8 @@ footer .copy { margin-left: auto; }
 @media (max-width: 860px) { .paw { width: min(78vw, 340px); } }
 
 /* «Доглядайте разом»: ролі — картки 2×2, різниця в одному реченні й чіпі рівня */
-.family .wrap { grid-template-columns: auto 1fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+.family .wrap { grid-template-columns: minmax(0, 560px) auto; justify-content: center; gap: clamp(32px, 7vw, 112px); align-items: center; }
+.fam-visual { order: 2; } /* телефон праворуч: у блоці вище ліворуч уже лапа (власник 14.11) */
 .fam-visual .phone { max-width: 260px; }
 .roles { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 540px; }
 .roles li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; }
