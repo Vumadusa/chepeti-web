@@ -418,8 +418,9 @@ footer .copy { margin-left: auto; }
 .paw { position: relative; display: block; width: min(100%, 440px); aspect-ratio: 670 / 904; margin: 0 auto; }
 .paw > img, .paw-tag, .paw-tag > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .paw-tag { transform-origin: 55.07% 45.13%; transform: scale(1.3); }
-.paw-tag .paw-qr { inset: auto; left: 42.09%; top: 51.33%; width: 26.27%; height: auto; }
-.paw-ring { z-index: 1; }
+.paw-qr { position: absolute; left: 42.09%; top: 51.33%; width: 26.27%; aspect-ratio: 1; }
+.paw-qr img { display: block; width: 100%; height: 100%; }
+.paw-ring { z-index: 1; pointer-events: none; } /* кільце накриває все полотно — інакше перехоплює тап по QR */
 .paw-cap { position: absolute; left: 50%; top: 88%; transform: translateX(-50%); white-space: nowrap; z-index: 2;
   background: #fff; color: #6E655B; font-size: .8rem; padding: 6px 12px; border-radius: 999px; box-shadow: var(--shadow); }
 @media (prefers-reduced-motion: no-preference) {
