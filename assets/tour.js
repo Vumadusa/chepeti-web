@@ -42,11 +42,13 @@
     scrollTrigger: {
       // Шлях довший (~1,3 екрана на крок), згладжування мʼякше, а після прокрутки — прилипання до найближчого кроку
       // в напрямку руху: інерційний трекпад Mac інакше проскакував 2–3 кроки за жест і зупинявся посеред переходу.
-      trigger: tour, start: 'top top', end: () => '+=' + innerHeight * (n + 1) * 1.3,
-      pin: $('.tour-stage'), scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
+      // На телефоні крок довший (2 екрани): змах пальцем з інерцією інакше пролітав крок і прилипав до наступного.
+      trigger: tour, start: 'top top', end: () => '+=' + innerHeight * (n + 1) * (lite ? 2 : 1.3),
+      // Телефон: scrub без згладжування — анімація йде одразу за пальцем, а прилипання до кроку майже без паузи.
+      pin: $('.tour-stage'), scrub: lite ? true : 1, anticipatePin: 1, invalidateOnRefresh: true,
       snap: {
         snapTo: (v, self) => ST.snapDirectional([0, ...stops.map(l => tl.labels[l] / tl.duration()), 1])(v, self.direction),
-        duration: { min: 0.3, max: 0.9 }, delay: 0.12, ease: 'power2.inOut', inertia: false,
+        duration: lite ? { min: 0.2, max: 0.45 } : { min: 0.3, max: 0.9 }, delay: lite ? 0.02 : 0.12, ease: 'power2.inOut', inertia: false,
       },
     },
   });
