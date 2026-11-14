@@ -503,3 +503,12 @@ footer .copy { margin-left: auto; }
 .foot-card { width: 100%; border-radius: 0; }
 .foot-cta, .foot-links { padding-inline: max(20px, (100% - 1160px) / 2); }
 @media (max-width: 860px) { .foot-card { width: 100%; border-radius: 0; } }
+/* Голова песика виглядає над зеленим на світлий фон; сам він не торкається лінії посилань (власник 14.11) */
+.foot { padding-top: clamp(120px, 12vw, 170px); }
+.foot-card { overflow: visible; }
+.foot-cta { padding-top: clamp(28px, 4vw, 48px); }
+.foot-dog { margin-top: calc(-1 * clamp(90px, 9vw, 130px)); margin-bottom: 22px; }
+@media (max-width: 860px) {
+  .foot { padding-top: 40px; }
+  .foot-dog { margin-top: 0; margin-bottom: 16px; }
+}
