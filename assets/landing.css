@@ -515,3 +515,12 @@ footer .copy { margin-left: auto; }
 /* Песик «клас» більший (власник 14.11): нова версія з тінню */
 .foot-dog { width: clamp(260px, 30vw, 380px); margin-top: calc(-1 * clamp(110px, 11vw, 160px)); }
 @media (max-width: 860px) { .foot-dog { width: min(64vw, 260px); margin-top: 0; } }
+/* Сітка-слід під усією сторінкою (ідея — InteractiveGrid, переписано без React): клітинка під курсором спалахує й повільно гасне.
+   Лежить під вмістом; тур (з першим екраном) і підвал мають свій фон і накривають її (власник 14.11). Лише з мишею. */
+.grid-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; color: var(--ink); display: none; }
+.has-grid .grid-bg { display: block; }
+.has-grid main, .has-grid .foot { position: relative; z-index: 1; }
+.has-grid .tour-stage { background: var(--paper); }
+.grid-bg rect { fill: currentColor; fill-opacity: 0; stroke: currentColor; stroke-opacity: .06; transition: fill-opacity 1s ease-out; }
+.grid-bg rect.on { fill-opacity: .07; transition: none; }
+@media (prefers-reduced-motion: reduce) { .grid-bg rect { transition: none; } }

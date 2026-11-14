@@ -21,3 +21,34 @@
   });
 })();
 
+
+// Сітка-слід на тлі (див. .grid-bg у CSS): клітинки на весь екран, рух миші вмикає одну й знімає попередню —
+// 2 зміни на рух замість перемальовування всієї сітки. На сенсорних екранах наведення немає — сітки теж.
+(() => {
+  const svg = document.querySelector('.grid-bg');
+  if (!svg || !matchMedia('(pointer: fine)').matches) return;
+  document.documentElement.classList.add('has-grid');
+  const C = 40, NS = 'http://www.w3.org/2000/svg';
+  let cols = 0, cells = [], cur = null;
+  function build() {
+    cols = Math.ceil(innerWidth / C);
+    const rows = Math.ceil(innerHeight / C);
+    const frag = document.createDocumentFragment();
+    cells = [];
+    for (let i = 0; i < cols * rows; i++) {
+      const r = document.createElementNS(NS, 'rect');
+      r.setAttribute('x', (i % cols) * C); r.setAttribute('y', Math.floor(i / cols) * C);
+      r.setAttribute('width', C); r.setAttribute('height', C);
+      frag.appendChild(r); cells.push(r);
+    }
+    svg.replaceChildren(frag); cur = null;
+  }
+  build();
+  let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(build, 150); });
+  addEventListener('pointermove', e => {
+    const c = cells[Math.floor(e.clientY / C) * cols + Math.floor(e.clientX / C)];
+    if (c === cur) return;
+    cur?.classList.remove('on'); c?.classList.add('on'); cur = c;
+  }, { passive: true });
+  document.addEventListener('pointerleave', () => { cur?.classList.remove('on'); cur = null; });
+})();

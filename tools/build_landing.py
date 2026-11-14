@@ -300,6 +300,7 @@ def page(t: dict) -> str:
 <script type="application/ld+json">{json.dumps(faq_ld, ensure_ascii=False)}</script>
 </head>
 <body>
+<svg class="grid-bg" aria-hidden="true"></svg>
 <header class="top"><div class="wrap">
   <a class="brand" href="{t['root']}">{LOGO}</a>
   <nav aria-label="{t['nav'][0]}"><a href="#features">{t['nav'][0]}</a><a href="#faq">{t['nav'][1]}</a></nav>
