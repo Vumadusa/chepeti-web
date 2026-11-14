@@ -32,7 +32,7 @@ T = {
   lang='uk', root='/', other='/en/', other_label='EN', locale='uk_UA',
   title='Chepeti: щеплення, ліки й аналізи улюбленця в одному застосунку',
   desc='Нагадування про ліки й щеплення, аналізи на графіку, документи, спільний доступ для сім’ї і QR на нашийник, щоб знайти загубленого улюбленця.',
-  nav=['Можливості', 'Питання'], download='Завантажити',
+  nav=['Можливості', 'Питання'], download='Завантажити', close='Закрити',
   play='Google Play', soon='App Store', soon_small='скоро',
   h1='Здоров’я улюбленця в одному застосунку',
   lead='Нагадає про ліки й щеплення, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
@@ -116,7 +116,7 @@ T = {
   lang='en', root='/en/', other='/', other_label='UA', locale='en_US',
   title='Chepeti: your pet’s vaccines, meds and tests in one app',
   desc='Medication and vaccine reminders, lab results on a chart, documents, family sharing and a QR collar tag to bring a lost pet home.',
-  nav=['Features', 'FAQ'], download='Download',
+  nav=['Features', 'FAQ'], download='Download', close='Close',
   play='Google Play', soon='App Store', soon_small='soon',
   h1='Your pet’s health in one app',
   lead='Reminds you about meds and vaccines, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
@@ -308,7 +308,7 @@ def page(t: dict) -> str:
   <nav aria-label="{t['nav'][0]}"><a href="#features">{t['nav'][0]}</a><a href="#faq">{t['nav'][1]}</a></nav>
   <button class="theme" type="button" aria-label="{t['theme']}" title="{t['theme']}"><i class="sun"></i><i class="moon"></i></button>
   <a class="lang" href="{t['other']}" hreflang="{'en' if L == 'uk' else 'uk'}">{t['other_label']}</a>
-  <details class="dl"><summary class="btn btn-primary btn-sm">{t['download']}</summary><div class="dl-menu">{btn_play}{btn_soon}</div></details>
+  <details class="dl"><summary class="btn btn-primary btn-sm">{t['download']}</summary><div class="dl-menu"><button class="dl-x" type="button" aria-label="{t['close']}"></button>{btn_play}{btn_soon}</div></details>
 </div></header>
 
 <main>

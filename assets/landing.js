@@ -59,4 +59,5 @@
   if (!dl) return;
   document.addEventListener('click', e => { if (dl.open && !dl.contains(e.target)) dl.open = false; });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') dl.open = false; });
+  dl.querySelector('.dl-x')?.addEventListener('click', () => { dl.open = false; });
 })();
