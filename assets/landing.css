@@ -498,3 +498,8 @@ footer .copy { margin-left: auto; }
   .foot-links .copy { margin-left: 0; width: 100%; }
 }
 .lost { overflow-x: clip; } /* збільшене прозоре полотно жетона виступало за край на телефоні */
+/* Підвал на всю ширину (власник 14.11): фон від краю до краю, вміст — по ширині .wrap */
+.foot { padding-bottom: 0; }
+.foot-card { width: 100%; border-radius: 0; }
+.foot-cta, .foot-links { padding-inline: max(20px, (100% - 1160px) / 2); }
+@media (max-width: 860px) { .foot-card { width: 100%; border-radius: 0; } }
