@@ -535,3 +535,13 @@ footer .copy { margin-left: auto; }
 .tour.lite .badge { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, .13); }
 @media (pointer: coarse), (max-width: 860px) { .top { backdrop-filter: none; -webkit-backdrop-filter: none; background: color-mix(in srgb, var(--paper) 97%, transparent); } }
 /* svh у турі: висота екрана з видимим адресним рядком — не змінюється, коли рядок ховається, тож сцена й картка не розʼїжджаються (власник 14.11) */
+/* Тур на телефоні (власник 14.11): телефон більший і обрізається низом картки, плашки лежать поверх нього внизу,
+   під ними темний перехід, щоб білий текст читався на світлому скріні */
+@media (max-width: 860px) {
+  .tour.anim .tour-grid { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 16px; padding: 34px 16px 0; }
+  .tour.anim .tour-phone { width: min(76vw, 330px); flex: none; }
+  .tour.anim .tour-badges { position: absolute; left: 12px; right: 12px; bottom: 14px; min-height: 0; z-index: 3; }
+  .tour.anim .badge-set { inset: auto 0 0 0; height: auto; }
+  .tour.anim .tour-card::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to top, rgba(28, 42, 34, .92) 30%, rgba(28, 42, 34, 0)); }
+}
