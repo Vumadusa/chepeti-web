@@ -233,7 +233,7 @@ AN_ROWS = [(32.3, 10), (43.8, 10), (55.3, 13.3), (70.3, 15.8)]
 
 # Приклади прав для ролей на лендінгу (у застосунку ролей немає: права ставлять вручну, тут лише ілюстрація).
 ROLES = [(0, [1, 1, 1, 1, 1, 0]), (1, [1, 0, 1, 1, 1, 0]), (0, [0, 1, 0, 0, 0, 1]), (1, [0, 1, 1, 0, 0, 0])]
-SECTION_ICONS = ['stethoscope', 'pill', 'syringe', 'test-tube', 'file-text', 'notebook']
+SECTION_ICONS = ['calendar-blank', 'pill', 'syringe', 'flask', 'clipboard-text', 'notebook']  # як у застосунку
 
 
 def ph(ic: str) -> str:
