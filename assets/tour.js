@@ -14,7 +14,15 @@
   const n = imgs.length;
   const stops = []; // мітки «крок показано повністю» — точки прилипання
 
-  g.set(card, { yPercent: 95, scale: 0.94 }); // верх картки визирає внизу першого екрана, під песиком
+  // Верх картки визирає внизу першого екрана. На ПК — 95% висоти картки вниз; на телефоні песик менший і вище,
+  // тож картку піднято, щоб вона заходила на низ песика й голова не «висіла» в повітрі (власник 14.11).
+  const dog = $('.dog');
+  const peek = () => {
+    if (!dog || !matchMedia('(max-width: 860px)').matches) return card.offsetHeight * 0.95;
+    const sr = $('.tour-stage').getBoundingClientRect(), dr = dog.getBoundingClientRect();
+    // −20% висоти песика: зелене накриває підборіддя; −3% картки: стартовий масштаб 0,94 опускає її верх
+    return Math.min(card.offsetHeight * 0.95, dr.bottom - sr.top - dr.height * 0.2 - card.offsetTop - card.offsetHeight * 0.03);
+  };
   g.set(phone, { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
   g.set(imgs.slice(1), { autoAlpha: 0 });
 
@@ -41,7 +49,7 @@
   });
 
   tl.to(intro, { scale: 1.08, filter: 'blur(12px)', autoAlpha: 0, duration: 1 }, 0)
-    .to(card, { yPercent: 0, scale: 1, duration: 1 }, 0)
+    .fromTo(card, { y: peek, scale: 0.94 }, { y: 0, scale: 1, duration: 1 }, 0)
     .to(phone, { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' })
     .addLabel('s0', '-=0.6')
     .fromTo(texts[0], { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
