@@ -21,16 +21,3 @@
   });
 })();
 
-// «Доглядайте разом»: тап на роль показує приклад прав — рівень і відкриті розділи, як в аркуші прав застосунку.
-(() => {
-  const tabs = [...document.querySelectorAll('.family .who button')];
-  const box = document.querySelector('.family .rights');
-  if (!box || !tabs.length) return;
-  const lv = [...box.querySelectorAll('.rights-level span')], rows = [...box.querySelectorAll('.rights-list li')], note = box.querySelector('.rights-note');
-  tabs.forEach(b => b.addEventListener('click', () => {
-    tabs.forEach(x => x.setAttribute('aria-selected', String(x === b)));
-    lv.forEach((x, k) => x.classList.toggle('on', k === +b.dataset.lv));
-    rows.forEach((x, k) => x.classList.toggle('on', b.dataset.on[k] === '1'));
-    note.textContent = b.dataset.note;
-  }));
-})();

@@ -124,8 +124,6 @@ p { margin: 0; }
 .family .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
 .family .ill { width: min(100%, 460px); }
 .family .sub { margin: 18px 0 0; }
-.who { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-.who span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: .95rem; }
 
 /* 6. Решта: бенто з 6 клітинок (6 тем — 6 клітинок) */
 .more { padding: clamp(48px, 7vw, 96px) 0; }
@@ -429,36 +427,25 @@ footer .copy { margin-left: auto; }
 }
 @media (max-width: 860px) { .paw { width: min(78vw, 340px); } }
 
-/* «Доглядайте разом»: ролі — вкладки, під ними картка прав як в аркуші застосунку */
-.family .wrap { grid-template-columns: auto 1fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
-.fam-visual .phone { max-width: 290px; }
-.who button { font: inherit; font-weight: 600; font-size: .95rem; color: var(--ink); cursor: pointer;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px;
-  transition: background-color .2s, color .2s, transform .12s; }
-.who button:active { transform: scale(.97); }
-.who button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-on); }
-.rights { margin-top: 16px; max-width: 460px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 8px; }
-.rights-note { margin: 0 0 14px; color: var(--ink2); font-size: .95rem; line-height: 1.45; min-height: 2.9em; }
-.rights-level { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: var(--surface2); }
-.rights-level span { text-align: center; padding: 7px 8px; border-radius: 9px; font-size: .88rem; font-weight: 600; color: var(--ink3); transition: background-color .2s, color .2s; }
-.rights-level span.on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, .08); }
-.rights-h { margin: 16px 0 2px; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
-.rights-list { list-style: none; margin: 0; padding: 0; }
-.rights-list li { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); color: var(--ink3); transition: color .2s; }
-.rights-list li:first-child { border-top: 0; }
-.rights-list li.on { color: var(--ink); }
-.rights-list i { width: 20px; height: 20px; flex: none; background: currentColor; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
-.rights-list span { flex: 1; font-weight: 600; font-size: .95rem; }
-.sw { position: relative; width: 38px; height: 22px; flex: none; border-radius: 999px; background: var(--surface2); box-shadow: inset 0 0 0 1px var(--line); transition: background-color .22s; }
-.sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); transition: transform .22s cubic-bezier(.3, .7, .4, 1); }
-.rights-list li.on .sw { background: var(--accent); }
-.rights-list li.on .sw::after { transform: translateX(16px); }
-.fam-facts { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 8px; max-width: 460px; }
-.fam-facts li { position: relative; padding-left: 22px; color: var(--ink2); font-size: .95rem; line-height: 1.45; }
-.fam-facts li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-.fam-prem { margin-top: 14px; font-size: .9rem; color: var(--ink3); max-width: 460px; }
+/* «Доглядайте разом»: ролі — картки 2×2, різниця в одному реченні й чіпі рівня */
+.family .wrap { grid-template-columns: auto 1fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+.fam-visual .phone { max-width: 260px; }
+.roles { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 540px; }
+.roles li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; }
+.roles b { display: block; font-size: 1.05rem; }
+.roles span { white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; padding: 3px 10px 3px 8px; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+.roles .lv0 { background: var(--accent-tint); color: var(--accent-deep); }
+.roles .lv1 { background: var(--surface2); color: var(--ink2); }
+.roles i { width: 14px; height: 14px; background: currentColor; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+.roles p { margin: 10px 0 0; color: var(--ink2); font-size: .93rem; line-height: 1.4; }
+.fam-facts { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 6px; max-width: 540px; }
+.fam-facts li { position: relative; padding-left: 20px; color: var(--ink2); font-size: .95rem; line-height: 1.45; }
+.fam-facts li::before { content: ""; position: absolute; left: 3px; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.fam-prem { margin-top: 12px; font-size: .9rem; color: var(--ink3); max-width: 540px; }
 @media (max-width: 860px) {
   .family .wrap { grid-template-columns: 1fr; }
   .fam-visual { order: 2; }
   .fam-visual .phone { max-width: 240px; margin: 0 auto; }
 }
+@media (max-width: 520px) { .roles { gap: 8px; } .roles li { padding: 12px 12px 14px; } .roles b { font-size: .95rem; } .roles p { font-size: .85rem; } .roles span { font-size: .74rem; padding: 3px 8px 3px 6px; } }
+@media (max-width: 330px) { .roles { grid-template-columns: 1fr; } }
