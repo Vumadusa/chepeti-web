@@ -551,3 +551,15 @@ footer .copy { margin-left: auto; }
   .tour.anim .tour-texts { height: 150px; flex: none; }
   .tour.anim .tour-texts > div { justify-content: flex-start; }
 }
+/* Шапка (власник 14.11): «Завантажити» відкриває віконце з Google Play і App Store; на телефоні тема й мова — праворуч біля кнопки */
+.dl { position: relative; }
+.dl summary { list-style: none; cursor: pointer; }
+.dl summary::-webkit-details-marker { display: none; }
+.dl-menu { position: absolute; right: 0; top: calc(100% + 10px); display: grid; gap: 8px; padding: 10px; border-radius: 22px; background: var(--surface);
+  border: 1px solid var(--line); box-shadow: 0 24px 48px -16px rgba(0, 0, 0, .28); z-index: 30; }
+.dl-menu .btn { justify-content: flex-start; }
+@media (max-width: 860px) {
+  .top .wrap { gap: 10px; }
+  .top .theme { margin-left: auto; }
+  .top .btn-sm { margin-left: 0; }
+}

@@ -52,3 +52,11 @@
   }, { passive: true });
   document.addEventListener('pointerleave', () => { cur?.classList.remove('on'); cur = null; });
 })();
+
+// «Завантажити» в шапці: віконце закривається тапом повз нього та Esc.
+(() => {
+  const dl = document.querySelector('.dl');
+  if (!dl) return;
+  document.addEventListener('click', e => { if (dl.open && !dl.contains(e.target)) dl.open = false; });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') dl.open = false; });
+})();
