@@ -80,3 +80,15 @@
     });
   }
 })();
+
+// «Доглядайте разом»: телефон спершу відхилений назад і трохи менший, під час прокрутки випрямляється
+// (ідея — PhoneScrollHero, переписано на GSAP, власник 14.11). «Зменшити рух» — стоїть рівно.
+(() => {
+  const g = window.gsap, ST = window.ScrollTrigger;
+  const phone = document.querySelector('.fam-visual .phone');
+  if (!phone || !g || !ST || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  g.registerPlugin(ST);
+  g.fromTo(phone, { rotationX: 22, scale: 0.94, y: 40, transformPerspective: 1200, transformOrigin: '50% 100%' },
+    { rotationX: 0, scale: 1, y: 0, ease: 'none',
+      scrollTrigger: { trigger: phone, start: 'top bottom', end: 'center center', scrub: 0.6 } });
+})();
