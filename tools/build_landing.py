@@ -81,11 +81,20 @@ T = {
          ('Аналітика лише за згодою', 'Перемикачі вимкнені, доки ви самі їх не ввімкнете.'),
          ('Видалення одним дотиком', 'Видалити всі дані можна в застосунку або на сайті.')],
   plans_h2='Почніть безкоштовно',
-  plans_sub='Ціни в Google Play, у вашій валюті. Premium можна спробувати 7 днів безкоштовно.',
-  free='Безкоштовно', free_price='Назавжди, з рекламою',
-  free_list=['Одна тварина', 'Візити, ліки, щеплення, аналізи, документи й щоденник', 'Нагадування', 'QR на нашийник і режим «Мене шукають»', 'Довідник ветклінік'],
-  prem='Premium', prem_price='Місячна або річна підписка',
-  prem_list=['Необмежено тварин', 'Хмарна копія: 500 МБ, з Premium+ 1 ГБ', 'Без реклами', '«Дано» прямо в сповіщенні', 'Спільний доступ для сім’ї', 'PDF для лікаря'],
+  plans_sub='Основне доступне без оплати, з рекламою. З Premium можливостей більше, і 7 днів його можна спробувати без оплати. Ціни в Google Play, у вашій валюті.',
+  prem_chip='Premium',
+  feats=[('heartbeat', 'Медкартка', 'Візити, лікування, щеплення, аналізи, документи й щоденник', 0),
+         ('bell-ringing', 'Нагадування', 'Про ліки, щеплення, візити й повторні аналізи', 0),
+         ('chart-line-up', 'Аналізи на графіку', 'Як змінюються показники від аналізу до аналізу', 0),
+         ('qr-code', 'QR на нашийник', 'І режим «Мене шукають», якщо тварина загубилась', 0),
+         ('map-pin', 'Довідник закладів', 'Ветклініки, грумери, зоомагазини й готелі', 0),
+         ('paw-print', 'Скільки завгодно тварин', 'Безкоштовно одна тварина', 1),
+         ('users', 'Спільний доступ', 'Сім’я, ветеринар чи догсітер бачать потрібне', 1),
+         ('check-circle', 'Відмітка зі сповіщення', 'Прийом ліків, не відкриваючи застосунок', 1),
+         ('list-checks', 'Журнал прийому', 'Хто й коли дав ліки', 1),
+         ('cloud-check', 'Хмарна копія', '500 МБ для файлів, з Premium+ 1 ГБ', 1),
+         ('file-pdf', 'PDF для лікаря', 'Уся історія одним файлом', 1),
+         ('prohibit', 'Без реклами', 'В усьому застосунку', 1)],
   faq_h2='Питання',
   faq=[('Чи працює без інтернету?', 'Так. Дані лежать на телефоні, нагадування приходять і без мережі. Інтернет потрібен для хмарної копії, спільного доступу й сторінки QR.'),
        ('Чи є версія для iPhone?', 'Готуємо. Зараз Chepeti є в Google Play, версія для iPhone з’явиться в App Store.'),
@@ -155,11 +164,20 @@ T = {
          ('Analytics only with consent', 'Toggles stay off until you turn them on.'),
          ('Delete in one tap', 'Delete all your data in the app or on the website.')],
   plans_h2='Start for free',
-  plans_sub='Prices are shown in Google Play in your currency. Try Premium free for 7 days.',
-  free='Free', free_price='Forever, with ads',
-  free_list=['One pet', 'Visits, meds, vaccines, tests, documents and diary', 'Reminders', 'QR collar tag and “I’m lost” mode', 'Vet clinic directory'],
-  prem='Premium', prem_price='Monthly or yearly subscription',
-  prem_list=['Unlimited pets', 'Cloud backup: 500 MB, 1 GB with Premium+', 'No ads', '“Given” right in the notification', 'Family sharing', 'PDF for your vet'],
+  plans_sub='Everything essential is free, with ads. Premium adds more, and you can try it free for 7 days. Prices are shown in Google Play in your currency.',
+  prem_chip='Premium',
+  feats=[('heartbeat', 'Health record', 'Visits, treatment, vaccinations, tests, documents and diary', 0),
+         ('bell-ringing', 'Reminders', 'For meds, vaccinations, visits and follow-up tests', 0),
+         ('chart-line-up', 'Lab results on a chart', 'See how values change from test to test', 0),
+         ('qr-code', 'QR collar tag', 'And “I’m lost” mode if your pet goes missing', 0),
+         ('map-pin', 'Places directory', 'Vet clinics, groomers, pet shops and hotels', 0),
+         ('paw-print', 'As many pets as you like', 'One pet on the free plan', 1),
+         ('users', 'Shared access', 'Family, your vet or a pet sitter see what they need', 1),
+         ('check-circle', 'Mark from the notification', 'Log a dose without opening the app', 1),
+         ('list-checks', 'Dose log', 'Who gave the medicine, and when', 1),
+         ('cloud-check', 'Cloud backup', '500 MB for files, 1 GB with Premium+', 1),
+         ('file-pdf', 'PDF for your vet', 'The whole history in one file', 1),
+         ('prohibit', 'No ads', 'Anywhere in the app', 1)],
   faq_h2='FAQ',
   faq=[('Does it work offline?', 'Yes. Data lives on your phone and reminders arrive without a connection. You need internet for cloud backup, sharing and the QR page.'),
        ('Is there an iPhone version?', 'It’s on the way. Chepeti is on Google Play now, and the iPhone version is coming to the App Store.'),
@@ -353,10 +371,7 @@ def page(t: dict) -> str:
 <section class="plans" id="plans"><div class="wrap">
   <h2 class="reveal">{t['plans_h2']}</h2>
   <p class="sub reveal">{t['plans_sub']}</p>
-  <div class="cols">
-    <div class="plan reveal"><h3>{t['free']}</h3><p class="price">{t['free_price']}</p><ul>{ul(t['free_list'])}</ul></div>
-    <div class="plan premium reveal" style="--i:1"><h3>{t['prem']}</h3><p class="price">{t['prem_price']}</p><ul>{ul(t['prem_list'])}</ul></div>
-  </div>
+  <ul class="feats">{''.join(f'<li class="reveal{" pro" if pro else ""}" style="--i:{k % 3}">{ph(ic)}<b>{h}</b><p>{tx}</p>{f'<span class="pro-chip">{ph("crown-simple")}{t["prem_chip"]}</span>' if pro else ''}</li>' for k, (ic, h, tx, pro) in enumerate(t['feats']))}</ul>
 </div></section>
 
 <section class="faq" id="faq"><div class="wrap">

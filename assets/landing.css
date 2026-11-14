@@ -450,3 +450,19 @@ footer .copy { margin-left: auto; }
 }
 @media (max-width: 520px) { .roles { gap: 8px; } .roles li { padding: 12px 12px 14px; } .roles b { font-size: .95rem; } .roles p { font-size: .85rem; } .roles span { font-size: .74rem; padding: 3px 8px 3px 6px; } }
 @media (max-width: 330px) { .roles { grid-template-columns: 1fr; } }
+
+/* Можливості: один перелік, Premium-пункти з чіпом у куті (замість двох тарифних карток) */
+.feats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 1040px; margin-inline: auto; }
+.feats li { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 20px 22px; }
+.feats li > i { display: block; width: 40px; height: 40px; border-radius: 12px; background: var(--accent-tint); position: relative; }
+.feats li > i::after { content: ""; position: absolute; inset: 10px; background: var(--accent-deep); -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+.feats b { display: block; margin-top: 14px; font-size: 1.05rem; }
+.feats p { margin: 4px 0 0; color: var(--ink2); font-size: .93rem; line-height: 1.45; }
+.pro-chip { position: absolute; top: 20px; right: 18px; display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px 3px 7px; border-radius: 999px;
+  background: #F3E3C0; color: #7A5418; font-size: .75rem; font-weight: 700; }
+.pro-chip i { width: 13px; height: 13px; background: currentColor; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pro-chip { background: #4A3A1C; color: #F1D28E; } }
+:root[data-theme="dark"] .pro-chip { background: #4A3A1C; color: #F1D28E; }
+@media (max-width: 860px) { .feats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .feats { gap: 8px; } .feats li { padding: 14px 12px 16px; } .feats b { font-size: .95rem; } .feats p { font-size: .85rem; }
+  .pro-chip { top: 14px; right: 10px; padding: 2px 7px 2px 5px; font-size: .68rem; } }
