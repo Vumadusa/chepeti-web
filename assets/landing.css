@@ -540,7 +540,7 @@ footer .copy { margin-left: auto; }
 @media (max-width: 860px) {
   .tour.anim .tour-grid { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 16px; padding: 34px 16px 0; }
   .tour.anim .tour-phone { width: min(76vw, 330px); flex: none; }
-  .tour.anim .tour-badges { position: absolute; left: 12px; right: 12px; bottom: 14px; min-height: 0; z-index: 3; }
+  .tour.anim .tour-badges { position: absolute; left: 12px; right: 12px; bottom: 14px; width: auto; min-height: 0; z-index: 3; }
   .tour.anim .badge-set { inset: auto 0 0 0; height: auto; }
   .tour.anim .tour-card::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; z-index: 2; pointer-events: none;
     background: linear-gradient(to top, rgba(28, 42, 34, .92) 30%, rgba(28, 42, 34, 0)); }
@@ -566,3 +566,9 @@ footer .copy { margin-left: auto; }
 /* Легкий тур: без важких тіней на плашках і телефоні — їх перемальовує кожен кадр прокрутки */
 .tour.lite .badge { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .17); }
 .tour.lite .tour-phone { box-shadow: inset 0 0 0 1.5px #4A443D; }
+/* Плашки туру на телефоні: дві рівні колонки на всю ширину — довгі не вилазять за край, короткі не «танцюють» (власник 14.11) */
+@media (max-width: 860px) {
+  .tour .badge-set { justify-items: stretch; }
+  .tour .badge { min-width: 0; width: 100%; }
+  .tour .badge b { min-width: 0; overflow-wrap: anywhere; }
+}
