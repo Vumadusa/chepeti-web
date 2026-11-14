@@ -545,3 +545,9 @@ footer .copy { margin-left: auto; }
   .tour.anim .tour-card::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; z-index: 2; pointer-events: none;
     background: linear-gradient(to top, rgba(28, 42, 34, .92) 30%, rgba(28, 42, 34, 0)); }
 }
+/* Тур на телефоні: текст від верху (не по центру — довгий опис вилазив над карткою під крапки), телефон нижче (власник 14.11) */
+@media (max-width: 860px) {
+  .tour.anim .tour-grid { padding-top: 40px; gap: 18px; }
+  .tour.anim .tour-texts { height: 150px; flex: none; }
+  .tour.anim .tour-texts > div { justify-content: flex-start; }
+}
