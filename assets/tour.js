@@ -35,7 +35,7 @@
     onUpdate: () => {
       const t = tl.time();
       let on = 0;
-      for (let i = 0; i < n; i++) if (t >= tl.labels['s' + i] - 0.3) on = i;
+      for (let i = 0; i < n; i++) if (t >= tl.labels['s' + i] - (lite ? 0.05 : 0.3)) on = i; // на телефоні пауза між кроками коротка — і запас менший
       dots.forEach((d, i) => d.classList.toggle('on', i === on));
       tour.dataset.step = on; // зони аналізів у телефоні активні лише на своєму кроці
     },
@@ -53,23 +53,31 @@
     },
   });
 
+  // Плашки: на ПК по одній з пружиною; на телефоні весь набір однією прозорістю — менше роботи на кадр (власник 14.11).
+  const showSet = i => lite
+    ? g.fromTo(sets[i].children, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 })
+    : g.fromTo(sets[i].children, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.45, stagger: 0.07, ease: 'back.out(1.5)' });
+  const hideSet = i => lite
+    ? g.to(sets[i].children, { autoAlpha: 0, duration: 0.25 })
+    : g.to(sets[i].children, { autoAlpha: 0, scale: 0.9, duration: 0.35, stagger: 0.03 });
+
   tl.to(intro, lite ? { y: -40, autoAlpha: 0, duration: 1 } : { scale: 1.08, filter: 'blur(12px)', autoAlpha: 0, duration: 1 }, 0)
-    .fromTo(card, { y: peek, scale: 0.94 }, { y: 0, scale: 1, duration: 1 }, 0)
+    .fromTo(card, lite ? { y: peek } : { y: peek, scale: 0.94 }, lite ? { y: 0, duration: 1 } : { y: 0, scale: 1, duration: 1 }, 0)
     .to(phone, lite ? { y: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' } : { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' })
     .addLabel('s0', '-=0.6')
-    .fromTo(texts[0], { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
-    .fromTo(sets[0].children, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.5)' }, 's0+=0.15')
+    .fromTo(texts[0], { autoAlpha: 0, x: lite ? 0 : -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
+    .add(showSet(0), 's0+=0.15')
     .addLabel('v0');
   stops.push('v0');
 
   for (let i = 1; i < n; i++) {
     tl.to({}, { duration: lite ? 0.1 : 0.7 }) // пауза між кроками; на телефоні майже без неї — свайп одразу міняє екран
       .addLabel('s' + i)
-      .to(texts[i - 1], { autoAlpha: 0, y: -24, duration: 0.45 }, 's' + i)
-      .to(sets[i - 1].children, { autoAlpha: 0, scale: 0.9, duration: 0.35, stagger: 0.03 }, 's' + i)
+      .to(texts[i - 1], { autoAlpha: 0, y: lite ? 0 : -24, duration: lite ? 0.3 : 0.45 }, 's' + i)
+      .add(hideSet(i - 1), 's' + i)
       .to(imgs[i], { autoAlpha: 1, duration: 0.6 }, 's' + i)
-      .fromTo(texts[i], { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 's' + i + '+=0.2')
-      .fromTo(sets[i].children, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.45, stagger: 0.07, ease: 'back.out(1.5)' }, 's' + i + '+=0.3')
+      .fromTo(texts[i], { autoAlpha: 0, y: lite ? 0 : 28 }, { autoAlpha: 1, y: 0, duration: lite ? 0.3 : 0.5 }, 's' + i + (lite ? '+=0.1' : '+=0.2'))
+      .add(showSet(i), 's' + i + (lite ? '+=0.1' : '+=0.3'))
       .addLabel('v' + i);
     stops.push('v' + i);
   }
