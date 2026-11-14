@@ -25,6 +25,7 @@ def svg_from(ts: str, name: str | None = None) -> str:
 
 ILL = {n: svg_from('illustrations.ts', n) for n in ('welcome', 'no-sharing', 'protection')}
 MARK = svg_from('mark.ts')
+LOGO = (WEB / 'assets' / 'logo.svg').read_text().strip()  # логотип-напис від власника (14.11), колір із currentColor
 
 T = {
  'uk': dict(
@@ -61,8 +62,20 @@ T = {
   meds_sub='Графік прийому, нагадування вчасно і журнал, де видно, хто з сімʼї і коли дав ліки.',
   meds_note='<b>З Premium</b> «Дано» можна натиснути прямо в сповіщенні, не відкриваючи застосунок.',
   fam_h2='Доглядайте разом',
-  fam_sub='Дайте доступ сімʼї, ветеринару чи догсітеру. Права окремо на кожен розділ, режим «тільки перегляд» і пауза доступу.',
+  fam_sub='Дайте доступ сімʼї, ветеринару чи догсітеру. Кожному свої розділи і свій рівень: повний або тільки перегляд.',
   who=['Сімʼя', 'Ветеринар', 'Догсітер', 'Друзі на час відпустки'],
+  who_note=['Ведуть усе разом із вами. Щоденник закритий, поки ви його не відкриєте.',
+            'Бачить історію перед прийомом і нічого не змінює.',
+            'Відмічає «Дано» й пише в щоденник, поки вас немає.',
+            'Підглядають графік ліків і щеплень, поки ви у відпустці.'],
+  levels=['Повний доступ', 'Тільки перегляд'], sections_h='Доступні розділи',
+  sections=['Візити', 'Лікування', 'Щеплення', 'Аналізи', 'Документи', 'Щоденник'],
+  fam_facts=['Доступ на одну тварину, а не на весь акаунт. До 5 людей.',
+             'Журнал показує, хто й коли дав ліки чи змінив запис.',
+             'Права змінюються одразу, людина отримує сповіщення.',
+             'Забрали доступ, а все, що людина додала, лишається вам.'],
+  fam_prem='Доступ відкриває власник із Premium, запрошеним підписка не потрібна.',
+  alt_share='Екран «Спільний доступ»: троє учасників з різними правами',
   more_h2='І все інше, що варто памʼятати',
   cells=[('Візити', 'Висновок лікаря, що забули спитати, і нагадування про наступний прийом.'),
          ('Щеплення', 'Нагадає заздалегідь і покаже, що вже прострочено.'),
@@ -83,7 +96,7 @@ T = {
   faq_h2='Питання',
   faq=[('Чи працює без інтернету?', 'Так. Дані лежать на телефоні, нагадування приходять і без мережі. Інтернет потрібен для хмарної копії, спільного доступу й сторінки QR.'),
        ('Чи є версія для iPhone?', 'Готуємо. Зараз Chepeti є в Google Play, версія для iPhone зʼявиться в App Store.'),
-       ('Що буде з даними, якщо я зміню телефон?', 'Увійдіть у свій акаунт на новому телефоні, і записи повернуться. Файли документів зберігаються в хмарі з Premium.'),
+       ('Що буде з даними, якщо я зміню телефон?', 'Якщо ви додали й підтвердили email, увійдіть в акаунт на новому телефоні, і повернуться всі записи: візити, лікування, щеплення, аналізи, щоденник. З Premium повернуться ще й файли документів.'),
        ('Хто бачить мої дані?', 'Лише ви. Без реєстрації все лежить на телефоні, акаунт потрібен тільки для хмарної копії, QR і спільного доступу. Аналітика вмикається лише за вашою згодою, а видалити все можна одним дотиком у застосунку.'),
        ('Для яких тварин підходить?', 'Коти, собаки, кролики, гризуни, птахи, рептилії та інші.'),
        ('Як видалити акаунт і дані?', 'У застосунку: Профіль, далі «Дані і приватність». Або на сторінці <a href="/delete-account.html">видалення акаунта</a>.')],
@@ -130,8 +143,20 @@ T = {
   meds_sub='Dose schedules, reminders on time and a log that shows who in the family gave the medicine and when.',
   meds_note='<b>With Premium</b> tap “Given” right in the notification, without opening the app.',
   fam_h2='Care for them together',
-  fam_sub='Share with family, your vet or a pet sitter. Permissions per section, view-only mode and pausing access.',
+  fam_sub='Share with family, your vet or a pet sitter. Each person gets their own sections and level: full access or view only.',
   who=['Family', 'Vet', 'Pet sitter', 'Friends while you travel'],
+  who_note=['They keep track of everything with you. The diary stays closed until you open it.',
+            'Sees the history before the visit and can’t change anything.',
+            'Marks doses as given and writes in the diary while you’re away.',
+            'Can check the meds and vaccine schedule while you’re on holiday.'],
+  levels=['Full access', 'View only'], sections_h='Available sections',
+  sections=['Visits', 'Treatment', 'Vaccinations', 'Tests', 'Documents', 'Diary'],
+  fam_facts=['Access to one pet, not your whole account. Up to 5 people.',
+             'The log shows who gave a medicine or changed a record, and when.',
+             'New permissions apply at once, and the person gets a notification.',
+             'Remove access any time: everything they added stays with you.'],
+  fam_prem='Sharing is opened by an owner with Premium; invited people don’t need a subscription.',
+  alt_share='The “Shared access” screen: three people with different permissions',
   more_h2='And everything else worth remembering',
   cells=[('Vet visits', 'The vet’s conclusion, what you forgot to ask, and a reminder for the next visit.'),
          ('Vaccinations', 'Reminds you ahead of time and shows what’s overdue.'),
@@ -152,7 +177,7 @@ T = {
   faq_h2='FAQ',
   faq=[('Does it work offline?', 'Yes. Data lives on your phone and reminders arrive without a connection. You need internet for cloud backup, sharing and the QR page.'),
        ('Is there an iPhone version?', 'It’s on the way. Chepeti is on Google Play now, and the iPhone version is coming to the App Store.'),
-       ('What happens to my data if I change phones?', 'Sign in to your account on the new phone and your records come back. Document files are kept in the cloud with Premium.'),
+       ('What happens to my data if I change phones?', 'If you’ve added and confirmed your email, sign in on the new phone and all your records come back: visits, treatment, vaccinations, tests and diary. With Premium, your document files come back too.'),
        ('Who can see my data?', 'Only you. Without an account everything stays on your phone; an account is only for cloud backup, QR and sharing. Analytics turn on only with your consent, and you can delete everything in one tap in the app.'),
        ('Which pets does it support?', 'Cats, dogs, rabbits, rodents, birds, reptiles and more.'),
        ('How do I delete my account and data?', 'In the app: Profile, then “Data and privacy”. Or on the <a href="/en/delete-account.html">account deletion page</a>.')],
@@ -204,6 +229,15 @@ def an_data(t: dict) -> str:
 
 # Рядки на скриншоті списку аналізів (у % висоти кадру), однакові для uk і en.
 AN_ROWS = [(32.3, 10), (43.8, 10), (55.3, 13.3), (70.3, 15.8)]
+
+
+# Приклади прав для ролей на лендінгу (у застосунку ролей немає: права ставлять вручну, тут лише ілюстрація).
+ROLES = [(0, [1, 1, 1, 1, 1, 0]), (1, [1, 0, 1, 1, 1, 0]), (0, [0, 1, 0, 0, 0, 1]), (1, [0, 1, 1, 0, 0, 0])]
+SECTION_ICONS = ['stethoscope', 'pill', 'syringe', 'test-tube', 'file-text', 'notebook']
+
+
+def ph(ic: str) -> str:
+    return f'<i style="--ic:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/{ic}.svg)"></i>'
 
 
 def badge(ic: str, tx: str, m: int) -> str:
@@ -264,7 +298,7 @@ def page(t: dict) -> str:
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <a class="brand" href="{t['root']}">{MARK}<span>Chepeti</span></a>
+  <a class="brand" href="{t['root']}">{LOGO}</a>
   <nav aria-label="{t['nav'][0]}"><a href="#lost">{t['nav'][0]}</a><a href="#plans">{t['nav'][1]}</a><a href="#faq">{t['nav'][2]}</a></nav>
   <button class="theme" type="button" aria-label="{t['theme']}" title="{t['theme']}"><i class="sun"></i><i class="moon"></i></button>
   <a class="lang" href="{t['other']}" hreflang="{'en' if L == 'uk' else 'uk'}">{t['other_label']}</a>
@@ -309,11 +343,19 @@ def page(t: dict) -> str:
 </div></section>
 
 <section class="family"><div class="wrap">
-  <div class="ill reveal" aria-hidden="true">{ILL['no-sharing']}</div>
+  <div class="fam-visual reveal"><div class="phone"><img src="{shot('19-sharing')}" alt="{html.escape(t['alt_share'])}" width="600" height="1333" loading="lazy" style="object-position:top"></div></div>
   <div class="reveal" style="--i:1">
     <h2>{t['fam_h2']}</h2>
     <p class="sub">{t['fam_sub']}</p>
-    <div class="who">{''.join(f'<span>{w}</span>' for w in t['who'])}</div>
+    <div class="who" role="tablist">{''.join(f'<button type="button" role="tab" aria-selected="{str(k == 0).lower()}" data-lv="{lv}" data-on="{''.join(map(str, on))}" data-note="{html.escape(t['who_note'][k])}">{w}</button>' for k, (w, (lv, on)) in enumerate(zip(t['who'], ROLES)))}</div>
+    <div class="rights" role="tabpanel">
+      <p class="rights-note" aria-live="polite">{t['who_note'][0]}</p>
+      <div class="rights-level">{''.join(f'<span class="{"on" if k == ROLES[0][0] else ""}">{x}</span>' for k, x in enumerate(t['levels']))}</div>
+      <p class="rights-h">{t['sections_h']}</p>
+      <ul class="rights-list">{''.join(f'<li class="{"on" if ROLES[0][1][k] else ""}">{ph(SECTION_ICONS[k])}<span>{x}</span><b class="sw"></b></li>' for k, x in enumerate(t['sections']))}</ul>
+    </div>
+    <ul class="fam-facts">{''.join(f'<li>{x}</li>' for x in t['fam_facts'])}</ul>
+    <p class="fam-prem">{t['fam_prem']}</p>
   </div>
 </div></section>
 
