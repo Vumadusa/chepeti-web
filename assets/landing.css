@@ -521,6 +521,6 @@ footer .copy { margin-left: auto; }
 .has-grid .grid-bg { display: block; }
 .has-grid main, .has-grid .foot { position: relative; z-index: 1; }
 .has-grid .tour-stage { background: var(--paper); }
-.grid-bg rect { fill: currentColor; fill-opacity: 0; stroke: currentColor; stroke-opacity: .025; transition: fill-opacity 1s ease-out; }
+.grid-bg rect { fill: currentColor; fill-opacity: 0; stroke: currentColor; stroke-opacity: .012; transition: fill-opacity 1s ease-out; }
 .grid-bg rect.on { fill-opacity: .07; transition: none; }
 @media (prefers-reduced-motion: reduce) { .grid-bg rect { transition: none; } }
