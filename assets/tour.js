@@ -26,6 +26,17 @@
   // Телефон / сенсорний екран: без 3D-повороту й розмиття — вони перемальовують кадр щоразу й гальмували прокрутку (власник 14.11).
   const lite = matchMedia('(max-width: 860px), (pointer: coarse)').matches;
   if (lite) tour.classList.add('lite');
+  // Телефон: місце під заголовок і опис — за найдовшим описом на цьому екрані, а не фіксовані 150 px;
+  // коротші тексти — вище телефон і більше видно скріна (власник 14.11). Перераховується при зміні розміру.
+  const textBox = $('.tour-texts');
+  const fitTexts = () => {
+    if (!lite) return;
+    textBox.style.height = '0px';
+    const h = Math.max(...texts.map(d => d.scrollHeight));
+    textBox.style.height = Math.ceil(h + 6) + 'px';
+  };
+  fitTexts();
+  ST.addEventListener('refreshInit', fitTexts);
   g.set(phone, lite ? { y: 80, scale: 0.92, autoAlpha: 0 } : { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
   g.set(imgs.slice(1), { autoAlpha: 0 });
 
