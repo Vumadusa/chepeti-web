@@ -48,7 +48,7 @@
       pin: $('.tour-stage'), scrub: lite ? true : 1, anticipatePin: 1, invalidateOnRefresh: true,
       snap: {
         snapTo: (v, self) => ST.snapDirectional([0, ...stops.map(l => tl.labels[l] / tl.duration()), 1])(v, self.direction),
-        duration: lite ? { min: 0.2, max: 0.45 } : { min: 0.3, max: 0.9 }, delay: lite ? 0.02 : 0.12, ease: 'power2.inOut', inertia: false,
+        duration: lite ? { min: 0.15, max: 0.35 } : { min: 0.3, max: 0.9 }, delay: lite ? 0.02 : 0.12, ease: 'power2.inOut', inertia: false,
       },
     },
   });
@@ -63,7 +63,7 @@
   stops.push('v0');
 
   for (let i = 1; i < n; i++) {
-    tl.to({}, { duration: 0.7 })
+    tl.to({}, { duration: lite ? 0.1 : 0.7 }) // пауза між кроками; на телефоні майже без неї — свайп одразу міняє екран
       .addLabel('s' + i)
       .to(texts[i - 1], { autoAlpha: 0, y: -24, duration: 0.45 }, 's' + i)
       .to(sets[i - 1].children, { autoAlpha: 0, scale: 0.9, duration: 0.35, stagger: 0.03 }, 's' + i)
@@ -73,7 +73,7 @@
       .addLabel('v' + i);
     stops.push('v' + i);
   }
-  tl.to({}, { duration: 0.8 });
+  tl.to({}, { duration: lite ? 0.3 : 0.8 });
 
   // «Можливості» в шапці: не на верх секції (там ще песик), а одразу на перший крок, коли картка вже піднялась.
   document.querySelectorAll('a[href="#features"]').forEach(a => a.addEventListener('click', e => {
