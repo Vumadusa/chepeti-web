@@ -515,3 +515,7 @@ footer .copy { margin-left: auto; }
 /* Песик «клас» більший (власник 14.11): нова версія з тінню */
 .foot-dog { width: clamp(260px, 30vw, 380px); margin-top: calc(-1 * clamp(110px, 11vw, 160px)); }
 @media (max-width: 860px) { .foot-dog { width: min(64vw, 260px); margin-top: 0; } }
+/* Пляма в підвалі темніша, ніж у турі: на всю ширину вона лягала за песика (власник 14.11) */
+.foot-card { background: radial-gradient(120% 90% at 85% 0%, #648571 0%, transparent 55%), linear-gradient(150deg, #5E7E6B 0%, #3F5A4A 70%, #34503F 100%); }
+:root[data-theme="dark"] .foot-card { background: radial-gradient(120% 90% at 85% 0%, #33483B 0%, transparent 55%), linear-gradient(150deg, #2C3E33 0%, #1D2A22 100%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .foot-card { background: radial-gradient(120% 90% at 85% 0%, #33483B 0%, transparent 55%), linear-gradient(150deg, #2C3E33 0%, #1D2A22 100%); } }
