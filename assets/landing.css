@@ -572,9 +572,7 @@ footer .copy { margin-left: auto; }
   .tour .badge { min-width: 0; width: 100%; }
   .tour .badge b { min-width: 0; overflow-wrap: anywhere; }
 }
-/* «Завантажити»: без «+» від стилю FAQ (він повертався у «×» на кнопці), свій хрестик — усередині віконця (власник 14.11) */
+/* «Завантажити»: без «+» від стилю FAQ (він повертався у «×» на кнопці); закривається тапом повз (власник 14.11).
+   Ширина за вмістом: інакше віконце стискалось до ширини кнопки, і «скоро» впиралось у край */
 .dl summary::after { content: none; display: none; }
-.dl-menu { padding-top: 46px; }
-.dl-x { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border-radius: 999px; border: 0; background: var(--surface2); color: var(--ink2); cursor: pointer; display: grid; place-items: center; }
-.dl-x::before { content: ""; width: 16px; height: 16px; background: currentColor; -webkit-mask: url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/x.svg) center / contain no-repeat; mask: url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/x.svg) center / contain no-repeat; }
-.dl-x:hover { color: var(--ink); }
+.dl-menu { width: max-content; }
