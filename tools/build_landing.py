@@ -379,16 +379,18 @@ def page(t: dict) -> str:
   {''.join(f'<details><summary>{q}</summary><p>{ans}</p></details>' for q, ans in t['faq'])}
 </div></section>
 
-<section class="final"><div class="wrap reveal">
-  <div><h2>{t['final_h2']}</h2><p>{t['final_p']}</p></div>
-  {btn_play}
-</div></section>
 </main>
 
-<footer><div class="wrap">
-  {''.join(f'<a href="{u}">{n}</a>' for n, u in t['foot'])}
-  <a href="mailto:support@chepeti.com">support@chepeti.com</a>
-  <span class="copy">© 2026 Chepeti</span>
+<footer class="foot"><div class="foot-card">
+  <div class="foot-cta">
+    <div class="foot-text reveal"><h2>{t['final_h2']}</h2><p>{t['final_p']}</p><div class="cta-row">{btn_play}{btn_soon}</div></div>
+    <img class="foot-dog" src="{a}dog/thumbs-up.webp" alt="" width="640" height="935" loading="lazy">
+  </div>
+  <div class="foot-links">
+    {''.join(f'<a href="{u}">{n}</a>' for n, u in t['foot'])}
+    <a href="mailto:support@chepeti.com">support@chepeti.com</a>
+    <span class="copy">© 2026 Chepeti</span>
+  </div>
 </div></footer>
 <script src="{a}landing.js?v={ver("landing.js")}" defer></script>
 <script src="{a}tour.js?v={ver("tour.js")}" defer></script>
