@@ -23,7 +23,10 @@
     // −20% висоти песика: зелене накриває підборіддя; −3% картки: стартовий масштаб 0,94 опускає її верх
     return Math.min(card.offsetHeight * 0.95, dr.bottom - sr.top - dr.height * 0.2 - card.offsetTop - card.offsetHeight * 0.03);
   };
-  g.set(phone, { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
+  // Телефон / сенсорний екран: без 3D-повороту й розмиття — вони перемальовують кадр щоразу й гальмували прокрутку (власник 14.11).
+  const lite = matchMedia('(max-width: 860px), (pointer: coarse)').matches;
+  if (lite) tour.classList.add('lite');
+  g.set(phone, lite ? { y: 80, scale: 0.92, autoAlpha: 0 } : { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
   g.set(imgs.slice(1), { autoAlpha: 0 });
 
   // Крапки кроків — від часу самої анімації (scrub доганяє прокрутку із запізненням, тож не від події прокрутки).
@@ -48,9 +51,9 @@
     },
   });
 
-  tl.to(intro, { scale: 1.08, filter: 'blur(12px)', autoAlpha: 0, duration: 1 }, 0)
+  tl.to(intro, lite ? { y: -40, autoAlpha: 0, duration: 1 } : { scale: 1.08, filter: 'blur(12px)', autoAlpha: 0, duration: 1 }, 0)
     .fromTo(card, { y: peek, scale: 0.94 }, { y: 0, scale: 1, duration: 1 }, 0)
-    .to(phone, { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' })
+    .to(phone, lite ? { y: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' } : { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' })
     .addLabel('s0', '-=0.6')
     .fromTo(texts[0], { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
     .fromTo(sets[0].children, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.5)' }, 's0+=0.15')
