@@ -292,8 +292,12 @@ def page(t: dict) -> str:
 
 <section class="lost" id="lost"><div class="wrap">
   <div class="lost-visual reveal">
-    <div class="phone"><img src="{shot('17-lost-page')}" alt="{html.escape(t['alt_lost'])}" width="600" height="1200" loading="lazy" style="object-position:top"></div>
-    <a class="qr-card" href="{LIVE}" rel="noopener"><img src="{a}screens/qr-rex.webp" alt="{t['qr_alt']}" width="450" height="450" loading="lazy"><p>{t['qr_caption']}</p></a>
+    <a class="paw" href="{LIVE}" rel="noopener">
+      <img class="paw-arm" src="{a}paw/paw.webp" alt="" width="670" height="904" loading="lazy">
+      <span class="paw-tag"><img src="{a}paw/badge.webp" alt="" width="670" height="904" loading="lazy"><img class="paw-qr" src="{a}paw/qr.svg" alt="{t['qr_alt']}" width="29" height="29" loading="lazy"></span>
+      <img class="paw-ring" src="{a}paw/ring.webp" alt="" width="670" height="904" loading="lazy">
+      <span class="paw-cap">{t['qr_caption']}</span>
+    </a>
   </div>
   <div class="reveal" style="--i:1">
     <p class="eyebrow">{t['lost_eyebrow']}</p>
