@@ -14,7 +14,7 @@
   const n = imgs.length;
   const stops = []; // мітки «крок показано повністю» — точки прилипання
 
-  g.set(card, { yPercent: 118, scale: 0.94 });
+  g.set(card, { yPercent: 95, scale: 0.94 }); // верх картки визирає внизу першого екрана, під песиком
   g.set(phone, { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
   g.set(imgs.slice(1), { autoAlpha: 0 });
 

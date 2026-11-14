@@ -277,7 +277,11 @@ def page(t: dict) -> str:
     <h1>{t['h1']}</h1>
     <p class="lead">{t['lead']}</p>
     <div class="cta-row">{btn_play}{btn_soon}</div>
-    <div class="ill" aria-hidden="true">{ILL['welcome']}</div>
+    <div class="dog" aria-hidden="true">
+      <img class="eye eye-l" src="{a}dog/eye-l.webp" alt="" width="226" height="226">
+      <img class="eye eye-r" src="{a}dog/eye-r.webp" alt="" width="226" height="226">
+      <img class="head" src="{a}dog/head.webp" alt="" width="1100" height="1100" fetchpriority="high">
+    </div>
   </div></div>
   <div class="tour-card" data-an="{an_data(t)}"><div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div><div class="tour-grid">
     <div class="tour-texts">{''.join(f'<div><h3>{h}</h3><p>{p}</p></div>' for h, p, *_ in t['tour'])}</div>
@@ -349,6 +353,7 @@ def page(t: dict) -> str:
 <script src="{a}landing.js?v={ver("landing.js")}" defer></script>
 <script src="{a}tour.js?v={ver("tour.js")}" defer></script>
 <script src="{a}analyses.js?v={ver("analyses.js")}" defer></script>
+<script src="{a}dog.js?v={ver("dog.js")}" defer></script>
 </body>
 </html>
 '''
