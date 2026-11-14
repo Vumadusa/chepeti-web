@@ -32,7 +32,7 @@ T = {
   lang='uk', root='/', other='/en/', other_label='EN', locale='uk_UA',
   title='Chepeti: щеплення, ліки й аналізи улюбленця в одному застосунку',
   desc='Нагадування про ліки й щеплення, аналізи на графіку, документи, спільний доступ для сім’ї і QR на нашийник, щоб знайти загубленого улюбленця.',
-  nav=['Можливості', 'Тарифи', 'Питання'],
+  nav=['Можливості', 'Питання'],
   play='Google Play', soon='App Store', soon_small='скоро',
   h1='Здоров’я улюбленця в одному застосунку',
   lead='Нагадає про ліки й щеплення, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
@@ -115,7 +115,7 @@ T = {
   lang='en', root='/en/', other='/', other_label='UA', locale='en_US',
   title='Chepeti: your pet’s vaccines, meds and tests in one app',
   desc='Medication and vaccine reminders, lab results on a chart, documents, family sharing and a QR collar tag to bring a lost pet home.',
-  nav=['Features', 'Pricing', 'FAQ'],
+  nav=['Features', 'FAQ'],
   play='Google Play', soon='App Store', soon_small='soon',
   h1='Your pet’s health in one app',
   lead='Reminds you about meds and vaccines, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
@@ -302,14 +302,14 @@ def page(t: dict) -> str:
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="{t['root']}">{LOGO}</a>
-  <nav aria-label="{t['nav'][0]}"><a href="#lost">{t['nav'][0]}</a><a href="#plans">{t['nav'][1]}</a><a href="#faq">{t['nav'][2]}</a></nav>
+  <nav aria-label="{t['nav'][0]}"><a href="#features">{t['nav'][0]}</a><a href="#faq">{t['nav'][1]}</a></nav>
   <button class="theme" type="button" aria-label="{t['theme']}" title="{t['theme']}"><i class="sun"></i><i class="moon"></i></button>
   <a class="lang" href="{t['other']}" hreflang="{'en' if L == 'uk' else 'uk'}">{t['other_label']}</a>
   <a class="btn btn-primary btn-sm" href="{PLAY}" rel="noopener">{t['play']}</a>
 </div></header>
 
 <main>
-<section class="tour"><div class="tour-stage">
+<section class="tour" id="features"><div class="tour-stage">
   <div class="tour-intro"><div class="wrap">
     <h1>{t['h1']}</h1>
     <p class="lead">{t['lead']}</p>

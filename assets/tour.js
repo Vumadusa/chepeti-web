@@ -62,6 +62,13 @@
   }
   tl.to({}, { duration: 0.8 });
 
+  // «Можливості» в шапці: не на верх секції (там ще песик), а одразу на перший крок, коли картка вже піднялась.
+  document.querySelectorAll('a[href="#features"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const st = tl.scrollTrigger;
+    scrollTo({ top: st.start + (st.end - st.start) * tl.labels.v0 / tl.duration(), behavior: 'smooth' });
+  }));
+
   // Легкий нахил телефона за курсором — лише з мишею, на окремій обгортці (прокрутка керує самим телефоном).
   if (tilt && matchMedia('(pointer: fine)').matches) {
     const rx = g.quickTo(tilt, 'rotationX', { duration: 1, ease: 'power3.out' });
