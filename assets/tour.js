@@ -37,7 +37,9 @@
   };
   fitTexts();
   ST.addEventListener('refreshInit', fitTexts);
-  g.set(phone, lite ? { y: 80, scale: 0.92, autoAlpha: 0 } : { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
+  // Телефон (власник 17.11): картка піднімається вже з телефоном, першим текстом і плашками — одним рухом, без окремих появ.
+  if (!lite) g.set(phone, { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
+  else g.set([texts[0], ...sets[0].children], { autoAlpha: 1 });
   g.set(imgs.slice(1), { autoAlpha: 0 });
   // Скріни 2–5 стоять з loading="lazy" (не заважають першому екрану), але тоді вантажились і розпаковувались лише посеред
   // прокрутки туру — кадр підвисав (власник 17.11). Тепер — щойно сторінка завантажилась і браузер вільний: вантажимо й
@@ -81,13 +83,20 @@
   // 17.11 (власник: «зелений фон з зависанням, потім телефон»): заголовок зникає без filter: blur — розмиття великого блоку
   // з песиком перемальовувалось на кожному кадрі й гальмувало підйом картки; телефон виїжджає вже під час підйому (з 45%),
   // а не після нього — без порожньої зеленої паузи.
-  tl.to(intro, lite ? { y: -40, autoAlpha: 0, duration: 1 } : { scale: 1.06, y: -30, autoAlpha: 0, duration: 1 }, 0)
-    .fromTo(card, lite ? { y: peek } : { y: peek, scale: 0.94 }, lite ? { y: 0, duration: 1 } : { y: 0, scale: 1, duration: 1 }, 0)
-    .to(phone, lite ? { y: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' } : { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' }, 0.45)
-    .addLabel('s0', '-=0.6')
-    .fromTo(texts[0], { autoAlpha: 0, x: lite ? 0 : -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
-    .add(showSet(0), 's0+=0.15')
-    .addLabel('v0');
+  if (lite) {
+    tl.to(intro, { y: -40, autoAlpha: 0, duration: 1 }, 0)
+      .fromTo(card, { y: peek }, { y: 0, duration: 1 }, 0)
+      .addLabel('s0', 0)
+      .addLabel('v0');
+  } else {
+    tl.to(intro, { scale: 1.06, y: -30, autoAlpha: 0, duration: 1 }, 0)
+      .fromTo(card, { y: peek, scale: 0.94 }, { y: 0, scale: 1, duration: 1 }, 0)
+      .to(phone, { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' }, 0.45)
+      .addLabel('s0', '-=0.6')
+      .fromTo(texts[0], { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
+      .add(showSet(0), 's0+=0.15')
+      .addLabel('v0');
+  }
   stops.push('v0');
 
   for (let i = 1; i < n; i++) {
