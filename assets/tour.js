@@ -78,9 +78,12 @@
     ? g.to(sets[i].children, { autoAlpha: 0, duration: 0.25 })
     : g.to(sets[i].children, { autoAlpha: 0, scale: 0.9, duration: 0.35, stagger: 0.03 });
 
-  tl.to(intro, lite ? { y: -40, autoAlpha: 0, duration: 1 } : { scale: 1.08, filter: 'blur(12px)', autoAlpha: 0, duration: 1 }, 0)
+  // 17.11 (власник: «зелений фон з зависанням, потім телефон»): заголовок зникає без filter: blur — розмиття великого блоку
+  // з песиком перемальовувалось на кожному кадрі й гальмувало підйом картки; телефон виїжджає вже під час підйому (з 45%),
+  // а не після нього — без порожньої зеленої паузи.
+  tl.to(intro, lite ? { y: -40, autoAlpha: 0, duration: 1 } : { scale: 1.06, y: -30, autoAlpha: 0, duration: 1 }, 0)
     .fromTo(card, lite ? { y: peek } : { y: peek, scale: 0.94 }, lite ? { y: 0, duration: 1 } : { y: 0, scale: 1, duration: 1 }, 0)
-    .to(phone, lite ? { y: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' } : { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' })
+    .to(phone, lite ? { y: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' } : { y: 0, rotationX: 0, rotationY: 0, scale: 1, autoAlpha: 1, duration: 1.1, ease: 'expo.out' }, 0.45)
     .addLabel('s0', '-=0.6')
     .fromTo(texts[0], { autoAlpha: 0, x: lite ? 0 : -30 }, { autoAlpha: 1, x: 0, duration: 0.6 }, 's0')
     .add(showSet(0), 's0+=0.15')
