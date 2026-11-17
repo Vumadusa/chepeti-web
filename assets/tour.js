@@ -39,6 +39,12 @@
   ST.addEventListener('refreshInit', fitTexts);
   g.set(phone, lite ? { y: 80, scale: 0.92, autoAlpha: 0 } : { y: 220, rotationX: 38, rotationY: -18, scale: 0.72, autoAlpha: 0, transformPerspective: 1200 });
   g.set(imgs.slice(1), { autoAlpha: 0 });
+  // Скріни 2–5 стоять з loading="lazy" (не заважають першому екрану), але тоді вантажились і розпаковувались лише посеред
+  // прокрутки туру — кадр підвисав (власник 17.11). Тепер — щойно сторінка завантажилась і браузер вільний: вантажимо й
+  // декодуємо заздалегідь, до першого кроку прокрутки.
+  const warm = () => imgs.slice(1).forEach(i => { i.loading = 'eager'; if (i.decode) i.decode().catch(() => {}); });
+  const idle = window.requestIdleCallback || (f => setTimeout(f, 300));
+  if (document.readyState === 'complete') idle(warm); else addEventListener('load', () => idle(warm), { once: true });
 
   // Крапки кроків — від часу самої анімації (scrub доганяє прокрутку із запізненням, тож не від події прокрутки).
   const tl = g.timeline({

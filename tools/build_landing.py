@@ -241,12 +241,13 @@ AN_ROWS = [(32.3, 10), (43.8, 10), (55.3, 13.3), (70.3, 15.8)]
 ROLES = [0, 1, 0, 1]  # рівень для кожної ролі: 0 повний, 1 тільки перегляд
 
 
+# Значки Phosphor (MIT, @phosphor-icons/core 2.1.1) лежать у assets/icons: свій сервер, кеш браузера, без 28 запитів до unpkg (17.11).
 def ph(ic: str) -> str:
-    return f'<i style="--ic:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/{ic}.svg)"></i>'
+    return f'<i style="--ic:url(/assets/icons/{ic}.svg)"></i>'
 
 
 def badge(ic: str, tx: str, m: int) -> str:
-    return f'<div class="badge" style="--m:{m}"><i style="--ic:url(https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/{ic}.svg)"></i><b>{html.escape(tx)}</b></div>'
+    return f'<div class="badge" style="--m:{m}"><i style="--ic:url(/assets/icons/{ic}.svg)"></i><b>{html.escape(tx)}</b></div>'
 
 
 def ver(name: str) -> str:
