@@ -555,6 +555,7 @@ footer .copy { margin-left: auto; }
 }
 /* Шапка (власник 14.11): «Завантажити» відкриває віконце з Google Play і App Store; на телефоні тема й мова — праворуч біля кнопки */
 .dl { position: relative; }
+.dl { border-bottom: 0; } /* роздільник питань FAQ (details) не для кнопки «Завантажити» в шапці — лінія під нею, 17.11 */
 .dl summary { list-style: none; cursor: pointer; }
 .dl summary::-webkit-details-marker { display: none; }
 .dl-menu { position: absolute; right: 0; top: calc(100% + 10px); display: grid; gap: 8px; padding: 10px; border-radius: 22px; background: var(--surface);
