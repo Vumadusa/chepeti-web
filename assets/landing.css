@@ -578,3 +578,16 @@ footer .copy { margin-left: auto; }
    Ширина за вмістом: інакше віконце стискалось до ширини кнопки, і «скоро» впиралось у край */
 .dl summary::after { content: none; display: none; }
 .dl-menu { width: max-content; }
+
+/* Поява першого екрана, як у застосунку (Stagger: блоки по черзі піднімаються на 14 px із проявленням, 0,42 с, крок 50 мс,
+   крива 0.22, .9, .3, 1). Песик виринає знизу трохи довше. Лише CSS — стартує до завантаження скриптів; текст не ховається
+   довше за мить (власник 17.11). Анімуємо дітей .tour-intro, не сам блок: ним керує тур (GSAP). */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes dog-rise { from { opacity: 0; transform: translateY(60px) scale(.94); } }
+@media (prefers-reduced-motion: no-preference) {
+  .top .wrap > * { animation: rise .42s cubic-bezier(.22,.9,.3,1) both; animation-delay: .02s; }
+  .tour-intro h1 { animation: rise .42s cubic-bezier(.22,.9,.3,1) .07s both; }
+  .tour-intro .lead { animation: rise .42s cubic-bezier(.22,.9,.3,1) .12s both; }
+  .tour-intro .cta-row { animation: rise .42s cubic-bezier(.22,.9,.3,1) .17s both; }
+  .tour-intro .dog { animation: dog-rise .7s cubic-bezier(.22,.9,.3,1) .22s both; }
+}
