@@ -33,6 +33,11 @@
     tour.querySelector('.tour-grid').replaceChildren(...steps);
     tour.dataset.step = String(imgs.length - 1); // зони аналізів активні (на ПК — лише на своєму кроці)
     steps.forEach(step => {
+      // Плашки — окремо й трохи пізніше (власник 18.11): спершу видно скрін, ще трохи прокрутки — плашки виїжджають зі своїх
+      // боків по черзі (як блоки «Почніть безкоштовно»).
+      const media = step.querySelector('.flow-media'), chips = [...media.querySelector('.badge-set').children];
+      g.from(chips, { autoAlpha: 0, y: 16, x: i => (i % 2 ? 28 : -28), duration: 0.5, stagger: 0.1, ease: 'power2.out',
+        scrollTrigger: { trigger: media, start: 'center 72%', once: true } });
       g.from(step.children, { autoAlpha: 0, y: 24, duration: 0.6, stagger: 0.08, ease: 'power2.out',
         scrollTrigger: { trigger: step, start: 'top 82%', once: true } });
       g.fromTo(step.querySelector('.flow-media'), { rotationX: 18, scale: 0.94, transformPerspective: 1200, transformOrigin: '50% 100%' },
