@@ -605,11 +605,14 @@ footer .copy { margin-left: auto; }
   box-shadow: inset 0 0 0 1.5px #4A443D, 0 24px 48px -18px rgba(0,0,0,.55); }
 .flow-phone .screens { position: relative; width: 100%; height: 100%; border-radius: 29px; overflow: hidden; background: #FAF8F5; }
 .flow-phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.tour.flow .flow-media > .badge-set.badge-set { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: absolute; left: -14px; right: -14px; bottom: 16px; height: auto; z-index: 2; } /* сильніше за «:not(.anim) лише перший набір» */
+.tour.flow .flow-media > .badge-set.badge-set { display: flex; flex-direction: column; gap: 8px; position: absolute; left: 0; right: 0; bottom: 18px; height: auto; z-index: 2; }
+/* Плашки по боках, наїжджають на скрін (власник 18.11): непарні — зліва з виступом за телефон, парні — справа. */
+.tour.flow .flow-media > .badge-set > .badge:nth-child(odd) { align-self: flex-start; margin-left: -19px; }
+.tour.flow .flow-media > .badge-set > .badge:nth-child(even) { align-self: flex-end; margin-right: -19px; } /* сильніше за «:not(.anim) лише перший набір» */
 .tour.flow .badge-set .badge:nth-child(even) { margin-left: 0; }
-.tour.flow .badge { padding: 8px 12px 8px 8px; border-radius: 14px; background: rgba(52, 76, 62, .94); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), 0 10px 24px -10px rgba(0,0,0,.5); }
+.tour.flow .badge { padding: 8px 12px 8px 8px; border-radius: 14px; background: rgba(52, 76, 62, .84); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 10px 24px -10px rgba(0,0,0,.5); }
 .tour.flow .badge b { font-size: .85rem; white-space: normal; text-align: left; }
 .tour.flow .badge > i { width: 30px; height: 30px; border-radius: 9px; }
 .tour.flow .badge > i::after { inset: 7px; }
 .tour.flow .flow-media > .an-set.badge-set { display: block; left: -10px; right: -10px; }
-.tour.flow .flow-step .badge { width: auto; flex: 0 1 auto; max-width: 100%; }
+.tour.flow .flow-step .badge { width: auto; flex: 0 0 auto; max-width: 88%; }
