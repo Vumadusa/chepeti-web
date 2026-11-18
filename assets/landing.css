@@ -653,14 +653,14 @@ footer .copy { margin-left: auto; }
 .foot { padding-top: clamp(40px, 6vw, 80px); }
 .foot-cta { align-items: end; }
 .pb { width: min(100%, 400px); display: grid; justify-items: center; gap: 10px; margin-bottom: clamp(28px, 4vw, 48px); }
-.pb-box { position: relative; width: 100%; aspect-ratio: 1; margin: -12% 0 -14%; cursor: pointer; transform-origin: 52% 90%; }
+.pb-box { position: relative; width: 100%; aspect-ratio: 1; margin: -12% 0 -14%; cursor: pointer; transform-origin: 50% 85%; }
 .pb-box > img, .pb-pit, .pb-cast { position: absolute; inset: 0; width: 100%; height: 100%; }
 /* Яма: видно лише над вінцем коробки й усередині її силуету, тож тварина, пірнаючи, не вилазить знизу чи збоку. */
-.pb-pit { clip-path: polygon(0 0, 100% 0, 100% 45%, 79% 45%, 79% 84%, 40% 90.5%, 21% 77%, 21% 45%, 0 45%); }
-.pb-mv { position: absolute; left: 15%; top: 9%; width: 72%; height: auto; aspect-ratio: 1; transition: transform .3s cubic-bezier(.5,0,.75,0); }
+.pb-pit { clip-path: polygon(0 0, 100% 0, 100% 40%, 77% 40%, 77% 84.5%, 23% 84.5%, 23% 40%, 0 40%); }
+.pb-mv { position: absolute; left: 17%; top: 5.5%; width: 66%; height: auto; aspect-ratio: 1; transition: transform .3s cubic-bezier(.5,0,.75,0); }
 /* Підгонка висоти під вид (власник 18.11): кіт трохи нижче, кролик вище. */
-.pb-box[data-sp="cat"] .pb-mv { top: 12%; }
-.pb-box[data-sp="rabbit"] .pb-mv { top: 5%; }
+.pb-box[data-sp="cat"] .pb-mv { top: 8.5%; }
+.pb-box[data-sp="rabbit"] .pb-mv { top: 2%; }
 .pb-box.down .pb-mv { transform: translateY(78%); }
 .pb-box.up .pb-mv { transition: transform .55s cubic-bezier(.3,1.5,.5,1); }
 /* Тінь коробки на тварині: темніє донизу до вінця, по силуету самої тварини. */
@@ -668,7 +668,7 @@ footer .copy { margin-left: auto; }
   background: linear-gradient(to bottom, transparent 38%, rgba(60, 36, 12, .62) 54%); }
 /* Тінь тварини на коробці ззаду: силует, зсунутий назад-праворуч, лише там, де є коробка. */
 .pb-cast { -webkit-mask: url(box/back.webp) center / 100% no-repeat; mask: url(box/back.webp) center / 100% no-repeat; }
-.pb-cast .pb-mv { filter: brightness(0) blur(4px); opacity: .4; translate: 8% -3%; }
+.pb-cast .pb-mv { filter: brightness(0) blur(4px); opacity: .4; translate: 6% -4%; }
 .pb-box.wob { animation: pb-wob .5s ease-in-out; }
 @keyframes pb-wob { 25% { transform: rotate(-2.5deg); } 60% { transform: rotate(2deg); } 85% { transform: rotate(-.8deg); } }
 .pb-q { margin: 18px 0 8px; color: #fff; font-weight: 700; font-size: 1.05rem; }
