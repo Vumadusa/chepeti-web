@@ -26,22 +26,25 @@
   // Кільце зірочок: дві комети по 9 іскор, голова найбільша, хвіст тьмяніє. Крутиться лише коли блок на екрані.
   const orb = ['back', 'front'].map(c => { const d = document.createElement('div'); d.className = 'pb-orbit ' + c; bx.append(d); return d; });
   const stars = [];
-  for (let c = 0; c < 2; c++) for (let k = 0; k < 9; k++) {
+  // Розкид, щоб іскри летіли роєм, а не по лінії: кожна зі своїм зсувом від еліпса, нерівним кроком і повільним погойдуванням.
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  for (let c = 0; c < 2; c++) for (let k = 0, lag = 0; k < 11; k++, lag += rnd(0.06, 0.2)) {
     const el = document.createElement('i');
-    el.className = 'pb-star' + (k % 3 === 2 ? ' dot' : '');
-    el.style.setProperty('--s', `${Math.max(4, 15 - k * 1.3)}px`);
-    stars.push({ el, c, k, front: null });
+    el.className = 'pb-star' + (Math.random() < 0.4 ? ' dot' : '');
+    el.style.setProperty('--s', `${Math.max(4, rnd(11, 16) - k * 1.1)}px`);
+    stars.push({ el, c, k, lag, dr: rnd(-7, 7), dy: rnd(-6, 6), ph: rnd(0, 6.3), sp: rnd(0.0007, 0.0016), front: null });
   }
   const TILT = -0.12, cosT = Math.cos(TILT), sinT = Math.sin(TILT);
   const draw = t => {
     const a0 = t * 0.0006;
     for (const s of stars) {
-      const a = a0 + s.c * Math.PI - s.k * 0.11, ex = 55 * Math.cos(a), ey = 12 * Math.sin(a);
+      const a = a0 + s.c * Math.PI - s.lag, w = Math.sin(t * s.sp + s.ph);
+      const ex = (55 + s.dr + 3 * w) * Math.cos(a), ey = 12 * Math.sin(a) + s.dy + 2.5 * Math.cos(t * s.sp * 1.3 + s.ph);
       const front = Math.sin(a) > 0;
       if (front !== s.front) { s.front = front; orb[+front].append(s.el); }
       s.el.style.left = `${50 + ex * cosT - ey * sinT}%`;
       s.el.style.top = `${58 + ex * sinT + ey * cosT}%`;
-      s.el.style.opacity = ((1 - s.k / 10) * (0.65 + 0.35 * Math.sin(t * 0.008 + s.k * 1.7)) * (front ? 1 : 0.6)).toFixed(2);
+      s.el.style.opacity = ((1 - s.k / 12) * (0.65 + 0.35 * Math.sin(t * 0.008 + s.k * 1.7)) * (front ? 1 : 0.6)).toFixed(2);
     }
   };
   let raf = 0;
