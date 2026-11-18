@@ -339,9 +339,9 @@ def page(t: dict) -> str:
 <section class="lost" id="lost"><div class="wrap">
   <div class="lost-visual reveal">
     <div class="paw">
-      <img class="paw-arm" src="{a}paw/paw.webp" alt="" width="670" height="904" loading="lazy">
-      <span class="paw-tag"><img src="{a}paw/badge.webp" alt="" width="670" height="904" loading="lazy"><a class="paw-qr" href="{LIVE}" rel="noopener"><img src="{a}paw/qr.svg" alt="{t['qr_alt']}" width="29" height="29" loading="lazy"></a></span>
-      <img class="paw-ring" src="{a}paw/ring.webp" alt="" width="670" height="904" loading="lazy">
+      <img class="paw-arm" src="{a}paw/palm.webp" alt="" width="600" height="884" loading="lazy">
+      <span class="paw-tag"><img src="{a}paw/palm-tag.webp" alt="" width="600" height="884" loading="lazy"><a class="paw-qr" href="{LIVE}" rel="noopener"><img src="{a}paw/qr.svg" alt="{t['qr_alt']}" width="29" height="29" loading="lazy"></a></span>
+      <img class="paw-ring" src="{a}paw/palm-link.webp" alt="" width="600" height="884" loading="lazy">
       <span class="paw-cap">{t['qr_caption']}</span>
     </div>
   </div>
