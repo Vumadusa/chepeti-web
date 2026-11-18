@@ -16,6 +16,7 @@
     setTimeout(async () => {
       await next.decode().catch(() => {});
       pet.src = cast.src = next.src;
+      bx.dataset.sp = kinds[i].dataset.sp;
       shade.style.setProperty('--src', `url(${next.src})`);
       bx.classList.remove('wob'); void bx.offsetWidth; bx.classList.add('wob', 'up');
       bx.classList.remove('down');
