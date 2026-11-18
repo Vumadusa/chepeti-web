@@ -599,20 +599,17 @@ footer .copy { margin-left: auto; }
 .flow-step { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
 .flow-step > div:first-child h3 { font-size: 1.45rem; color: #fff; }
 .flow-step > div:first-child p { color: rgba(244, 241, 236, .82); margin: 8px auto 0; max-width: 34ch; font-size: .95rem; }
-/* Скрін обрізано до верхніх ~70% (головне там) — крок займає близько екрана; аналізи — повністю (зони показників). */
-.flow-phone { width: min(74vw, 300px); aspect-ratio: 1080 / 1700; border-radius: 34px 34px 22px 22px; padding: 8px 8px 0; background: #14110E;
-  box-shadow: inset 0 0 0 1.5px #4A443D, 0 24px 48px -18px rgba(0,0,0,.55); overflow: hidden; }
-.flow-last .flow-phone { aspect-ratio: 1080 / 2400; border-radius: 34px; padding: 8px; }
-.flow-phone .screens { position: relative; width: 100%; height: 100%; border-radius: 27px 27px 0 0; overflow: hidden; background: #FAF8F5;
-  -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
-.flow-last .flow-phone .screens { border-radius: 27px; -webkit-mask-image: none; mask-image: none; }
-.flow-phone img { position: absolute; inset: 0 0 auto; width: 100%; height: auto; display: block; }
-.flow-last .flow-phone img { height: 100%; object-fit: cover; object-position: top; }
-.tour.flow .flow-step > .badge-set.badge-set { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: static; height: auto; } /* сильніше за «:not(.anim) лише перший набір» */
+/* Повний скрін, плашки поверх низу телефона (власник 18.11); фон плашок щільний — скрін під ними не просвічує. */
+.flow-media { position: relative; width: min(78vw, 310px); }
+.flow-phone { width: 100%; aspect-ratio: 1080 / 2400; border-radius: 36px; padding: 8px; background: #14110E;
+  box-shadow: inset 0 0 0 1.5px #4A443D, 0 24px 48px -18px rgba(0,0,0,.55); }
+.flow-phone .screens { position: relative; width: 100%; height: 100%; border-radius: 29px; overflow: hidden; background: #FAF8F5; }
+.flow-phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.tour.flow .flow-media > .badge-set.badge-set { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: absolute; left: -14px; right: -14px; bottom: 16px; height: auto; z-index: 2; } /* сильніше за «:not(.anim) лише перший набір» */
 .tour.flow .badge-set .badge:nth-child(even) { margin-left: 0; }
-.tour.flow .badge { padding: 8px 12px 8px 8px; border-radius: 14px; background: rgba(255, 255, 255, .14); box-shadow: inset 0 0 0 1px rgba(255,255,255,.17); }
+.tour.flow .badge { padding: 8px 12px 8px 8px; border-radius: 14px; background: rgba(52, 76, 62, .94); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), 0 10px 24px -10px rgba(0,0,0,.5); }
 .tour.flow .badge b { font-size: .85rem; white-space: normal; text-align: left; }
 .tour.flow .badge > i { width: 30px; height: 30px; border-radius: 9px; }
 .tour.flow .badge > i::after { inset: 7px; }
-.tour.flow .an-set { width: 100%; max-width: 340px; display: block; }
+.tour.flow .flow-media > .an-set.badge-set { display: block; left: -10px; right: -10px; }
 .tour.flow .flow-step .badge { width: auto; flex: 0 1 auto; max-width: 100%; }

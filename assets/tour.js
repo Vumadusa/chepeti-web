@@ -23,7 +23,11 @@
       img.loading = 'lazy';
       screens.append(img, ...(i === imgs.length - 1 ? spots : []));
       phone.append(screens);
-      step.append(texts[i], phone, sets[i]);
+      // Плашки — поверх низу телефона (власник 18.11), скрін повний.
+      const media = document.createElement('div');
+      media.className = 'flow-media';
+      media.append(phone, sets[i]);
+      step.append(texts[i], media);
       return step;
     });
     tour.querySelector('.tour-grid').replaceChildren(...steps);
@@ -31,8 +35,8 @@
     steps.forEach(step => {
       g.from(step.children, { autoAlpha: 0, y: 24, duration: 0.6, stagger: 0.08, ease: 'power2.out',
         scrollTrigger: { trigger: step, start: 'top 82%', once: true } });
-      g.fromTo(step.querySelector('.flow-phone'), { rotationX: 18, scale: 0.94, transformPerspective: 1200, transformOrigin: '50% 100%' },
-        { rotationX: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: step.querySelector('.flow-phone'), start: 'top bottom', end: 'center center', scrub: 0.5 } });
+      g.fromTo(step.querySelector('.flow-media'), { rotationX: 18, scale: 0.94, transformPerspective: 1200, transformOrigin: '50% 100%' },
+        { rotationX: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: step.querySelector('.flow-media'), start: 'top bottom', end: 'center center', scrub: 0.5 } });
     });
     return;
   }
