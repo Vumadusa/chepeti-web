@@ -326,7 +326,7 @@ def page(t: dict) -> str:
       <img class="body" src="{a}dog/body.webp" alt="" width="1200" height="1200">
       <img class="eye eye-l" src="{a}dog/eye-l.webp" alt="" width="226" height="226">
       <img class="eye eye-r" src="{a}dog/eye-r.webp" alt="" width="226" height="226">
-      <img class="head" src="{a}dog/head.webp" alt="" width="1000" height="1000" fetchpriority="high">
+      <img class="head" src="{a}dog/face.webp" alt="" width="1000" height="1000" fetchpriority="high">
     </div>
   </div></div>
   <div class="tour-card" data-an="{an_data(t)}"><div class="tour-steps" aria-hidden="true">{'<span></span>' * len(t['tour'])}</div><div class="tour-grid">
