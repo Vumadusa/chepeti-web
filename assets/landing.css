@@ -653,10 +653,10 @@ footer .copy { margin-left: auto; }
 .foot { padding-top: clamp(40px, 6vw, 80px); }
 .foot-cta { align-items: end; }
 .pb { width: min(100%, 400px); display: grid; justify-items: center; gap: 10px; margin-bottom: clamp(28px, 4vw, 48px); }
-.pb-box { position: relative; width: 100%; aspect-ratio: 1; margin: -12% 0 -14%; cursor: pointer; transform-origin: 55% 82%; }
+.pb-box { position: relative; width: 100%; aspect-ratio: 1; margin: -12% 0 -14%; cursor: pointer; transform-origin: 52% 90%; }
 .pb-box > img, .pb-pit { position: absolute; inset: 0; width: 100%; height: 100%; }
-.pb-pit { height: 80%; overflow: hidden; }
-.pb-pet { position: absolute; left: 21%; top: 13%; width: 68%; height: auto; transition: transform .3s cubic-bezier(.5,0,.75,0); }
+.pb-pit { height: 90%; overflow: hidden; }
+.pb-pet { position: absolute; left: 15%; top: 9%; width: 72%; height: auto; transition: transform .3s cubic-bezier(.5,0,.75,0); }
 .pb-pet.down { transform: translateY(78%); }
 .pb-pet.up { transition: transform .55s cubic-bezier(.3,1.5,.5,1); }
 .pb-box.wob { animation: pb-wob .5s ease-in-out; }
