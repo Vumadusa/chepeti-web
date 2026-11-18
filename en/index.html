@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en_US">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="preload" href="/assets/fonts/Mulish_700Bold.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="/assets/landing.css?v=90ac0d92">
+<link rel="stylesheet" href="/assets/landing.css?v=09e91b54">
 <script>document.documentElement.classList.add('js');try{var th=localStorage.getItem('theme');if(th)document.documentElement.dataset.theme=th}catch(e){}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -116,7 +116,18 @@
 <footer class="foot"><div class="foot-card">
   <div class="foot-cta">
     <div class="foot-text reveal"><h2>Add your first pet</h2><p>Get Chepeti, it takes less than a minute. No sign-up needed.</p><div class="cta-row"><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.chepeti.app" rel="noopener"><img class="mono" src="https://cdn.simpleicons.org/googleplay/ffffff" alt="" width="20" height="20">Google Play</a><span class="btn btn-soon" aria-disabled="true"><img src="https://cdn.simpleicons.org/apple/8F8579" alt="" width="20" height="20">App Store <small>soon</small></span></div></div>
-    <div class="foot-dog"><img src="/assets/dog/thumbs-up.webp" alt="" width="668" height="990" loading="lazy"><svg class="foot-arc" viewBox="0 0 668 990" aria-hidden="true"><path id="arc-en" d="M -18 153 A 430 430 0 0 1 686 153" fill="none"/><text><textPath href="#arc-en" startOffset="50%" text-anchor="middle">Thanks for reading to the end!</textPath></text></svg></div>
+    <div class="pc reveal" style="--i:1" data-ph="Barsik">
+      <p class="pc-title">Try it: your pet in Chepeti</p>
+      <label class="pc-field"><span>Pet name</span><input type="text" maxlength="20" autocomplete="off" placeholder="Barsik"></label>
+      <div class="pc-kinds" role="radiogroup" aria-label="Pet name"><button type="button" role="radio" aria-checked="true" data-sp="cat">Cat</button><button type="button" role="radio" aria-checked="false" data-sp="dog">Dog</button><button type="button" role="radio" aria-checked="false" data-sp="rabbit">Rabbit</button><button type="button" role="radio" aria-checked="false" data-sp="rodent">Rodent</button><button type="button" role="radio" aria-checked="false" data-sp="bird">Bird</button><button type="button" role="radio" aria-checked="false" data-sp="reptile">Reptile</button><button type="button" role="radio" aria-checked="false" data-sp="other">Other</button></div>
+      <div class="pc-card">
+        <button type="button" class="pc-arrow" data-d="-1" aria-label="Previous face">‹</button>
+        <span class="pc-ava" style="--fill:#56B9AB"><img src="/assets/ava/cat-1.svg" alt="" width="64" height="64"></span>
+        <span class="pc-txt"><b class="pc-name">Barsik</b><span class="pc-sp">Cat</span></span>
+        <button type="button" class="pc-arrow" data-d="1" aria-label="Next face">›</button>
+      </div>
+      <p class="pc-hint">Its visits, meds and vaccinations will live here</p>
+    </div>
   </div>
 </div>
   <div class="foot-links">
@@ -129,5 +140,6 @@
 <script src="/assets/tour.js?v=3582ac54" defer></script>
 <script src="/assets/analyses.js?v=65f1976d" defer></script>
 <script src="/assets/dog.js?v=57c71c9b" defer></script>
+<script src="/assets/petcard.js?v=3a273169" defer></script>
 </body>
 </html>
