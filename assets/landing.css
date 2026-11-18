@@ -626,3 +626,24 @@ footer .copy { margin-left: auto; }
 /* З тулубом лапи виходять за голову на ~30% з кожного боку: на телефоні песик менший, щоб лапи вмістились у ширину екрана. */
 @media (max-width: 860px) { .dog { width: min(56vw, 300px); } }
 .tour-intro { overflow-x: clip; }
+
+/* Підвал, варіант А (власник 18.11): заокруглена зелена картка, як тур; песик «клас» сидить у ній, голова визирає над верхнім
+   краєм; службові посилання — окремим тихим рядком на фоні сторінки під карткою. Скасовує «на всю ширину» від 14.11. */
+.foot { padding-top: clamp(110px, 11vw, 150px); padding-bottom: 0; }
+.foot-card { width: min(1160px, 100% - 40px); margin: 0 auto; border-radius: 40px; overflow: visible; }
+.foot-cta { padding: clamp(36px, 5vw, 64px) clamp(28px, 6vw, 72px) 0; }
+.foot-dog { width: clamp(240px, 26vw, 330px); margin-top: calc(-1 * clamp(100px, 10vw, 140px)); margin-bottom: clamp(20px, 3vw, 36px); }
+.foot-links { width: min(1160px, 100% - 40px); margin: 0 auto; padding: 22px clamp(28px, 6vw, 72px) 30px; border-top: 0; color: var(--ink2); }
+.foot-links a { color: var(--ink2); }
+.foot-links a:hover { color: var(--ink); }
+.foot-links .copy { color: var(--ink3); }
+@media (max-width: 860px) {
+  .foot { padding-top: 120px; }
+  .foot-card { width: calc(100% - 24px); border-radius: 28px; }
+  .foot-cta { padding: 0 22px; justify-items: center; text-align: center; }
+  .foot-dog { order: -1; width: min(58vw, 230px); margin-top: -96px; }
+  .foot-arc text { fill: var(--ink2); }
+  .foot-text .cta-row { justify-content: center; }
+  .foot-text p { margin-inline: auto; }
+  .foot-links { width: calc(100% - 24px); padding: 20px 10px 28px; justify-content: center; text-align: center; }
+}

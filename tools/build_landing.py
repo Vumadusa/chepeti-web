@@ -391,12 +391,13 @@ def page(t: dict) -> str:
     <div class="foot-text reveal"><h2>{t['final_h2']}</h2><p>{t['final_p']}</p><div class="cta-row">{btn_play}{btn_soon}</div></div>
     <div class="foot-dog"><img src="{a}dog/thumbs-up.webp" alt="" width="668" height="990" loading="lazy"><svg class="foot-arc" viewBox="0 0 668 990" aria-hidden="true"><path id="arc-{L}" d="M -18 153 A 430 430 0 0 1 686 153" fill="none"/><text><textPath href="#arc-{L}" startOffset="50%" text-anchor="middle">{t['thanks']}</textPath></text></svg></div>
   </div>
+</div>
   <div class="foot-links">
     {''.join(f'<a href="{u}">{n}</a>' for n, u in t['foot'])}
     <a href="mailto:support@chepeti.com">support@chepeti.com</a>
     <span class="copy">© 2026 Chepeti</span>
   </div>
-</div></footer>
+</footer>
 <script src="{a}landing.js?v={ver("landing.js")}" defer></script>
 <script src="{a}tour.js?v={ver("tour.js")}" defer></script>
 <script src="{a}analyses.js?v={ver("analyses.js")}" defer></script>
