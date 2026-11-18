@@ -6,6 +6,36 @@
   const g = window.gsap, ST = window.ScrollTrigger;
   if (!tour || !g || !ST || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   g.registerPlugin(ST);
+
+  // Телефон і сенсорні екрани (власник 17.11–18.11): без «прибитого» туру. Його прокрутка керувала анімацією й займала ~3 екрани
+  // лише на підйом картки — у вбудованих браузерах це виглядало як зависання на 4 с. Тут сторінка гортається звичайно:
+  // кроки один під одним (заголовок, опис, телефон, плашки під ним), кожен проявляється при прокрутці, телефон
+  // випрямляється з нахилу, як у «Доглядайте разом».
+  if (matchMedia('(max-width: 860px), (pointer: coarse)').matches) {
+    tour.classList.add('flow', 'lite');
+    const imgs = [...tour.querySelectorAll('.tour-phone img')], texts = [...tour.querySelectorAll('.tour-texts > div')];
+    const sets = [...tour.querySelectorAll('.badge-set')], spots = [...tour.querySelectorAll('.an-spot')];
+    const steps = imgs.map((img, i) => {
+      const step = document.createElement('div');
+      step.className = 'flow-step' + (i === imgs.length - 1 ? ' flow-last' : '');
+      const phone = document.createElement('div'), screens = document.createElement('div');
+      phone.className = 'flow-phone'; screens.className = 'screens';
+      img.loading = 'lazy';
+      screens.append(img, ...(i === imgs.length - 1 ? spots : []));
+      phone.append(screens);
+      step.append(texts[i], phone, sets[i]);
+      return step;
+    });
+    tour.querySelector('.tour-grid').replaceChildren(...steps);
+    tour.dataset.step = String(imgs.length - 1); // зони аналізів активні (на ПК — лише на своєму кроці)
+    steps.forEach(step => {
+      g.from(step.children, { autoAlpha: 0, y: 24, duration: 0.6, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: step, start: 'top 82%', once: true } });
+      g.fromTo(step.querySelector('.flow-phone'), { rotationX: 18, scale: 0.94, transformPerspective: 1200, transformOrigin: '50% 100%' },
+        { rotationX: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: step.querySelector('.flow-phone'), start: 'top bottom', end: 'center center', scrub: 0.5 } });
+    });
+    return;
+  }
   tour.classList.add('anim');
 
   const $ = s => tour.querySelector(s), $$ = s => [...tour.querySelectorAll(s)];
