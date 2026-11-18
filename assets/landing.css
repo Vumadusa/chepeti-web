@@ -648,37 +648,27 @@ footer .copy { margin-left: auto; }
   .foot-links { width: calc(100% - 24px); padding: 20px 10px 28px; justify-content: center; text-align: center; }
 }
 
-/* Підвал: картка улюбленця замість песика (власник 18.11). Біла картка на зеленому, як картка тварини в застосунку. */
+/* Підвал: коробка, з якої визирає улюбленець (власник 18.11). Три шари на одному полотні 640×640: задня частина коробки,
+   тварина в «ямі» (обрізана по низу коробки, щоб, ховаючись, не вилазила знизу), передні стінки. */
 .foot { padding-top: clamp(40px, 6vw, 80px); }
-.foot-cta { align-items: center; }
-.pc { width: min(100%, 380px); background: rgba(255, 255, 255, .1); border-radius: 26px; padding: 22px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
-  margin: 0 0 clamp(36px, 5vw, 64px); display: grid; gap: 14px; }
-.pc-title { color: #fff; font-weight: 700; font-size: 1.05rem; }
-.pc-field { display: grid; gap: 6px; }
-.pc-field span { color: rgba(244, 241, 236, .75); font-size: .82rem; font-weight: 600; }
-.pc-field input { font: 600 1rem Mulish, sans-serif; color: #2C2722; background: #fff; border: 0; border-radius: 14px; padding: 12px 14px; outline: none; }
-.pc-field input:focus-visible { box-shadow: 0 0 0 3px rgba(255,255,255,.45); }
-.pc-field input::placeholder { color: #A39A90; }
-.pc-kinds { display: flex; flex-wrap: wrap; gap: 6px; }
-.pc-kinds button { font: 600 .85rem Mulish, sans-serif; color: rgba(244, 241, 236, .9); background: rgba(255,255,255,.1); border: 0; border-radius: 999px;
+.foot-cta { align-items: end; }
+.pb { width: min(100%, 400px); display: grid; justify-items: center; gap: 10px; margin-bottom: clamp(28px, 4vw, 48px); }
+.pb-box { position: relative; width: 100%; aspect-ratio: 1; margin: -12% 0 -14%; cursor: pointer; transform-origin: 55% 82%; }
+.pb-box > img, .pb-pit { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pb-pit { height: 80%; overflow: hidden; }
+.pb-pet { position: absolute; left: 21%; top: 13%; width: 68%; height: auto; transition: transform .3s cubic-bezier(.5,0,.75,0); }
+.pb-pet.down { transform: translateY(78%); }
+.pb-pet.up { transition: transform .55s cubic-bezier(.3,1.5,.5,1); }
+.pb-box.wob { animation: pb-wob .5s ease-in-out; }
+@keyframes pb-wob { 25% { transform: rotate(-2.5deg); } 60% { transform: rotate(2deg); } 85% { transform: rotate(-.8deg); } }
+.pb-q { color: #fff; font-weight: 700; font-size: 1.05rem; }
+.pb-kinds { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.pb-kinds button { font: 600 .85rem Mulish, sans-serif; color: rgba(244, 241, 236, .9); background: rgba(255,255,255,.1); border: 0; border-radius: 999px;
   padding: 7px 12px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); transition: background .2s, color .2s; }
-.pc-kinds button[aria-checked="true"] { background: #fff; color: #3F5A4A; }
-.pc-card { display: flex; align-items: center; gap: 12px; background: #FAF8F5; border-radius: 20px; padding: 12px; color: #2C2722; }
-.pc-ava { flex: none; width: 64px; height: 64px; border-radius: 16px; overflow: hidden; background: var(--fill); }
-.pc-ava img { display: block; width: 100%; height: 100%; }
-.pc-ava.pop { animation: pc-pop .35s cubic-bezier(.22,.9,.3,1); }
-@keyframes pc-pop { from { transform: scale(.85); } }
-.pc-txt { flex: 1; min-width: 0; display: grid; gap: 2px; }
-.pc-name { font-size: 1.15rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pc-name.ph { color: #8F8579; }
-.pc-sp { color: #6E655B; font-size: .9rem; }
-.pc-arrow { flex: none; width: 32px; height: 32px; border-radius: 999px; border: 0; background: #EFEAE3; color: #5E7E6B; font: 700 1.2rem/1 Mulish, sans-serif; cursor: pointer; }
-.pc-arrow:hover { background: #E4DED5; }
-.pc-hint { color: rgba(244, 241, 236, .7); font-size: .85rem; }
+.pb-kinds button[aria-checked="true"] { background: #fff; color: #3F5A4A; }
 @media (max-width: 860px) {
   .foot { padding-top: 40px; }
   .foot-cta { padding: 32px 18px 0; }
-  .pc { margin: 4px auto 28px; text-align: left; }
-  .pc-kinds { justify-content: flex-start; }
+  .pb { margin: 0 auto 28px; width: min(100%, 340px); }
 }
-@media (prefers-reduced-motion: reduce) { .pc-ava.pop { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .pb-pet, .pb-pet.up { transition: none; } .pb-box.wob { animation: none; } }

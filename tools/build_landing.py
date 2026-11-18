@@ -105,8 +105,7 @@ T = {
   final_h2='Додайте першого улюбленця',
   thanks='Дякуємо, що дочитали до кінця!',
   final_p='Завантажте Chepeti, це займе менше хвилини. Реєстрація не потрібна.',
-  pc_title='Спробуйте: ваш улюбленець у Chepeti', pc_name='Імʼя улюбленця', pc_ph='Барсік', pc_hint='Тут будуть його візити, ліки й щеплення',
-  pc_prev='Попередня мордочка', pc_next='Наступна мордочка',
+  pc_q='Хто живе у вас?',
   pc_species=[('cat', 'Кіт'), ('dog', 'Собака'), ('rabbit', 'Кролик'), ('rodent', 'Гризун'), ('bird', 'Птах'), ('reptile', 'Рептилія'), ('other', 'Інше')],
   foot=[('Конфіденційність', '/privacy.html'), ('Умови використання', '/terms.html'), ('Видалення акаунта', '/delete-account.html')],
   alt_pet='Профіль кота Барсіка в Chepeti: візити, лікування, щеплення, аналізи, документи',
@@ -192,8 +191,7 @@ T = {
   final_h2='Add your first pet',
   thanks='Thanks for reading to the end!',
   final_p='Get Chepeti, it takes less than a minute. No sign-up needed.',
-  pc_title='Try it: your pet in Chepeti', pc_name='Pet name', pc_ph='Barsik', pc_hint='Its visits, meds and vaccinations will live here',
-  pc_prev='Previous face', pc_next='Next face',
+  pc_q='Who lives with you?',
   pc_species=[('cat', 'Cat'), ('dog', 'Dog'), ('rabbit', 'Rabbit'), ('rodent', 'Rodent'), ('bird', 'Bird'), ('reptile', 'Reptile'), ('other', 'Other')],
   foot=[('Privacy', '/en/privacy.html'), ('Terms of Use', '/en/terms.html'), ('Delete account', '/en/delete-account.html')],
   alt_pet='Barsik the cat’s profile in Chepeti: visits, treatment, vaccinations, tests, documents',
@@ -395,17 +393,14 @@ def page(t: dict) -> str:
 <footer class="foot"><div class="foot-card">
   <div class="foot-cta">
     <div class="foot-text reveal"><h2>{t['final_h2']}</h2><p>{t['final_p']}</p><div class="cta-row">{btn_play}{btn_soon}</div></div>
-    <div class="pc reveal" style="--i:1" data-ph="{html.escape(t['pc_ph'])}">
-      <p class="pc-title">{t['pc_title']}</p>
-      <label class="pc-field"><span>{t['pc_name']}</span><input type="text" maxlength="20" autocomplete="off" placeholder="{html.escape(t['pc_ph'])}"></label>
-      <div class="pc-kinds" role="radiogroup" aria-label="{t['pc_name']}">{''.join(f'<button type="button" role="radio" aria-checked="{"true" if k == 0 else "false"}" data-sp="{sp}">{html.escape(lb)}</button>' for k, (sp, lb) in enumerate(t['pc_species']))}</div>
-      <div class="pc-card">
-        <button type="button" class="pc-arrow" data-d="-1" aria-label="{t['pc_prev']}">‹</button>
-        <span class="pc-ava" style="--fill:#56B9AB"><img src="{a}ava/cat-1.svg" alt="" width="64" height="64"></span>
-        <span class="pc-txt"><b class="pc-name">{html.escape(t['pc_ph'])}</b><span class="pc-sp">{html.escape(t['pc_species'][0][1])}</span></span>
-        <button type="button" class="pc-arrow" data-d="1" aria-label="{t['pc_next']}">›</button>
+    <div class="pb reveal" style="--i:1">
+      <div class="pb-box" aria-hidden="true">
+        <img class="pb-back" src="{a}box/back.webp" alt="" width="640" height="640">
+        <div class="pb-pit"><img class="pb-pet" src="{a}box/cat.webp" alt="" width="640" height="640"></div>
+        <img class="pb-front" src="{a}box/front.webp" alt="" width="640" height="640">
       </div>
-      <p class="pc-hint">{t['pc_hint']}</p>
+      <p class="pb-q">{t['pc_q']}</p>
+      <div class="pb-kinds" role="radiogroup" aria-label="{t['pc_q']}">{''.join(f'<button type="button" role="radio" aria-checked="{"true" if k == 0 else "false"}" data-sp="{sp}">{html.escape(lb)}</button>' for k, (sp, lb) in enumerate(t['pc_species']))}</div>
     </div>
   </div>
 </div>
