@@ -668,7 +668,7 @@ footer .copy { margin-left: auto; }
 .pb-cast .pb-mv { filter: brightness(0) blur(4px); opacity: .4; translate: 8% -3%; }
 .pb-box.wob { animation: pb-wob .5s ease-in-out; }
 @keyframes pb-wob { 25% { transform: rotate(-2.5deg); } 60% { transform: rotate(2deg); } 85% { transform: rotate(-.8deg); } }
-.pb-q { color: #fff; font-weight: 700; font-size: 1.05rem; }
+.pb-q { margin: 18px 0 8px; color: #fff; font-weight: 700; font-size: 1.05rem; }
 .pb-kinds { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 .pb-kinds button { font: 600 .85rem Mulish, sans-serif; color: rgba(244, 241, 236, .9); background: rgba(255,255,255,.1); border: 0; border-radius: 999px;
   padding: 7px 12px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); transition: background .2s, color .2s; }
