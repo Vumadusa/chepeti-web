@@ -396,7 +396,8 @@ def page(t: dict) -> str:
     <div class="pb reveal" style="--i:1">
       <div class="pb-box" aria-hidden="true">
         <img class="pb-back" src="{a}box/back.webp" alt="" width="640" height="640">
-        <div class="pb-pit"><img class="pb-pet" src="{a}box/cat.webp" alt="" width="640" height="640"></div>
+        <div class="pb-cast"><img class="pb-mv" src="{a}box/cat.webp" alt="" width="640" height="640"></div>
+        <div class="pb-pit"><img class="pb-mv pb-pet" src="{a}box/cat.webp" alt="" width="640" height="640"><i class="pb-mv pb-shade" style="--src:url({a}box/cat.webp)"></i></div>
         <img class="pb-front" src="{a}box/front.webp" alt="" width="640" height="640">
       </div>
       <p class="pb-q">{t['pc_q']}</p>
