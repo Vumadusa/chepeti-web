@@ -679,6 +679,12 @@ footer .copy { margin-left: auto; }
 .pb-star.dot { clip-path: circle(30%); }
 .pb-box.wob { animation: pb-wob .5s ease-in-out; }
 @keyframes pb-wob { 25% { transform: rotate(-2.5deg); } 60% { transform: rotate(2deg); } 85% { transform: rotate(-.8deg); } }
+/* Тінь коробки на «підлозі». Коробка хитається навколо низу, тінь — ні: гасить поворот і лише зсувається та стискається в такт. */
+.pb-ground { position: absolute; left: 11%; width: 78%; top: 78%; height: 14%; z-index: 0; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(5, 12, 8, .7), rgba(5, 12, 8, .3) 60%, transparent); transform-origin: 50% 50%; }
+.pb-box.wob .pb-ground { animation: pb-shwob .5s ease-in-out; }
+@keyframes pb-shwob { 25% { transform: rotate(2.5deg) translateX(-3%) scaleX(.93); } 60% { transform: rotate(-2deg) translateX(2.5%) scaleX(.95); }
+  85% { transform: rotate(.8deg) translateX(-1%) scaleX(.98); } }
 .pb-q { margin: 18px 0 8px; color: #fff; font-weight: 700; font-size: 1.05rem; }
 .pb-kinds { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 .pb-kinds button { font: 600 .85rem Mulish, sans-serif; color: rgba(244, 241, 236, .9); background: rgba(255,255,255,.1); border: 0; border-radius: 999px;
@@ -689,4 +695,4 @@ footer .copy { margin-left: auto; }
   .foot-cta { padding: 32px 18px 0; }
   .pb { margin: 0 auto 28px; width: min(100%, 340px); }
 }
-@media (prefers-reduced-motion: reduce) { .pb-mv, .pb-box.up .pb-mv { transition: none; } .pb-box.wob { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .pb-mv, .pb-box.up .pb-mv { transition: none; } .pb-box.wob, .pb-box.wob .pb-ground { animation: none; } }

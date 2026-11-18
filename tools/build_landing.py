@@ -395,6 +395,7 @@ def page(t: dict) -> str:
     <div class="foot-text reveal"><h2>{t['final_h2']}</h2><p>{t['final_p']}</p><div class="cta-row">{btn_play}{btn_soon}</div></div>
     <div class="pb reveal" style="--i:1">
       <div class="pb-box" data-sp="cat" aria-hidden="true">
+        <i class="pb-ground"></i>
         <img class="pb-back" src="{a}box/back.webp" alt="" width="640" height="640">
         <div class="pb-cast"><img class="pb-mv" src="{a}box/cat.webp" alt="" width="640" height="640"></div>
         <div class="pb-pit"><img class="pb-mv pb-pet" src="{a}box/cat.webp" alt="" width="640" height="640"><i class="pb-mv pb-shade" style="--src:url({a}box/cat.webp)"></i></div>
