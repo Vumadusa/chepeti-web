@@ -35,7 +35,8 @@ T = {
   nav=['Можливості', 'Питання'], download='Завантажити',
   play='Google Play', soon='App Store', soon_small='скоро',
   h1='Здоров’я улюбленця в одному застосунку',
-  lead='Нагадає про ліки й щеплення, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
+  lead='Візити, щеплення, ліки й аналізи в одній картці. Нагадає вчасно, покаже аналізи на графіку, а QR на нашийнику допоможе повернути загубленого.',
+  cta_note='Безкоштовно · без реєстрації · для котів, собак і не тільки',
   tour=[('Усе про улюбленця на одному екрані', 'Візити, лікування, щеплення, аналізи, документи й щоденник, і на кожному розділі видно, що далі.', '03-pet',
          [('calendar-blank', 'Візити й висновки лікаря'), ('syringe', 'Нагадування про щеплення'), ('file-text', 'Документи під рукою'), ('notebook', 'Щоденник спостережень')]),
         ('Контакти під рукою', 'Записуйте контакти людей, які піклуються про улюбленця, або знаходьте заклади на мапі й телефонуйте в один дотик.', '13-places',
@@ -123,7 +124,8 @@ T = {
   nav=['Features', 'FAQ'], download='Download',
   play='Google Play', soon='App Store', soon_small='soon',
   h1='Your pet’s health in one app',
-  lead='Reminds you about meds and vaccines, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
+  lead='Visits, vaccines, meds and lab results in one record. It reminds you on time, charts lab results, and a QR tag on the collar helps bring a lost pet home.',
+  cta_note='Free · no sign-up · for cats, dogs and more',
   tour=[('Everything about your pet on one screen', 'Visits, treatment, vaccinations, tests, documents and diary, and each section shows what’s next.', '03-pet',
          [('calendar-blank', 'Visits and vet notes'), ('syringe', 'Vaccine reminders'), ('file-text', 'Documents at hand'), ('notebook', 'Observation diary')]),
         ('Contacts close at hand', 'Keep the people who care for your pet in one place, or find places on the map and call in one tap.', '13-places',
@@ -326,6 +328,7 @@ def page(t: dict) -> str:
     <h1>{t['h1']}</h1>
     <p class="lead">{t['lead']}</p>
     <div class="cta-row">{btn_play}{btn_soon}</div>
+    <p class="cta-note">{t['cta_note']}</p>
     <div class="dog" aria-hidden="true">
       <img class="body" src="{a}dog/body.webp" alt="" width="1200" height="1200">
       <img class="eye eye-l" src="{a}dog/eye-l.webp" alt="" width="226" height="226">
